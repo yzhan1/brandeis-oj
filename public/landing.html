@@ -16,12 +16,33 @@
         color: white;
         text-align: center;
       }
+      center {
+        font-size: 64px;
+        color: white;
+        text-align: center;
+      }
     </style>
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-3.2.1.js"></script>
+    <script src="typed.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        $(".type").typed({
+          strings: [
+            "First...",
+            "Second...",
+            "Third..."
+          ]
+        })
+      })
+    </script>
   </head>
   <body>
     <div>
       <img src="aspirinx_logo.png">
+    </div>
+    <div class="center">
+      <span class="type"></span>
     </div>
     <h1>application.deploy_soon</h1>
   </body>
