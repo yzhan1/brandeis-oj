@@ -15,7 +15,7 @@
         bottom: 0;
         left: 0;
     }
-    .card {
+    #editor-card {
         margin: 1.5em auto; /* Added */
         float: none; /* Added */
         margin-bottom: 10px; /* Added */
@@ -23,7 +23,6 @@
 </style>
 </head>
 <body style="font-family: 'Roboto Slab'">
-
   <div class="card text-center">
     <div class="card-header">
       <ul class="nav nav-tabs card-header-tabs">
@@ -44,10 +43,10 @@
     <!-- Card Body -->
     <div class="card-body">
       <h1>The AspirinX Web Editor</h1>
-      <div class="w-75 card" style="height: 400px;">
+      <div class="w-75 card" style="height: 400px;" id="editor-card">
       <div class="card-body">
         <div id="editor">public class Editor {
-          
+
             public static void main(String[] args) {
               System.out.println("Hello, world! This is a cool editor!");
               String hobby = "Fencing";
