@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>ACE in Action</title>
+<!-- Libraries -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+<style type="text/css" media="screen">
+    #editor {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+    .card {
+        margin: 1.5em auto; /* Added */
+        float: none; /* Added */
+        margin-bottom: 10px; /* Added */
+    }
+</style>
+</head>
+<body style="font-family: 'Roboto Slab'">
+
+  <div class="card text-center">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs">
+        <li class="nav-item">
+          <a class="nav-link" href="landing.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="about.html">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="demo.html">Demo</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="contact.html">Contact</a>
+        </li>
+      </ul>
+    </div>
+    <!-- Card Body -->
+    <div class="card-body">
+      <h1>The AspirinX Web Editor</h1>
+      <div class="w-75 card" style="height: 400px;">
+      <div class="card-body">
+        <div id="editor">public class Editor {
+          
+            public static void main(String[] args) {
+              System.out.println("Hello, world! This is a cool editor!");
+              String hobby = "Fencing";
+              printWelcomeMessage(hobby);
+            }
+
+            public static String printWelcomeMessage(String hobby) {
+              System.out.println("Hi there! I'm the AspirinX bot :)" +
+                  "\nI'm glad you're checking the site out... I have" +
+                  "\na feeling that we will be good friends... I also" +
+                  "\nlove " + hobby);
+            }
+
+        }</div>
+      </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+<script src="./ace-builds-master/src/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/xcode");
+    editor.getSession().setMode("ace/mode/java");
+    editor.setShowPrintMargin(false);
+    document.getElementById('editor').style.fontSize='14px';
+</script>
+</body>
+</html>
