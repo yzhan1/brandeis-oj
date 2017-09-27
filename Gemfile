@@ -33,6 +33,15 @@ gem 'jbuilder', '~> 2.5'
 # Adding gems from Rails Tutorial
 gem 'jquery-rails', '4.3.1'
 
+# Adding bootstrap gems
+gem 'bootstrap', '= 4.0.0.alpha6'
+gem 'will_paginate',           '3.1.5'
+gem 'will_paginate-bootstrap4'
+gem 'popper_js'
+source 'https://rails-assets.org' do
+  gem 'rails-assets-tether', '>= 1.1.0'
+end
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
