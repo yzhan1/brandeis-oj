@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<%# <!DOCTYPE html>
 <html lang="en">
 <head>
 <title>Demo Editor</title>
@@ -22,50 +22,51 @@
     }
 </style>
 </head>
-<body style="font-family: 'Roboto Slab'">
-  <div class="card text-center">
-    <div class="card-header">
-      <ul class="nav nav-tabs card-header-tabs">
-        <li class="nav-item">
-          <%= link_to "Home", root_path, id: "home", class: "nav-link" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "About", about_path, id: "about", class: "nav-link" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "Demo", demo_path, id: "demo", class: "nav-link active" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "Contact", contact_path, id: "contact", class: "nav-link" %>
-        </li>
-      </ul>
-    </div>
+<body style="font-family: 'Roboto Slab'"> %>
+<% provide(:title, "Demo") %>
+<div class="card text-center">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <%= link_to "Home", root_path, id: "home", class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "About", about_path, id: "about", class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Demo", demo_path, id: "demo", class: "nav-link active" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Contact", contact_path, id: "contact", class: "nav-link" %>
+      </li>
+    </ul>
+  </div>
 
-    <!-- Card Body -->
-    <div class="card-body">
-      <h1>The AspirinX Web Editor</h1>
-      <div class="w-75 card" style="height: 400px;" id="editor-card">
+  <!-- Card Body -->
+  <div class="card-body">
+    <h1>The AspirinX Web Editor</h1>
+    <div class="w-75 card" style="height: 400px;" id="editor-card">
       <div class="card-body">
 <pre id="editor">public class Editor {
 
     public static void main(String[] args) {
-      System.out.println("Hello, world! This is a cool editor!");
-      String hobby = "Fencing";
-      printWelcomeMessage(hobby);
+        System.out.println("Hello, world! This is a cool editor!");
+        String hobby = "Fencing";
+        printWelcomeMessage(hobby);
     }
 
     public static String printWelcomeMessage(String hobby) {
-      System.out.println("Hi there! I'm the AspirinX bot :)" +
-          "\nI'm glad you're checking the site out... I have" +
-          "\na feeling that we will be good friends... I also" +
-          "\nlove " + hobby);
+        System.out.println("Hi there! I'm the AspirinX bot :)" +
+            "\nI'm glad you're checking the site out... I have" +
+            "\na feeling that we will be good friends... I also" +
+            "\nlove " + hobby);
     }
 
 }</pre>
       </div>
-      </div>
     </div>
   </div>
+</div>
 
 <script src="./src-min/ace.js" type="text/javascript" charset="utf-8"></script>
 <script>
@@ -75,5 +76,5 @@
     editor.setShowPrintMargin(false);
     document.getElementById('editor').style.fontSize='14px';
 </script>
-</body>
-</html>
+<%# </body>
+</html> %>

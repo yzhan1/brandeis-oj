@@ -1,1 +1,15 @@
 @import "bootstrap";
+
+#editor {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+#editor-card {
+  margin: 1.5em auto; /* Added */
+  float: none; /* Added */
+  margin-bottom: 10px; /* Added */
+}
