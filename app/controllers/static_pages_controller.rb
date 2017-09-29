@@ -10,4 +10,8 @@ class StaticPagesController < ApplicationController
 
   def demo
   end
+
+  def login
+
+  end
 end
