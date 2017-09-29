@@ -12,6 +12,25 @@ class StaticPagesController < ApplicationController
   end
 
   def login
+  end
+
+  def assignment_editor
+
+  end
+
+  def submission_editor
+
+  end
+
+  def assignments_list
+
+  end
+
+  def ta_dashboard
+
+  end
+
+  def stdn_dashboard
 
   end
 end
