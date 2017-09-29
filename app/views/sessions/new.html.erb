@@ -1,0 +1,31 @@
+<% provide(:title, 'Login') %>
+<div>
+  <div class="container" style="padding-bottom:20px">
+    <div class="card signup-card" style="max-width:500px">
+      <div class="card-body">
+        <h1 class="card-title">Login</h1>
+        <hr/>
+        <div class="row">
+          <div class="container">
+            <%= form_for(:session, url: login_path) do |f| %>
+              
+              <%= f.label :email %>
+              <%= f.email_field :email, class: "form-control", placeholder: "Email address" %>
+
+              <%= f.label :password %>
+              <%= f.password_field :password, class: "form-control", placeholder: "Enter password" %>
+
+              <%= f.label :remember_me, class: "checkbox inline" do %>
+                <%= f.check_box :remember_me %>
+                <span>Remember me on this computer</span>
+              <% end %>
+
+              <%= f.submit "Login", class: "btn btn-primary" %>
+              
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
