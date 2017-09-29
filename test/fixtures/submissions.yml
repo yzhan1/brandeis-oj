@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  submitted: false
+  student_id: 1
+  assignment_id: 1
+  submission_date: 2017-09-28 22:47:12
+  source_code: MyText
+  grade: 1.5
+
+two:
+  submitted: false
+  student_id: 1
+  assignment_id: 1
+  submission_date: 2017-09-28 22:47:12
+  source_code: MyText
+  grade: 1.5

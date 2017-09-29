@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  resources :submissions
+  resources :assignments
+  resources :enrollments
+  resources :courses
+  resources :students
+  resources :teachers
   root 'static_pages#home'
 
   get '/about', to: 'static_pages#about'

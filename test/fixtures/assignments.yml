@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  due_date: 2017-09-28 22:42:41
+  course_id: 1
+  instructions: MyText
+  template: MyString
+
+two:
+  due_date: 2017-09-28 22:42:41
+  course_id: 1
+  instructions: MyText
+  template: MyString

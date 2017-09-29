@@ -1,0 +1,32 @@
+<%= form_with(model: enrollment, local: true) do |form| %>
+  <% if enrollment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(enrollment.errors.count, "error") %> prohibited this enrollment from being saved:</h2>
+
+      <ul>
+      <% enrollment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :student_id %>
+    <%= form.number_field :student_id, id: :enrollment_student_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :course_id %>
+    <%= form.number_field :course_id, id: :enrollment_course_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :final_grade %>
+    <%= form.text_field :final_grade, id: :enrollment_final_grade %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
