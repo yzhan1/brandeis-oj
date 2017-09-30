@@ -1,1 +1,154 @@
-teacher dashboard
+<br>
+<div class="container">
+  <h1>Teacher Dashboard: Jane Foo-Bar</h1>
+  <hr/>
+  <br>
+  <div class="row">
+    <div class="col">
+      <h4>NEW ANNOUNCEMENT</h4>
+      <br>
+      <form>
+        <div class="form-group">
+          <label for="courseSelection">Course:</label>
+          <select class="form-control" id="courseSelection">
+            <option>Intro to Java (COSI 11a)</option>
+            <option>Data Structures and Algorithms (COSI 21a)</option>
+            <option>Theory of Computation (COSI 131a)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Example textarea</label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Enter and announcement..."></textarea>
+        </div>
+      </form>
+
+      <div class="row justify-content-md-center">
+        <div class="col">
+
+        </div>
+        <div class="col col-md-auto">
+          <button type="button" class="btn btn-success ml-auto">Create</button>
+        </div>
+
+      </div>
+
+      <br>
+      <hr>
+      <br>
+      <h4>PREVIOUS ANNOUNCEMENTS</h4>
+
+      <br>
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">COSI 21a [09.17.17]</h4>
+          <p class="card-text">The new programming assignment has been released.</p>
+          <a href="#" class="btn btn-primary">Open</a>
+          <a href="#" class="btn btn-danger">Delete</a>
+        </div>
+      </div>
+      <br>
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">COSI 21a [09.20.17]</h4>
+          <p class="card-text">The programming assignment has been extended...</p>
+          <a href="#" class="btn btn-primary">Open</a>
+          <a href="#" class="btn btn-danger">Delete</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+
+      <h4>LIST OF COURSES</h4>
+      <br>
+      <div class="list-group" id="list-tab" role="tablist">
+        <a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Advanced Programming Techniques (COSI 12b)</a>
+        <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Data Structures and Algorithms (COSI 21a)</a>
+        <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Theory of Computation (COSI 131a)</a>
+      </div>
+      <br><hr>
+
+      <!-- <div class="row justify-content-md-center">
+        <div class="col">
+          <h4>PROGRESS</h4>
+        </div>
+        <div class="col col-md-auto">
+          <h4>Submitted: 1/4</h4>
+        </div>
+      </div> -->
+      <h4>PROGRESS</h4>
+      <br>
+      <div class="row justify-content-md-center">
+        <div class="col">
+          <h6>COSI 11a</h6>
+        </div>
+        <div class="col col-md-auto">
+          <h6>Submitted: 25/118</h6>
+        </div>
+      </div>
+      <div class="progress">
+        <div class="progress-bar bg-success" role="progressbar" style="width: 21%" aria-valuenow="21" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+      <br>
+      <div class="row justify-content-md-center">
+        <div class="col">
+          <h6>COSI 21a</h6>
+        </div>
+        <div class="col col-md-auto">
+          <h6>Submitted: 45/67</h6>
+        </div>
+      </div>
+      <div class="progress">
+        <div class="progress-bar bg-info" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+      <br>
+      <div class="row justify-content-md-center">
+        <div class="col">
+          <h6>COSI 131a</h6>
+        </div>
+        <div class="col col-md-auto">
+          <h6>Submitted: 20/43</h6>
+        </div>
+      </div>
+      <div class="progress">
+        <div class="progress-bar bg-warning" role="progressbar" style="width: 46%" aria-valuenow="46" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+
+      <br>
+      <!--
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>DUE DATE</th>
+            <th>SUBMITTED</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Oct 1st, 2017, 13:00:00</td>
+            <td><span style="color: ">Done!</span></td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Oct 5th, 2017, 23:00:00</td>
+            <td>Missing</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Oct 5th, 2017, 23:59:59</td>
+            <td>Missing</td>
+          </tr>
+          <tr>
+            <th scope="row">4</th>
+            <td>Oct 7th, 2017, 14:00:00</td>
+            <td>Missing</td>
+          </tr>
+        </tbody>
+      </table> -->
+    </div>
+  </div>
+</div>
+
+<br><br><br>
