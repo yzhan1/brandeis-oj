@@ -21,13 +21,13 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/login', to: 'sessions#destroy'
 
-  get '/assignment_editor', to: 'static_pages#assignment_editor'
+  get '/assignment-editor', to: 'static_pages#assignment_editor'
 
-  get '/submission_editor', to: 'static_pages#submission_editor'
+  get '/submission-editor', to: 'static_pages#submission_editor'
 
-  get '/assignments_list', to: 'static_pages#assignments_list'
+  get '/assignments-list', to: 'static_pages#assignments_list'
 
-  get '/ta_dashboard', to: 'static_pages#ta_dashboard'
+  get '/ta-dashboard', to: 'static_pages#ta_dashboard'
 
-  get '/stdn_dashboard', to: 'static_pages#stdn_dashboard'
+  get '/stdn-dashboard', to: 'static_pages#stdn_dashboard'
 end
