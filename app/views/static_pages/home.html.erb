@@ -10,13 +10,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
     <!-- JavaScript Files -->
-    
+
 
   </head> %>
 
   <%# <body> %>
   <% provide(:title, "Home") %>
-    <div class="card text-center">
+    <!-- <div class="card text-center">
       <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs">
           <li class="nav-item">
@@ -33,29 +33,60 @@
           </li>
         </ul>
       </div>
-      <!-- Card Body -->
-      <div class="card-body">
-        <div>
-          <img src="aspirinx_logo.png" align="left" style="padding: 2em">
-        </div>
 
-        <!-- Strings to type -->
-        <div id="typed-strings2">
-          <p>build_database( )</p>
-          <p>generate_interfaces( )</p>
-          <p>enhance_features( )</p>
-          <p>deploy_soon( )</p>
+      <div class="card-body">
+
+      </div>
+    </div> -->
+
+
+
+    <!-- Strings to type -->
+    <div id="typed-strings2">
+      <p>build_database( )</p>
+      <p>make_interfaces( )</p>
+      <p>enhance_features( )</p>
+      <p>deploy_soon( )</p>
+    </div>
+    <!-- The typed text goes here -->
+
+    <div class="container">
+      <div class="row">
+        <div class="col-4">
+          <img src="aspirinx_logo.png" align="left" style="padding-top: 2em; width:95%">
         </div>
-        <!-- The typed text goes here -->
-        <p style="font-family: Courier New, Courier, Lucida Sans Typewriter, Lucida Typewriter, monospace;font-size: 180%; color: rgb(48, 73, 176); padding-left: 5%; padding-top: 7%; padding-right: 5%; text-align: left"><b><span style="color: black">></span><span style="color: rgb(157, 53, 53)"> application</span>.<span id="typed2"></span></b></p>
-        <!-- <p style="font-family: 'Roboto Slab', monoto; font-size: 180%; color: black; padding-left: 5%; text-align: left"><span id="typed"></span></p> -->
-        <p style="font-family: 'Roboto Slab', monoto; font-size: 180%; color: rgb(68, 69, 78); padding-left: 5%; text-align: left">A web application to seamlessly connect professors, teaching assistants, and students, allowing for an accelerated learning in computer science classes. AspirinX is programming assignments in the cloud. COMING SOON!</p>
-        <%= link_to "Learn more", about_path, class: "btn btn-primary" %>
+        <div class="col-8">
+          <p style="font-family: Courier New, Courier, Lucida Sans Typewriter, Lucida Typewriter, monospace;font-size: 240%; color: rgb(48, 73, 176); padding-left: 5%; padding-top: 7%; padding-right: 5%; text-align: left"><b><span style="color: black">></span><span style="color: rgb(157, 53, 53)"> app</span>.<span id="typed2"></span></b></p>
+          <!-- <p style="font-family: 'Roboto Slab', monoto; font-size: 180%; color: black; padding-left: 5%; text-align: left"><span id="typed"></span></p> -->
+          <p style="font-family: 'Roboto Slab', monoto; font-size: 180%; color: rgb(68, 69, 78); padding-left: 5%; text-align: left">A web application to seamlessly connect professors, teaching assistants, and students, allowing for an accelerated learning in computer science classes. AspirinX is programming assignments in the cloud. COMING SOON!</p>
+          <div style="display:flex; justify-content: center; align-items: center;">
+          <%= link_to "Learn more", about_path, class: "btn btn-primary" %>
+          </div>
+        </div>
       </div>
     </div>
 
+<br><br><hr/><br>
+
+<div style="display:flex; justify-content: center; align-items: center;">
+  <form class="form-inline">
+  <div class="form-group">
+    <label for="inputEmail2" class="sr-only">Email</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+  </div>
+  <div class="form-group mx-sm-3">
+    <label for="inputPassword2" class="sr-only">Password</label>
+    <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
+  </div>
+  <button type="submit" class="btn btn-primary">Login</button>
+</form>
+</div>
+
+<br><br><br>
+
+
     <!-- typed.js scripts -->
-    
+
     <script>
       var typed = new Typed('#typed2', {
         stringsElement: '#typed-strings2',
