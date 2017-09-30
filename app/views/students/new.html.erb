@@ -4,8 +4,8 @@
   <div class="form-group">
     <h1 class="card-title">Student Signup</h1>
     <hr/>
-    <%= form_for(:student, url: student_signup_path) do |f| %>
-      <%= render 'shared/student_error_messages' %>
+    <%= form_for(:user, url: student_signup_path) do |f| %>
+      <%= render 'shared/error_messages' %>
       <div class="form-group">
         <%= f.label :name %>
         <%= f.text_field :name, id: :student_name, class: "form-control", placeholder: "Name" %>

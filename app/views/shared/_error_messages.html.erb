@@ -1,9 +1,9 @@
-<% if @teacher.errors.any? %>
+<% if @user.errors.any? %>
   <div id="error_explanation">
     <div class="alert alert-danger" role="alert">
-      The form contains <%= pluralize(@teacher.errors.count, "error") %>.
+      The form contains <%= pluralize(@user.errors.count, "error") %>.
       <ul>
-        <% @teacher.errors.full_messages.each do |msg| %>
+        <% @user.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
         <% end %>
       </ul>

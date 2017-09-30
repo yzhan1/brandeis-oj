@@ -14,7 +14,7 @@ class TeachersController < ApplicationController
 
   # GET /teachers/new
   def new
-    @teacher = Teacher.new
+    @user = Teacher.new
   end
 
   # GET /teachers/1/edit
@@ -24,11 +24,11 @@ class TeachersController < ApplicationController
   # POST /teachers
   # POST /teachers.json
   def create
-    @teacher = Teacher.new(teacher_params)
-    if @teacher.save
-      log_in @teacher, false
+    @user = Teacher.new(teacher_params)
+    if @user.save
+      log_in @user, false
       flash[:success] = "Welcome to AspirinX!"
-      redirect_to teacher_url(@teacher)
+      redirect_to teacher_url(@user)
     else
       render 'new'
     end
@@ -71,11 +71,11 @@ class TeachersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_teacher
-      @teacher = Teacher.find(params[:id])
+      @user = Teacher.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def teacher_params
-      params.require(:teacher).permit(:name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
 end

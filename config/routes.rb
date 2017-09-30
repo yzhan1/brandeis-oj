@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
-  delete '/login', to: 'sessions#destroy'
+  delete '/logout', to: 'sessions#destroy'
 
   get '/assignment-editor', to: 'static_pages#assignment_editor'
 
