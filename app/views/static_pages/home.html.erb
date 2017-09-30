@@ -1,22 +1,4 @@
 <% provide(:title, "Home") %>
-<!-- <div class="card text-center">
-  <div class="card-header">
-    <ul class="nav nav-tabs card-header-tabs">
-      <li class="nav-item">
-        <%= link_to "Home", root_path, id: "home", class: "nav-link active" %>
-      </li>
-      <li class="nav-item">
-        <%= link_to "About", about_path, id: "about", class: "nav-link" %>
-      </li>
-      <li class="nav-item">
-        <%= link_to "Demo", demo_path, id: "demo", class: "nav-link" %>
-      </li>
-      <li class="nav-item">
-        <%= link_to "Contact", contact_path, id: "contact", class: "nav-link" %>
-      </li>
-    </ul>
-  </div>
-</div> -->
 
 <!-- Strings to type -->
 <div id="typed-strings2">
@@ -25,6 +7,7 @@
   <p>enhance_features( )</p>
   <p>deploy_soon( )</p>
 </div>
+
 <!-- The typed text goes here -->
 
 <div class="container">
@@ -36,8 +19,10 @@
       <p style="font-family: Courier New, Courier, Lucida Sans Typewriter, Lucida Typewriter, monospace;font-size: 240%; color: rgb(48, 73, 176); padding-left: 5%; padding-top: 7%; padding-right: 5%; text-align: left"><b><span style="color: black">></span><span style="color: rgb(157, 53, 53)"> app</span>.<span id="typed2"></span></b></p>
       <!-- <p style="font-family: 'Roboto Slab', monoto; font-size: 180%; color: black; padding-left: 5%; text-align: left"><span id="typed"></span></p> -->
       <p style="font-family: 'Roboto Slab', monoto; font-size: 180%; color: rgb(68, 69, 78); padding-left: 5%; text-align: left">A web application to seamlessly connect professors, teaching assistants, and students, allowing for an accelerated learning in computer science classes. AspirinX is programming assignments in the cloud. COMING SOON!</p>
-      <div style="display:flex; justify-content: center; align-items: center;">
-      <%= link_to "Learn more", about_path, class: "btn btn-primary" %>
+      <div style="display: flex; justify-content: center; align-items: center;">
+        <%= link_to "Learn more", about_path, class: "btn btn-primary" %>
+        <%= link_to "Signup as student", student_signup_path, class: "btn btn-primary", style: "margin-left: 10px; margin-right: 10px" %>
+        <%= link_to "Signup as teacher", teacher_signup_path, class: "btn btn-primary" %>
       </div>
     </div>
   </div>

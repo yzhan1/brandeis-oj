@@ -1,4 +1,4 @@
-<%= form_with(model: teacher, local: true) do |form| %>
+<%= form_for(:teacher, url: teacher_signup_path) do |form| %>
   <% if teacher.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(teacher.errors.count, "error") %> prohibited this teacher from being saved:</h2>
@@ -23,7 +23,12 @@
 
   <div class="field">
     <%= form.label :password %>
-    <%= form.text_field :password, id: :teacher_password %>
+    <%= form.password_field :password, id: :teacher_password %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password_confirmation %>
+    <%= form.password_field :password_confirmation, id: :teacher_password_confirmation %>
   </div>
 
   <div class="actions">

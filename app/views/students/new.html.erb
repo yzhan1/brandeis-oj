@@ -1,5 +1,32 @@
-<h1>New Student</h1>
+<% provide(:title, 'Signup') %>
+<p><br><br><br></p>
+<div style="display:flex; justify-content: center; align-items: center;">
+  <div class="form-group">
+    <h1 class="card-title">Student Signup</h1>
+    <hr/>
+    <%= form_for(:student, url: student_signup_path) do |f| %>
+      <%= render 'shared/student_error_messages' %>
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, id: :student_name, class: "form-control", placeholder: "Name" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :email %>
+        <%= f.text_field :email, id: :student_email, class: "form-control", placeholder: "Email Address" %>
+      </div>
+       <div class="form-group">
+        <%= f.label :password %>
+        <%= f.password_field :password, id: :student_password, class: "form-control", placeholder: "Password" %>
+      </div>
 
-<%= render 'form', student: @student %>
+      <div class="form-group">
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation, id: :student_password_confirmation, class: "form-control", placeholder: "Re-enter password" %>
+      </div>
 
-<%= link_to 'Back', students_path %>
+      <div style="display:flex; justify-content: center; align-items: center">
+        <%= f.submit "Signup", class: "btn btn-primary btn-block" %>
+      </div>
+    <% end %>
+  </div>
+</div>
