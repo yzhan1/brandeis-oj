@@ -9,17 +9,26 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ml-auto">
       <% if logged_in? %>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Courses</a>
-        </li>
-        <li class="nav-item">
+        <% if is_student? %>
+          <li class="nav-item">
+            <%= link_to "Dashboard", stdn_dashboard_path, id: "stdn_dashboard", class: "nav-link" %>
+            <!-- <a class="nav-link" href="#">Dashboard</a> -->
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Dashboard", ta_dashboard_path, id: "ta_dashboard", class: "nav-link" %>
+            <!-- <a class="nav-link" href="#">Dashboard</a> -->
+          </li>
+        <% end %>
+        <!-- <li class="nav-item">
           <a class="nav-link" href="#">Assignments</a>
-        </li>
+        </li> -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Account
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <!-- This link should later direct users to their configuration page -->
             <%= link_to "Profile", current_user, class: "dropdown-item" %>
             <hr/>
             <%= link_to "Logout", logout_path, method: :delete, class: "dropdown-item" %>

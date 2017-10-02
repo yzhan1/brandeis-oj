@@ -14,6 +14,14 @@ module SessionsHelper
     end
   end
 
+  def is_student?
+    if session[:is_student]
+      true
+    else
+      false
+    end
+  end
+
   def logged_in?
     !current_user.nil?
   end
