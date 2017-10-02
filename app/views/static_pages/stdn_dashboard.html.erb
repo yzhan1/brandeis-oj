@@ -62,13 +62,17 @@
           <h4>PROGRESS</h4>
         </div>
         <div class="col col-md-auto">
-          <h4>Submitted: 1/4</h4>
+          <h4>Submitted: 0/<%= @assignment_list.length %></h4>
         </div>
 
       </div>
-
+      
       <div class="progress">
-        <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+        <% if !@assignment_list.any? %>
+          <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+        <% else %>
+          <div class="progress-bar bg-success" role="progressbar" style="width: <%= (((0.to_f/(@assignment_list.length))*100).floor).to_s %>%" aria-valuenow="<%= (((0.to_f/(@assignment_list.length))*100).floor).to_s %>" aria-valuemin="0" aria-valuemax="100"></div>
+        <% end %>
       </div>
 
       <br>
@@ -83,6 +87,7 @@
           </tr>
         </thead>
         <tbody>
+          <% if @assignment_list.any? %>
             <% @assignment_list.each do |status, code, due_date, course_id| %>
             <tr>
               <td><%=course_id%></td>
@@ -91,6 +96,9 @@
               <td><%=status%></td>
             </tr>
             <% end %>
+          <% else %>
+            <td colspan="4" align="center">You are not enrolled in any courses</td>
+          <% end %>
         </tbody>
       </table>
     </div>
