@@ -37,9 +37,9 @@
       <h4>LIST OF COURSES</h4>
       <br>
       <div class="list-group" id="list-tab" role="tablist">
-        <a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Advanced Programming Techniques (COSI 12b)</a>
-        <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Data Structures and Algorithms (COSI 21a)</a>
-        <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Capstone: Software Engineering (COSI 166b)</a>
+        <% @course_list.each do |title, code| %>
+          <a href= "<%=code%>" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home"><%=title%></a>
+        <% end %>
       </div>
       <br><hr>
       <div class="row justify-content-md-center">
@@ -60,32 +60,22 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th>#</th>
+            <th>COURSE</th>
+            <th>ASSIGNMENT</th>
             <th>DUE DATE</th>
             <th>SUBMITTED</th>
+
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Oct 1st, 2017, 13:00:00</td>
-            <td><span style="color: ">Done!</span></td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Oct 5th, 2017, 23:00:00</td>
-            <td>Missing</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Oct 5th, 2017, 23:59:59</td>
-            <td>Missing</td>
-          </tr>
-          <tr>
-            <th scope="row">4</th>
-            <td>Oct 7th, 2017, 14:00:00</td>
-            <td>Missing</td>
-          </tr>
+            <% @assignment_list.each do |status, code, due_date, course_id| %>
+            <tr>
+              <td><%=course_id%></td>
+              <td><%=code%></td>
+              <td><%=due_date%></td>
+              <td><%=status%></td>
+            </tr>
+            <% end %>
         </tbody>
       </table>
     </div>
