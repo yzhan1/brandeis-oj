@@ -28,7 +28,8 @@ class TeachersController < ApplicationController
     if @user.save
       log_in @user, false
       flash[:success] = "Welcome to AspirinX!"
-      redirect_to teacher_url(@user)
+      # redirect_to teacher_url(@user)
+      redirect_to ta_dashboard_path
     else
       render 'new'
     end
