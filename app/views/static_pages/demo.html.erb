@@ -24,7 +24,7 @@
 </head>
 <body style="font-family: 'Roboto Slab'"> %>
 <% provide(:title, "Demo") %>
-<div class="card text-center">
+<!-- <div class="card text-center">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
@@ -42,30 +42,36 @@
     </ul>
   </div>
 
-  <!-- Card Body -->
+
   <div class="card-body">
     <h1>The AspirinX Web Editor</h1>
     <div class="w-75 card" style="height: 400px;" id="editor-card">
       <div class="card-body">
-<pre id="editor">public class Editor {
 
-    public static void main(String[] args) {
-        System.out.println("Hello, world! This is a cool editor!");
-        String hobby = "Fencing";
-        printWelcomeMessage(hobby);
-    }
-
-    public static String printWelcomeMessage(String hobby) {
-        System.out.println("Hi there! I'm the AspirinX bot :)" +
-            "\nI'm glad you're checking the site out... I have" +
-            "\na feeling that we will be good friends... I also" +
-            "\nlove " + hobby);
-    }
-
-}</pre>
       </div>
     </div>
   </div>
+</div> -->
+
+<div class="container">
+<h1>The AspirinX Web Editor</h1>
+  <pre id="editor">public class Editor {
+
+public static void main(String[] args) {
+  System.out.println("Hello, world! This is a cool editor!");
+  String hobby = "Fencing";
+  printWelcomeMessage(hobby);
+}
+
+public static String printWelcomeMessage(String hobby) {
+  System.out.println("Hi there! I'm the AspirinX bot :)" +
+      "\nI'm glad you're checking the site out... I have" +
+      "\na feeling that we will be good friends... I also" +
+      "\nlove " + hobby);
+}
+
+}</pre>
+
 </div>
 
 <script src="./src-min/ace.js" type="text/javascript" charset="utf-8"></script>
