@@ -68,6 +68,12 @@ class StudentsController < ApplicationController
     end
   end
 
+  def dashboard
+    @course_list = Course.all
+    @assignment_list = Assignment.all
+    @user = Student.find(session[:user_id])
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_student

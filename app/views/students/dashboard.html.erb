@@ -1,3 +1,4 @@
+<% provide(:title, "Dashboard") %>
 <br>
 <div class="container">
   <h1>Student Dashboard: <%= @user.name %></h1>
@@ -37,8 +38,8 @@
       <h4>LIST OF COURSES</h4>
       <br>
       <div class="list-group" id="list-tab" role="tablist">
-        <% @course_list.each do |title, code| %>
-          <a href= "<%=code%>" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home"><%=title%></a>
+        <% @course_list.each do |course| %>
+          <%= link_to course.course_title, course_url(course), class: "list-group-item list-group-item-action" %>
         <% end %>
       </div>
       <% if @course_list.any? %>
@@ -83,17 +84,18 @@
             <th>ASSIGNMENT</th>
             <th>DUE DATE</th>
             <th>SUBMITTED</th>
-
+            <th>LINK</th>
           </tr>
         </thead>
         <tbody>
-          <% if @assignment_list.any? %>
-            <% @assignment_list.each do |status, code, due_date, course_id| %>
+          <% if @assignment_list %>
+            <% @assignment_list.each do |assignment| %>
             <tr>
-              <td><%=course_id%></td>
-              <td><%=code%></td>
-              <td><%=due_date%></td>
-              <td><%=status%></td>
+              <td><%= assignment.course_id %></td>
+              <td><%= assignment.id %></td>
+              <td><%= assignment.due_date %></td>
+              <td>false</td>
+              <td><%= link_to 'Show', assignment_url(assignment), class: "btn btn-outline-primary btn-sm" %></td>
             </tr>
             <% end %>
           <% else %>
@@ -105,4 +107,4 @@
   </div>
 </div>
 
-<br><br><br>
+

@@ -13,21 +13,22 @@ Rails.application.routes.draw do
 
   get '/student-signup', to: 'students#new'
   post '/student-signup', to: 'students#create'
+  get '/stdn-dashboard', to: 'students#dashboard'
 
   get '/teacher-signup', to: 'teachers#new'
   post '/teacher-signup', to: 'teachers#create'
+  get '/ta-dashboard', to: 'teachers#dashboard'
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
+
+  get '/assignments', to: 'assignments#index'
 
   get '/assignment-editor', to: 'static_pages#assignment_editor'
 
   get '/submission-editor', to: 'static_pages#submission_editor'
 
   get '/assignments-list', to: 'static_pages#assignments_list'
-
-  get '/ta-dashboard', to: 'static_pages#ta_dashboard'
-
-  get '/stdn-dashboard', to: 'static_pages#stdn_dashboard'
+  
 end

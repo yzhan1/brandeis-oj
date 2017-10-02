@@ -1,24 +1,75 @@
-<p id="notice"><%= notice %></p>
+<% provide(:title, "Assignment") %>
 
-<p>
-  <strong>Due date:</strong>
-  <%= @assignment.due_date %>
-</p>
+<div class="row">
+  <div class="col-lg-5">
+    <div class="container">
+      <h3 style="padding-top:20px">Assignment #<%= @assignment.id %> <small class="text-muted"><%= @assignment.course_id %></small></h3>
+      <hr/>
+      <dl class="row">
+        <dt class="col-sm-3">Description</dt>
+        <dd class="col-sm-9"><%= @assignment.instructions %></dd>
 
-<p>
-  <strong>Course:</strong>
-  <%= @assignment.course_id %>
-</p>
+        <dt class="col-sm-3">Example</dt>
+        <dd class="col-sm-9">
+          <p>Given n = 5, return 1 + 1 + 2 + 3 + 5 = 12</p>
+          <p>Given n = 7, return 1 + 1 + 2 + 3 + 5 + 8 + 13 = 33</p>
+        </dd>
 
-<p>
-  <strong>Instructions:</strong>
-  <%= @assignment.instructions %>
-</p>
+        <dt class="col-sm-3">Due Date</dt>
+        <dd class="col-sm-9"><%= @assignment.due_date %></dd>
+      </dl>
+      <hr/>
+      <h5>Your submissions</h5>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Time submitted</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Oct 1st, 2017, 13:00:00</td>
+            <td>90/100</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Oct 1st, 2017, 14:00:00</td>
+            <td>95/100</td>
+          </tr>
+        </tbody>
+      </table>
+      <% if !is_student? %>
+        <%= link_to 'Edit', edit_assignment_path(@assignment), class: "btn btn-outline-primary" %>
+      <% end %>
+    </div>
+  </div>
+  <div class="col-lg-7">
+    <pre id="editor" style="height: 84vh"><%= @assignment.template %></pre>
+    <nav class="navbar navbar-light bg-light">
+      <div class="row justify-content-between">
+        <div class="col-sm-9">
+          <select class="form-control" id="select1">
+            <option>Java</option>
+            <option>Ruby</option>
+            <option>Python</option>
+          </select>
+        </div>
+        <div class="col-sm-3 ml-auto">
+          <button type="button" class="btn btn-success ml-auto">Submit</button>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>
 
-<p>
-  <strong>Template:</strong>
-  <%= @assignment.template %>
-</p>
-
-<%= link_to 'Edit', edit_assignment_path(@assignment) %> |
-<%= link_to 'Back', assignments_path %>
+<script src="./src-min/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/xcode");
+    editor.getSession().setMode("ace/mode/java");
+    editor.setShowPrintMargin(false);
+    document.getElementById('editor').style.fontSize='14px';
+</script>

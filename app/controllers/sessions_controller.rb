@@ -16,11 +16,11 @@ class SessionsController < ApplicationController
       if user.is_a?(Student)
         # render student dashboard
         log_in user, true
-        redirect_to student_url(user)
+        redirect_to stdn_dashboard_url
       else
         # render teacher dashboard
         log_in user, false
-        redirect_to teacher_url(user)
+        redirect_to ta_dashboard_url
       end
     else
       flash.now[:danger] = 'Invalid email/password combination'

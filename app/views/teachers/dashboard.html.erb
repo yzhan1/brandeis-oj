@@ -1,3 +1,4 @@
+<% provide(:title, "Dashboard") %>
 <br>
 <div class="container">
   <h1>Teacher Dashboard: <%= @user.name %></h1>
@@ -62,9 +63,9 @@
       <h4>LIST OF COURSES</h4>
       <br>
       <div class="list-group" id="list-tab" role="tablist">
-        <a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Advanced Programming Techniques (COSI 12b)</a>
-        <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Data Structures and Algorithms (COSI 21a)</a>
-        <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Theory of Computation (COSI 131a)</a>
+        <% @course_list.each do |course| %>
+          <%= link_to course.course_title, course_url(course), class: "list-group-item list-group-item-action" %>
+        <% end %>
       </div>
       <br><hr>
 

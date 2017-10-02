@@ -69,6 +69,11 @@ class TeachersController < ApplicationController
     end
   end
 
+  def dashboard
+    @user = Teacher.find(session[:user_id])
+    @course_list = Course.all
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_teacher

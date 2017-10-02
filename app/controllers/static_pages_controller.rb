@@ -1,5 +1,12 @@
 class StaticPagesController < ApplicationController
   def home
+    if logged_in?
+      if is_student?
+        redirect_to stdn_dashboard_url
+      else
+        redirect_to ta_dashboard_url
+      end
+    end
   end
 
   def about
@@ -26,13 +33,13 @@ class StaticPagesController < ApplicationController
 
   end
 
-  def ta_dashboard
-    @user = Teacher.find(session[:user_id])
-  end
+  # def ta_dashboard
+  #   @user = Teacher.find(session[:user_id])
+  # end
 
-  def stdn_dashboard
-    @course_list = Course.pluck(:course_title).zip Course.pluck(:course_code)
-    @assignment_list = Submission.pluck(:submitted).zip Submission.pluck(:assignment_id), Assignment.pluck(:due_date), Assignment.pluck(:course_id)
-    @user = Student.find(session[:user_id])
-  end
+  # def stdn_dashboard
+  #   @course_list = Course.pluck(:course_title).zip Course.pluck(:course_code)
+  #   @assignment_list = Submission.pluck(:submitted).zip Submission.pluck(:assignment_id), Assignment.pluck(:due_date), Assignment.pluck(:course_id)
+  #   @user = Student.find(session[:user_id])
+  # end
 end
