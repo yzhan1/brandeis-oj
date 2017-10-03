@@ -13,6 +13,7 @@ class AssignmentsController < ApplicationController
     # if !is_student?
     #   redirect_to edit_assignment_path(@assignment)
     # end
+    @submissions = Submission.where(assignment_id: @assignment.id, student_id: current_user.id)
   end
 
   # GET /assignments/new
