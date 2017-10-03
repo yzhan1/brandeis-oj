@@ -60,7 +60,10 @@
 
     <div class="col">
 
-      <h4>LIST OF COURSES</h4>
+      <h4 style="display: flex" class="justify-content-between">
+        <div>LIST OF COURSES</div>
+        <%= link_to 'Add Course', new_course_path, class: "btn btn-outline-primary btn-sm" %>
+      </h4>
       <br>
       <div class="list-group" id="list-tab" role="tablist">
         <% @course_list.each do |course| %>

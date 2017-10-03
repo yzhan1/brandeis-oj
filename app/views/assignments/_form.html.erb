@@ -1,37 +1,67 @@
 <%= form_with(model: assignment, local: true) do |form| %>
   <% if assignment.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(assignment.errors.count, "error") %> prohibited this assignment from being saved:</h2>
-
-      <ul>
-      <% assignment.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+      <div class="alert alert-danger" role="alert">
+        <h2><%= pluralize(assignment.errors.count, "error") %> prohibited this assignment from being saved:</h2>
+        <ul>
+        <% assignment.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :due_date %>
-    <%= form.datetime_select :due_date, id: :assignment_due_date %>
-  </div>
+  <div class="row">
+    <div class="col-lg-5">
+      <div class="container">
+        <h3 style="padding-top:20px">Assignment #<%= assignment.id %> <small class="text-muted"><%= assignment.course_id %></small></h3>
+        <hr/>
+        
+        <dl class="row">
+          <dt class="col-sm-3">Instructions</dt>
+          <dd class="col-sm-9">
+            <%= form.text_area :instructions, id: :assignment_instructions, class: "form-control", rows: "2" %>
+          </dd>
 
-  <div class="field">
-    <%= form.label :course_id %>
-    <%= form.number_field :course_id, id: :assignment_course_id %>
-  </div>
+          <dt class="col-sm-3">Example</dt>
+          <dd class="col-sm-9">
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+          </dd>
 
-  <div class="field">
-    <%= form.label :instructions %>
-    <%= form.text_area :instructions, id: :assignment_instructions %>
+          <dt class="col-sm-3">Due Date</dt>
+          <dd class="col-sm-9">
+            <%= form.datetime_select :due_date, id: :assignment_due_date, class: "form-control" %>
+          </dd>
+        </dl>
+        <hr/>
+      </div>
+    </div>
+    <div class="col-lg-7">
+      <pre id="editor" style="height: 84vh"><%= form.text_field :template, id: :assignment_template %></pre>
+      <nav class="navbar navbar-light bg-light">
+        <div class="row justify-content-between">
+          <div class="col-sm-9">
+            <select class="form-control" id="select1">
+              <option>Java</option>
+              <option>Ruby</option>
+              <option>Python</option>
+            </select>
+          </div>
+          <div class="col-sm-3 ml-auto">
+            <%= form.submit "Save", class: "btn btn-success ml-auto" %>
+          </div>
+        </div>
+      </nav>
+    </div>
   </div>
+  
+  <script>
+      var editor = ace.edit("editor");
+      editor.setTheme("ace/theme/xcode");
+      editor.getSession().setMode("ace/mode/java");
+      editor.setShowPrintMargin(false);
+      document.getElementById('editor').style.fontSize='14px';
+  </script>
 
-  <div class="field">
-    <%= form.label :template %>
-    <%= form.text_field :template, id: :assignment_template %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
 <% end %>

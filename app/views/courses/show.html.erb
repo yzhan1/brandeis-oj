@@ -14,16 +14,17 @@
     </div>
   </h3>
   <hr/>
-  <div class="alert alert-info alert-dismissible fade show" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-    <strong>Announcement: </strong> You should bring your laptop to class!
-  </div>
+  <% if is_student? %>
+    <div class="alert alert-info show" role="alert">
+      <strong>Announcement: </strong> You should bring your laptop to class!
+    </div>
+  <% end %>
   <br>
   <h4 style="display: flex; margin-bottom: 10px" class="justify-content-between">
     <div>Posted Assignments</div>
-    <button class="btn btn-outline-primary btn-sm">New Assignment</button>
+    <% if !is_student? %>
+      <%= link_to 'New Assignment', new_assignment_path, class: "btn btn-outline-primary btn-sm" %>
+    <% end %>
   </h4>
   <table class="table table-striped table-bordered">
     <thead>
@@ -42,9 +43,9 @@
           <td>
             <% if !is_student? %>
               <%= link_to 'Edit', edit_assignment_path(assignment), class: "btn btn-outline-primary btn-sm" %>
-              <%= link_to 'Delete', edit_assignment_path(assignment), class: "btn btn-outline-danger btn-sm" %>
+              <%= link_to 'Delete', assignment, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger btn-sm" %>
             <% else %>
-              <%= link_to 'Show', assignment_path(assignment), class: "btn btn-outline-primary btn-sm" %>
+              <%= link_to 'Show', assignment, class: "btn btn-outline-primary btn-sm" %>
             <% end %>
           </td>
         </tr>

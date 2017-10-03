@@ -10,6 +10,9 @@ class AssignmentsController < ApplicationController
   # GET /assignments/1
   # GET /assignments/1.json
   def show
+    # if !is_student?
+    #   redirect_to edit_assignment_path(@assignment)
+    # end
   end
 
   # GET /assignments/new
@@ -40,14 +43,13 @@ class AssignmentsController < ApplicationController
   # PATCH/PUT /assignments/1
   # PATCH/PUT /assignments/1.json
   def update
-    respond_to do |format|
-      if @assignment.update(assignment_params)
-        format.html { redirect_to @assignment, notice: 'Assignment was successfully updated.' }
-        format.json { render :show, status: :ok, location: @assignment }
-      else
-        format.html { render :edit }
-        format.json { render json: @assignment.errors, status: :unprocessable_entity }
-      end
+    if @assignment.update(assignment_params)
+      flash[:success] = "Assignment updated"
+      redirect_to @assignment
+      # format.html { redirect_to @assignment, notice: 'Assignment was successfully updated.' }
+      # format.json { render :show, status: :ok, location: @assignment }
+    else
+      render 'edit'
     end
   end
 
