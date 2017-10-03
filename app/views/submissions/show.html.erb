@@ -15,10 +15,19 @@
           Test examples...
         </dd>
 
-        <dt class="col-sm-3">Submisson Date</dt>
+        <dt class="col-sm-3">Date</dt>
         <dd class="col-sm-9">
           <%= @submission.submission_date %>
         </dd>
+
+        <% if is_student? %>
+          <dt class="col-sm-3">Grade</dt>
+          <dd class="col-sm-9">
+            <%= @submission.grade %>
+          </dd>
+        <% else %>
+          <%= render 'form', submission: @submission %>
+        <% end %>
       </dl>
       <hr/>
     </div>
