@@ -16,10 +16,12 @@ class SessionsController < ApplicationController
       if user.is_a?(Student)
         # render student dashboard
         log_in user, true
+        params[:session][:remember_me] == '1' ? remember(user) : forget(user)
         redirect_to stdn_dashboard_url
       else
         # render teacher dashboard
         log_in user, false
+        params[:session][:remember_me] == '1' ? remember(user) : forget(user)
         redirect_to ta_dashboard_url
       end
     else
