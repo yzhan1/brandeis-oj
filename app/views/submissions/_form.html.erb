@@ -10,38 +10,21 @@
       </ul>
     </div>
   <% end %>
+  <div class="container">
+    <dl class="row">
+      <dt class="col-sm-3">Grade</dt>
+      <dd class="col-sm-9">
+        <%= form.number_field :grade, id: :submission_grade, class: "form-control" %>
+      </dd>
 
-  <div class="field">
-    <%= form.label :submitted %>
-    <%= form.check_box :submitted, id: :submission_submitted %>
-  </div>
+      <dt class="col-sm-3">Comments</dt>
+      <dd class="col-sm-9">
+        <textarea class="form-control"></textarea>
+      </dd>
 
-  <div class="field">
-    <%= form.label :student_id %>
-    <%= form.number_field :student_id, id: :submission_student_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :assignment_id %>
-    <%= form.number_field :assignment_id, id: :submission_assignment_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :submission_date %>
-    <%= form.datetime_select :submission_date, id: :submission_submission_date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :source_code %>
-    <%= form.text_area :source_code, id: :submission_source_code %>
-  </div>
-
-  <div class="field">
-    <%= form.label :grade %>
-    <%= form.text_field :grade, id: :submission_grade %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
+      <div class="container">
+        <%= form.submit "Save", class: "btn btn-outline-success" %>
+      </div>
+    </dl>
   </div>
 <% end %>

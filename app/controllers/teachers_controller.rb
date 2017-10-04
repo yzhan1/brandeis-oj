@@ -71,7 +71,7 @@ class TeachersController < ApplicationController
 
   def dashboard
     @user = Teacher.find(session[:user_id])
-    @course_list = Course.all
+    @course_list = Course.where(teacher_id: @user.id)
   end
 
   private

@@ -1,34 +1,63 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-lg-5">
+    <div class="container">
+      <h3 style="padding-top:20px">Assignment #<%= @submission.assignment_id %> <small class="text-muted"><%= @submission.id %></small></h3>
+      <hr/>
+      
+      <dl class="row">
+        <dt class="col-sm-3">Instructions</dt>
+        <dd class="col-sm-9">
+          Instructions from assignment...
+        </dd>
 
-<p>
-  <strong>Submitted:</strong>
-  <%= @submission.submitted %>
-</p>
+        <dt class="col-sm-3">Example</dt>
+        <dd class="col-sm-9">
+          Test examples...
+        </dd>
 
-<p>
-  <strong>Student:</strong>
-  <%= @submission.student_id %>
-</p>
+        <dt class="col-sm-3">Date</dt>
+        <dd class="col-sm-9">
+          <%= @submission.submission_date %>
+        </dd>
 
-<p>
-  <strong>Assignment:</strong>
-  <%= @submission.assignment_id %>
-</p>
+        <% if is_student? %>
+          <dt class="col-sm-3">Grade</dt>
+          <dd class="col-sm-9">
+            <%= @submission.grade %>
+          </dd>
+        <% else %>
+          <%= render 'form', submission: @submission %>
+        <% end %>
+      </dl>
+      <hr/>
+    </div>
+  </div>
+  <div class="col-lg-7">
+    <pre id="editor" style="height: 84vh"><%= @submission.source_code %></pre>
+    <% if !is_student? %>
+      <nav class="navbar navbar-light bg-light">
+        <div class="row justify-content-between">
+          <div class="col-sm-9">
+            <select class="form-control" id="select1">
+              <option>Java</option>
+              <option>Ruby</option>
+              <option>Python</option>
+            </select>
+          </div>
+          <div class="col-sm-3 ml-auto">
+            <button class="btn btn-success">Run code</button>
+          </div>
+        </div>
+      </nav>
+    <% end %>
+  </div>
+</div>
 
-<p>
-  <strong>Submission date:</strong>
-  <%= @submission.submission_date %>
-</p>
-
-<p>
-  <strong>Source code:</strong>
-  <%= @submission.source_code %>
-</p>
-
-<p>
-  <strong>Grade:</strong>
-  <%= @submission.grade %>
-</p>
-
-<%= link_to 'Edit', edit_submission_path(@submission) %> |
-<%= link_to 'Back', submissions_path %>
+<script>
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/xcode");
+    editor.getSession().setMode("ace/mode/java");
+    editor.setShowPrintMargin(false);
+    editor.setReadOnly(true);
+    editor.setOptions({fontSize: "14px"});
+</script>

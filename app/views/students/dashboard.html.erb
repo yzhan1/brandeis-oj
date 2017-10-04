@@ -103,6 +103,31 @@
           <% end %>
         </tbody>
       </table>
+      <h5>My Submissions</h5>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ASSIGNMENT</th>
+            <th>SUBMISSION DATE</th>
+            <th>SCORE</th>
+            <th>LINK</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @submission_list %>
+            <% @submission_list.each do |submission| %>
+            <tr>
+              <td><%= submission.assignment_id %></td>
+              <td><%= submission.submission_date %></td>
+              <td><%= submission.grade %></td>
+              <td><%= link_to 'Show', submission_url(submission), class: "btn btn-outline-primary btn-sm" %></td>
+            </tr>
+            <% end %>
+          <% else %>
+            <td colspan="4" align="center">You don't have any submissions</td>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

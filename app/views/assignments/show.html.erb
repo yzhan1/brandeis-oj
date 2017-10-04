@@ -17,28 +17,29 @@
       </dl>
       <hr/>
       <% if is_student? %>
-        <h5>Your submissions</h5>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Time submitted</th>
-              <th>Score</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Oct 1st, 2017, 13:00:00</td>
-              <td>90/100</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Oct 1st, 2017, 14:00:00</td>
-              <td>95/100</td>
-            </tr>
-          </tbody>
-        </table>
+        <% if @submissions %>
+          <h5>Your submissions</h5>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Time submitted</th>
+                <th>Score</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @submissions.each do |submission| %>
+                <tr>
+                  <td><%= submission.submission_date %></td>
+                  <td><%= submission.grade %></td>
+                  <td><%= link_to 'Show', submission_url(submission), class: "btn btn-outline-primary btn-sm" %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <td colspan="4" align="center">You don't have any submissions</td>
+        <% end %>
       <% else %>
         <%= link_to 'Edit', edit_assignment_path(@assignment), class: "btn btn-outline-primary" %>
         <%= link_to 'Delete', @assignment, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger" %>

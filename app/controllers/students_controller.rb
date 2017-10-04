@@ -72,6 +72,7 @@ class StudentsController < ApplicationController
     @course_list = Course.all
     @assignment_list = Assignment.all
     @user = Student.find(session[:user_id])
+    @submission_list = Submission.where(student_id: @user.id)
   end
 
   private
