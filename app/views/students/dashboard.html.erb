@@ -7,30 +7,17 @@
   <div class="row">
     <div class="col">
       <h4>ANNOUNCEMENTS</h4>
-      <br>
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">COSI 21a [09.17.17]</h4>
-          <p class="card-text">The new programming assignment has been released.</p>
-          <a href="#" class="btn btn-primary">Open</a>
+      <% @announcement_list.each do |announcement| %>
+        <br>
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title"><%="COSI #{announcement.course_code} #{announcement.announcement_date.to_s}"%></h4>
+            <p class="card-text"><%=announcement.announcement_body%></p>
+            <a href="#" class="btn btn-primary">Open</a>
+          </div>
         </div>
-      </div>
-      <br>
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">COSI 166b [09.19.17]</h4>
-          <p class="card-text">Don't forget to bring your laptops to class!</p>
-          <a href="#" class="btn btn-primary">Open</a>
-        </div>
-      </div>
-      <br>
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">COSI 21a [09.20.17]</h4>
-          <p class="card-text">The programming assignment has been extended...</p>
-          <a href="#" class="btn btn-primary">Open</a>
-        </div>
-      </div>
+        <br>
+      <% end %>
     </div>
 
     <div class="col">
@@ -83,7 +70,6 @@
             <th>COURSE</th>
             <th>ASSIGNMENT</th>
             <th>DUE DATE</th>
-            <th>SUBMITTED</th>
             <th>LINK</th>
           </tr>
         </thead>
@@ -91,10 +77,9 @@
           <% if @assignment_list %>
             <% @assignment_list.each do |assignment| %>
             <tr>
-              <td><%= assignment.course_id %></td>
+              <td><%= assignment.course_code %></td>
               <td><%= assignment.id %></td>
               <td><%= assignment.due_date %></td>
-              <td>false</td>
               <td><%= link_to 'Show', assignment_url(assignment), class: "btn btn-outline-primary btn-sm" %></td>
             </tr>
             <% end %>

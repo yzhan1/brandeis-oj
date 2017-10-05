@@ -72,12 +72,16 @@ class StudentsController < ApplicationController
     @user = Student.find(session[:user_id])
     @enrollment_list = Enrollment.where("student_id=#{@user.id}")
     @course_list = Array.new
+    @announcement_list = Array.new
     @enrollment_list.each_with_index do |course_code, i|
       #should be course_code, need to change in database
-      @course_list.push Course.where("id=#{@enrollment_list[i].course_id}")[0]
+      @course_list.push Course.where("course_code='#{@enrollment_list[i].course_code}'")[0]
+      #same as above, also need to maybe do nested for loop to get every announcement
+      @announcement_list.push Announcement.where("course_code='#{@enrollment_list[i].course_code}'")[0]
     end
     @assignment_list = Assignment.all
     @submission_list = Submission.where(student_id: @user.id)
+
   end
 
   private
