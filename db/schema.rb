@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171004024602) do
+ActiveRecord::Schema.define(version: 20171005051954) do
 
   create_table "assignments", force: :cascade do |t|
     t.datetime "due_date"
@@ -36,6 +36,50 @@ ActiveRecord::Schema.define(version: 20171004024602) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "permission"
+  end
+
+  create_table "prod_assignments", force: :cascade do |t|
+    t.datetime "due_date"
+    t.integer "course_id"
+    t.text "instructions"
+    t.string "template"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "prod_courses", force: :cascade do |t|
+    t.string "course_title"
+    t.integer "teacher_id"
+    t.integer "course_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "prod_enrollments", force: :cascade do |t|
+    t.integer "student_id"
+    t.integer "course_id"
+    t.float "final_grade"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "prod_students", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "password"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "prod_submissions", force: :cascade do |t|
+    t.boolean "submitted"
+    t.integer "student_id"
+    t.integer "assignment_id"
+    t.datetime "submission_date"
+    t.text "source_code"
+    t.float "grade"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "students", force: :cascade do |t|

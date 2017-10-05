@@ -1,0 +1,2 @@
+class ProdCourse < ApplicationRecord
+end

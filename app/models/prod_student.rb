@@ -1,0 +1,2 @@
+class ProdStudent < ApplicationRecord
+end

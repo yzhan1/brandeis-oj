@@ -1,0 +1,2 @@
+class ProdAssignment < ApplicationRecord
+end

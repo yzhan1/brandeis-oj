@@ -1,0 +1,2 @@
+class ProdSubmission < ApplicationRecord
+end
