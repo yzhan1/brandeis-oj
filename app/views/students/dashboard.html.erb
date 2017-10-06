@@ -50,7 +50,7 @@
           <h4>PROGRESS</h4>
         </div>
         <div class="col col-md-auto">
-          <h4>Submitted: 0/<%= @assignment_list.length %></h4>
+          <h4>Submitted: <%= "#{@submission_list.length}/#{@assignment_list.length}"%></h4>
         </div>
 
       </div>
@@ -59,7 +59,7 @@
         <% if !@assignment_list.any? %>
           <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
         <% else %>
-          <div class="progress-bar bg-success" role="progressbar" style="width: <%= (((0.to_f/(@assignment_list.length))*100).floor).to_s %>%" aria-valuenow="<%= (((0.to_f/(@assignment_list.length))*100).floor).to_s %>" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar bg-success" role="progressbar" style="width: <%=(((@submission_list.length.to_f/(@assignment_list.length).to_f)*100).floor).to_s%>%" aria-valuenow="<%=(((@submission_list.length/(@assignment_list.length))*100).floor).to_s%>" aria-valuemin="0" aria-valuemax="100"></div>
         <% end %>
       </div>
 
@@ -71,6 +71,7 @@
             <th>ASSIGNMENT</th>
             <th>DUE DATE</th>
             <th>LINK</th>
+            <th>GRADE</th>
           </tr>
         </thead>
         <tbody>
@@ -81,31 +82,20 @@
               <td><%= assignment.id %></td>
               <td><%= assignment.due_date %></td>
               <td><%= link_to 'Show', assignment_url(assignment), class: "btn btn-outline-primary btn-sm" %></td>
+              <td>NOT SUBMITTED</td>
             </tr>
             <% end %>
           <% else %>
             <td colspan="4" align="center">You don't have any pending assignments</td>
           <% end %>
-        </tbody>
-      </table>
-      <h5>My Submissions</h5>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>ASSIGNMENT</th>
-            <th>SUBMISSION DATE</th>
-            <th>SCORE</th>
-            <th>LINK</th>
-          </tr>
-        </thead>
-        <tbody>
           <% if @submission_list %>
             <% @submission_list.each do |submission| %>
             <tr>
+              <td><%= submission.assignment.course_code%></td>
               <td><%= submission.assignment_id %></td>
               <td><%= submission.submission_date %></td>
-              <td><%= submission.grade %></td>
               <td><%= link_to 'Show', submission_url(submission), class: "btn btn-outline-primary btn-sm" %></td>
+              <td><%= submission.grade %></td>
             </tr>
             <% end %>
           <% else %>
