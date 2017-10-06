@@ -17,7 +17,7 @@
     <% @assignments.each do |assignment| %>
       <tr>
         <td><%= assignment.due_date %></td>
-        <td><%= assignment.course_id %></td>
+        <td><%= assignment.course_code %></td>
         <td><%= assignment.instructions %></td>
         <td><%= assignment.template %></td>
         <td><%= link_to 'Show', assignment %></td>
