@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :students
   resources :teachers
 
-  root 'static_pages#home'
+  root 'sessions#new'
   get '/about', to: 'static_pages#about'
   get '/contact', to: 'static_pages#contact'
   get '/demo', to: 'static_pages#demo'
@@ -30,5 +30,5 @@ Rails.application.routes.draw do
   get '/submission-editor', to: 'static_pages#submission_editor'
 
   get '/assignments-list', to: 'static_pages#assignments_list'
-  
+
 end
