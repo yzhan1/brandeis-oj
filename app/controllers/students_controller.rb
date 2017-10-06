@@ -1,4 +1,5 @@
 class StudentsController < ApplicationController
+  before_action :logged_in_user, only: [:show, :edit, :update, :destroy, :dashboard, :index]
   before_action :set_student, only: [:show, :edit, :update, :destroy]
 
   # GET /students
@@ -14,6 +15,7 @@ class StudentsController < ApplicationController
 
   # GET /students/new
   def new
+    logged_in_redirect
     @user = Student.new
   end
 

@@ -1,4 +1,5 @@
 class SubmissionsController < ApplicationController
+  before_action :logged_in_user, only: [:show, :edit, :update, :destroy, :index, :new]  
   before_action :set_submission, only: [:show, :edit, :update, :destroy]
 
   # GET /submissions

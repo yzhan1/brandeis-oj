@@ -40,6 +40,13 @@ module SessionsHelper
     end
   end
 
+  def logged_in_redirect
+    if logged_in?
+      flash[:warning] = 'You have logged in already!'
+      redirect_to root_url
+    end
+  end
+
   def logged_in?
     !current_user.nil?
   end
