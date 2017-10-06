@@ -43,7 +43,11 @@ module SessionsHelper
   def logged_in_redirect
     if logged_in?
       flash[:warning] = 'You have logged in already!'
-      redirect_to root_url
+      if is_student?
+        redirect_to stdn_dashboard_url
+      else
+        redirect_to ta_dashboard_url
+      end
     end
   end
 
