@@ -20,8 +20,3 @@ ProdEnrollment.create(student_id:1, course_id:"11a")
 ProdEnrollment.create(student_id:1, course_id:"12b")
 ProdEnrollment.create(student_id:1, course_id:"166b")
 ProdEnrollment.create(student_id:2, course_id:"11a")
-
-Announcement.create(course_code:"11a", announcement_date: DateTime.new(2017, 10, 11, 20, 10, 0), announcement_body:"Checking if everyone can see announcements.")
-Announcement.create(course_code:"12b", announcement_date: DateTime.new(2017, 10, 11, 20, 10, 0), announcement_body:"The new programming assignment has been released.")
-Announcement.create(course_code:"21a", announcement_date: DateTime.new(2017, 10, 11, 20, 10, 0), announcement_body:"The new programming assignment has been released.")
-Announcement.create(course_code:"11a", announcement_date: DateTime.new(2017, 10, 11, 20, 10, 0), announcement_body:"The new programming assignment has been released.")

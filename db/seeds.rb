@@ -10,11 +10,14 @@ Submission.delete_all
 Submission.reset_pk_sequence
 Enrollment.delete_all
 Enrollment.reset_pk_sequence
+Announcement.delete_all
+Announcement.reset_pk_sequence
 
 Student.create(name: 'John Doe', email: 'johndoe1@brandeis.edu', password: '123456', password_confirmation: '123456')
 Student.create(name: 'Jane Doe', email: 'janedoe@brandeis.edu', password: '123456', password_confirmation: '123456')
 Student.create(name: 'Foo Bar', email: 'foobar@brandeis.edu', password: '123456', password_confirmation: '123456')
 Student.create(name: 'Bar Foo', email: 'barfoo@brandeis.edu', password: '123456', password_confirmation: '123456')
+Student.create(name: 'No One', email: 'noone@brandeis.edu', password: '123456', password_confirmation: '123456')
 
 Teacher.create(name: 'Pito Salas', email: 'rpsalas@brandeis.edu', password: '123456', password_confirmation: '123456')
 Teacher.create(name: 'Antonella', email: 'antonella@brandeis.edu', password: '123456', password_confirmation: '123456')
@@ -42,5 +45,10 @@ Submission.create(student_id: 1, assignment_id: 1, source_code: "public class So
 Enrollment.create(student_id:1, course_code:"11a", final_grade:100.0)
 Enrollment.create(student_id:2, course_code:"11a", final_grade:100.0)
 Enrollment.create(student_id:3, course_code:"12b", final_grade:100.0)
-Enrollment.create(student_id:4, course_code:"21b", final_grade:100.0)
+Enrollment.create(student_id:4, course_code:"21a", final_grade:100.0)
 Enrollment.create(student_id:4, course_code:"166b", final_grade:100.0)
+
+Announcement.create(course_code:"11a", announcement_date: DateTime.new(2017, 10, 11, 20, 10, 0), announcement_body:"Checking if everyone can see announcements.")
+Announcement.create(course_code:"12b", announcement_date: DateTime.new(2017, 10, 11, 20, 10, 0), announcement_body:"The new programming assignment has been released.")
+Announcement.create(course_code:"21a", announcement_date: DateTime.new(2017, 10, 11, 20, 10, 0), announcement_body:"The new programming assignment has been released.")
+Announcement.create(course_code:"11a", announcement_date: DateTime.new(2017, 10, 11, 20, 10, 0), announcement_body:"The new programming assignment has been released.")
