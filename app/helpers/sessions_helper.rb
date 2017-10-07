@@ -40,7 +40,7 @@ module SessionsHelper
   def logged_in_redirect
     if logged_in?
       flash[:warning] = 'You have logged in already!'
-      redirect_to user_dashboard_url
+      redirect_to dashboard_url
     end
   end
 

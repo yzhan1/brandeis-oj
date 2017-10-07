@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
       # render student dashboard
       log_in user
       params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-      redirect_to user_dashboard_url
+      redirect_to dashboard_url
     else
       flash.now[:danger] = 'Invalid email/password combination'
       render 'new'
