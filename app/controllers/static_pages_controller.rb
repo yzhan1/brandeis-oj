@@ -1,11 +1,7 @@
 class StaticPagesController < ApplicationController
   def home
     if logged_in?
-      if is_student?
-        redirect_to stdn_dashboard_url
-      else
-        redirect_to ta_dashboard_url
-      end
+      redirect_to user_dashboard_url
     end
   end
 

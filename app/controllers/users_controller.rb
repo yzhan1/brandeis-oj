@@ -28,8 +28,7 @@ class UsersController < ApplicationController
     if @user.save
       log_in @user
       flash[:success] = "Welcome to AspirinX!"
-      # redirect_to student_url(@user)
-      redirect_to user_dashboard_path
+      redirect_to user_dashboard_url
     else
       render 'new'
     end

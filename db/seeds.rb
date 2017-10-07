@@ -1,6 +1,3 @@
-drop_table Teacher
-drop_table Student
-
 User.delete_all
 User.reset_pk_sequence
 Course.delete_all

@@ -9,15 +9,9 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ml-auto">
       <% if logged_in? %>
-        <% if is_student? %>
           <li class="nav-item">
-            <%= link_to "Dashboard", stdn_dashboard_path, id: "stdn_dashboard", class: "nav-link" %>
+            <%= link_to "Dashboard", user_dashboard_path, id: "user_dashboard", class: "nav-link" %>
           </li>
-        <% else %>
-          <li class="nav-item">
-            <%= link_to "Dashboard", ta_dashboard_path, id: "ta_dashboard", class: "nav-link" %>
-          </li>
-        <% end %>
         <%= link_to "Profile", current_user, class: "nav-link" %>
         <%= link_to "Logout", logout_path, method: :delete, class: "nav-link" %>
       <% else %>
