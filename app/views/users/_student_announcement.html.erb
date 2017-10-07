@@ -1,0 +1,14 @@
+<div class="col">
+  <h4>ANNOUNCEMENTS</h4>
+  <% @announcement_list.each do |announcement| %>
+      <br>
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title"><%="COSI #{announcement.course_code} #{announcement.announcement_date.to_s}"%></h4>
+          <p class="card-text"><%=announcement.announcement_body%></p>
+          <a href="#" class="btn btn-primary">Open</a>
+        </div>
+      </div>
+      <br>
+  <% end %>
+</div>
