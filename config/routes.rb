@@ -1,23 +1,18 @@
 Rails.application.routes.draw do
+  resources :users
   resources :submissions
   resources :assignments
   resources :enrollments
   resources :courses
-  resources :students
-  resources :teachers
 
   root 'sessions#new'
   get '/about', to: 'static_pages#about'
   get '/contact', to: 'static_pages#contact'
   get '/demo', to: 'static_pages#demo'
 
-  get '/student-signup', to: 'students#new'
-  post '/student-signup', to: 'students#create'
-  get '/stdn-dashboard', to: 'students#dashboard'
-
-  get '/teacher-signup', to: 'teachers#new'
-  post '/teacher-signup', to: 'teachers#create'
-  get '/ta-dashboard', to: 'teachers#dashboard'
+  get '/user-signup', to: 'users#new'
+  post '/user-signup', to: 'users#create'
+  get '/user-dashboard', to: 'user#dashboard'
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'

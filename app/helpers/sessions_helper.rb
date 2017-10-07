@@ -1,8 +1,12 @@
 module SessionsHelper
 
-  def log_in(user, is_student)
+  def log_in(user)
     session[:user_id] = user.id
-    session[:is_student] = is_student
+    if user.role = "student"
+      session[:is_student] = true
+    else
+      session[:is_student] = false
+    end
   end
 
   def remember(user)
@@ -13,18 +17,11 @@ module SessionsHelper
 
   def current_user
     if (user_id = session[:user_id])
-      if session[:is_student]
-        @current_user ||= Student.find_by(id: session[:user_id])
-      else
-        @current_user ||= Teacher.find_by(id: session[:user_id])
-      end
+      @current_user ||= User.find_by(id: session[:user_id])
+
     elsif (user_id = cookies.signed[:user_id])
       user = nil
-      if session[:is_student]
-        user = Student.find_by(id: user_id)
-      else
-        user = Teacher.find_by(id: user_id)
-      end
+        user = User.find_by(id: user_id)
       if user && user.authenticated?(cookies[:remember_token])
         log_in user
         @current_user = user
@@ -43,11 +40,7 @@ module SessionsHelper
   def logged_in_redirect
     if logged_in?
       flash[:warning] = 'You have logged in already!'
-      if is_student?
-        redirect_to stdn_dashboard_url
-      else
-        redirect_to ta_dashboard_url
-      end
+      redirect_to user_dashboard_url
     end
   end
 

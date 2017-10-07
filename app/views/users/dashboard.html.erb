@@ -1,0 +1,16 @@
+<% provide(:title, "Dashboard") %>
+<br>
+<div class="container">
+  <h1><%= @user.role %> Dashboard: <%= @user.name %></h1>
+  <hr/>
+  <br>
+  <div class="row">
+    <%= if @user.role == "student" %>
+      <%= render 'users/student_annoucement' %>
+      <%= render 'users/student_course' %>
+    <% else %>
+      <%= render 'users/teacher_announcement' %>
+      <%= render 'users/teacher_course' %>
+    <% end %>
+  </div>
+</div>

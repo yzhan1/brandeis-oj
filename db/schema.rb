@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171006190943) do
+ActiveRecord::Schema.define(version: 20171007160755) do
 
   create_table "announcements", force: :cascade do |t|
     t.string "course_code"
@@ -32,14 +32,14 @@ ActiveRecord::Schema.define(version: 20171006190943) do
 
   create_table "courses", force: :cascade do |t|
     t.string "course_title"
-    t.integer "teacher_id"
+    t.integer "user_id"
     t.string "course_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "enrollments", force: :cascade do |t|
-    t.integer "student_id"
+    t.integer "user_id"
     t.string "course_code"
     t.float "final_grade"
     t.datetime "created_at", null: false
@@ -58,14 +58,14 @@ ActiveRecord::Schema.define(version: 20171006190943) do
 
   create_table "prod_courses", force: :cascade do |t|
     t.string "course_title"
-    t.integer "teacher_id"
+    t.integer "users_id"
     t.integer "course_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "prod_enrollments", force: :cascade do |t|
-    t.integer "student_id"
+    t.integer "user_id"
     t.integer "course_id"
     t.float "final_grade"
     t.datetime "created_at", null: false
@@ -82,27 +82,18 @@ ActiveRecord::Schema.define(version: 20171006190943) do
 
   create_table "prod_submissions", force: :cascade do |t|
     t.boolean "submitted"
-    t.integer "student_id"
+    t.integer "user_id"
     t.integer "assignment_id"
     t.datetime "submission_date"
     t.text "source_code"
     t.float "grade"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "students", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "password_digest"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "remember_digest"
   end
 
   create_table "submissions", force: :cascade do |t|
     t.boolean "submitted"
-    t.integer "student_id"
+    t.integer "user_id"
     t.integer "assignment_id"
     t.datetime "submission_date"
     t.text "source_code"
@@ -111,13 +102,14 @@ ActiveRecord::Schema.define(version: 20171006190943) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "teachers", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "password_digest"
+    t.string "remember_digest"
+    t.string "role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "remember_digest"
   end
 
 end
