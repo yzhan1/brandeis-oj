@@ -2,7 +2,7 @@ module SessionsHelper
 
   def log_in(user)
     session[:user_id] = user.id
-    if user.role = "student"
+    if user.role == "student"
       session[:is_student] = true
     else
       session[:is_student] = false
