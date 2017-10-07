@@ -5,8 +5,8 @@
   <hr/>
   <br>
   <div class="row">
-    <%= if @user.role == "student" %>
-      <%= render 'users/student_annoucement' %>
+    <% if @user.role == "student" %>
+      <%= render 'users/student_announcement' %>
       <%= render 'users/student_course' %>
     <% else %>
       <%= render 'users/teacher_announcement' %>

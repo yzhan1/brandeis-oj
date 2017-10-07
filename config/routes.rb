@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   get '/user-signup', to: 'users#new'
   post '/user-signup', to: 'users#create'
-  get '/user-dashboard', to: 'user#dashboard'
+  get '/user-dashboard', to: 'users#dashboard'
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
