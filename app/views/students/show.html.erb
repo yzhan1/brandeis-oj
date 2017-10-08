@@ -1,21 +1,40 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
+<div class="container">
+  <br><br>
+  <div class="card">
+  <div class="card-body">
+    <div style="display:flex; justify-content: center; align-items: center;">
+      <h1>Your Profile</h1>
+    </div>
+    <hr>
+    <br>
+    <div class="row">
+      <div class="col-md-auto">
+        <!-- Avatar Image -->
+        <img src="/assets/avatar-test.jpg" alt="">
+      </div>
+      <div class="col">
+          <br>
+          <strong>Name:</strong>
+          <%= @user.name %> <br>
+          <strong>Email:</strong>
+          <%= @user.email %> <br>
+          <p>You are a student</p> <br>
+          <%= link_to 'Edit', edit_student_path(@user) %> |
+          <%= link_to 'Back', students_path %>
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
 
-<p>
+</div>
+
+
+
+
+<!-- <p>
   <strong>Password:</strong>
   <%= @user.password %>
-</p>
-
-<p>You are a student</p>
-
-<%= link_to 'Edit', edit_student_path(@user) %> |
-<%= link_to 'Back', students_path %>
+</p> -->
