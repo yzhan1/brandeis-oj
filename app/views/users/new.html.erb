@@ -4,7 +4,7 @@
   <div class="form-group">
     <h1 class="card-title">User Signup</h1>
     <hr/>
-    <%= form_for(:user, url: user_signup_path) do |f| %>
+    <%= form_for(:user, url: signup_path) do |f| %>
       <%= render 'shared/error_messages' %>
       <div class="form-group">
         <%= f.label :name %>
