@@ -19,11 +19,4 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   get '/assignments', to: 'assignments#index'
-
-  get '/assignment-editor', to: 'static_pages#assignment_editor'
-
-  get '/submission-editor', to: 'static_pages#submission_editor'
-
-  get '/assignments-list', to: 'static_pages#assignments_list'
-
 end
