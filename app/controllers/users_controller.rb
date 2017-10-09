@@ -51,20 +51,24 @@ class UsersController < ApplicationController
 
   def dashboard
     @user = User.find(session[:user_id])
-    @enrollment_list = Enrollment.where("user_id=#{@user.id}")
-    @course_list = Array.new
-    @announcement_list = Array.new
-    @assignment_list = Array.new
-    @enrollment_list.each do |enrollment_data|
-      @course_list.push Course.where("course_code='#{enrollment_data.course_code}'")[0]
-      Announcement.where("course_code='#{enrollment_data.course_code}'").each do |announcement_data|
-        @announcement_list.push announcement_data
+    if @user.role == 'student'
+      @enrollment_list = Enrollment.where("user_id=#{@user.id}")
+      @course_list = Array.new
+      @announcement_list = Array.new
+      @assignment_list = Array.new
+      @enrollment_list.each do |enrollment_data|
+        @course_list.push Course.where("course_code='#{enrollment_data.course_code}'")[0]
+        Announcement.where("course_code='#{enrollment_data.course_code}'").each do |announcement_data|
+          @announcement_list.push announcement_data
+        end
+        Assignment.where("assignments.course_code='#{enrollment_data.course_code}'").each do |assignment_data|
+          @assignment_list.push assignment_data
+        end
       end
-      Assignment.where("assignments.course_code='#{enrollment_data.course_code}'").each do |assignment_data|
-        @assignment_list.push assignment_data
-      end
+      @submission_list=Submission.where("user_id=#{@user.id}")
+    else
+      @course_list = Course.where("user_id=#{@user.id}")
     end
-    @submission_list=Submission.where("user_id=#{@user.id}")
   end
 
   # DELETE /users/1
