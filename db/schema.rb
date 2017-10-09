@@ -59,14 +59,14 @@ ActiveRecord::Schema.define(version: 20171009170352) do
 
   create_table "prod_courses", force: :cascade do |t|
     t.string "course_title"
-    t.integer "users_id"
+    t.integer "teacher_id"
     t.integer "course_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "prod_enrollments", force: :cascade do |t|
-    t.integer "user_id"
+    t.integer "student_id"
     t.integer "course_id"
     t.float "final_grade"
     t.datetime "created_at", null: false
@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 20171009170352) do
 
   create_table "prod_submissions", force: :cascade do |t|
     t.boolean "submitted"
-    t.integer "user_id"
+    t.integer "student_id"
     t.integer "assignment_id"
     t.datetime "submission_date"
     t.text "source_code"

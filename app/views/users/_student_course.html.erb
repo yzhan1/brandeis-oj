@@ -30,7 +30,6 @@
     <div class="col col-md-auto">
       <h4>Submitted: <%= "#{@submission_list.length}/#{@assignment_list.length}"%></h4>
     </div>
-
   </div>
 
   <div class="progress">
@@ -45,6 +44,7 @@
   <table class="table table-striped">
     <thead>
     <tr>
+      <th>COURSE NUMBER</th>
       <th>ASSIGNMENT</th>
       <th>DUE DATE</th>
       <th>LINK</th>
@@ -54,13 +54,15 @@
     <tbody>
     <% if @assignment_list %>
         <% @assignment_list.each do |assignment| %>
-            <tr>
-              <td><%= assignment.course_code %></td>
-              <td><%= assignment.id %></td>
-              <td><%= assignment.due_date %></td>
-              <td><%= link_to 'Show', assignment_url(assignment), class: "btn btn-outline-primary btn-sm" %></td>
-              <td>NOT SUBMITTED</td>
-            </tr>
+          <% if(!assignment.id.in?(@submission_list.select(:assignment_id))) %>
+              <tr>
+                <td><%= assignment.course_code %></td>
+                <td><%= assignment.id%></td>
+                <td><%= assignment.due_date %></td>
+                <td><%= link_to 'Show', assignment_url(assignment), class: 'btn btn-outline-primary btn-sm'%></td>
+                <td>NOT SUBMITTED</td>
+              </tr>
+            <%end%>
         <% end %>
     <% else %>
         <td colspan="4" align="center">You don't have any pending assignments</td>
