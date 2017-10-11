@@ -38,7 +38,8 @@
       </div>
     </div>
     <div class="col-lg-7">
-      <pre id="editor" style="height: 84vh"><%= form.text_field :template, id: :assignment_template %></pre>
+      <%= form.text_field :template, id: :assignment_template %>
+      <pre id="editor" style="height: 86vh; margin-bottom: 0px"></pre>
       <nav class="navbar navbar-light bg-light">
         <div class="row justify-content-between">
           <div class="col-sm-9">
@@ -57,11 +58,17 @@
   </div>
   
   <script>
-      var editor = ace.edit("editor");
-      editor.setTheme("ace/theme/xcode");
-      editor.getSession().setMode("ace/mode/java");
-      editor.setShowPrintMargin(false);
-      editor.setOptions({fontSize: "14px"});
+    var editor = ace.edit("editor");
+    var input = $('input[id="assignment_template"]').hide();
+    console.log(input.val());
+    editor.setTheme("ace/theme/xcode");
+    editor.getSession().setMode("ace/mode/java");
+    editor.setShowPrintMargin(false);
+    editor.setOptions({fontSize: "14px"});
+    editor.setValue("<%= @assignment.template.inspect[1..-2] %>", 1);
+    editor.getSession().on('change', function() {
+      input.val(editor.getSession().getValue());
+      console.log(input.val());
+    });
   </script>
-
 <% end %>

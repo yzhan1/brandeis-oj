@@ -19,4 +19,6 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   get '/assignments', to: 'assignments#index'
+  post '/save', to: 'assignments#save'
+  patch '/save', to: 'assignments#save'
 end

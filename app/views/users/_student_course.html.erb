@@ -1,14 +1,13 @@
 <div class="col">
-
   <h4>LIST OF COURSES</h4>
   <br>
   <div class="list-group" id="list-tab" role="tablist">
     <% @course_list.each do |course| %>
-        <%= link_to course.course_title, course_url(course), class: "list-group-item list-group-item-action" %>
+      <%= link_to course.course_title, course_url(course), class: "list-group-item list-group-item-action" %>
     <% end %>
   </div>
   <% if @course_list.any? %>
-      <br>
+    <br>
   <% end %>
   <div class="row justify-content-md-center">
     <div class="col">
@@ -52,35 +51,35 @@
     </tr>
     </thead>
     <tbody>
-    <% if @assignment_list %>
+      <% if @assignment_list %>
         <% @assignment_list.each do |assignment| %>
           <% if(!assignment.id.in?(@submission_list.select(:assignment_id))) %>
-              <tr>
-                <td><%= assignment.course_code %></td>
-                <td><%= assignment.id%></td>
-                <td><%= assignment.due_date %></td>
-                <td><%= link_to 'Show', assignment_url(assignment), class: 'btn btn-outline-primary btn-sm'%></td>
-                <td>NOT SUBMITTED</td>
-              </tr>
-            <%end%>
-        <% end %>
-    <% else %>
-        <td colspan="4" align="center">You don't have any pending assignments</td>
-    <% end %>
-
-    <% if @submission_list %>
-        <% @submission_list.each do |submission| %>
             <tr>
-              <td><%= submission.assignment.course_code%></td>
-              <td><%= submission.assignment_id %></td>
-              <td><%= submission.submission_date %></td>
-              <td><%= link_to 'Show', submission_url(submission), class: "btn btn-outline-primary btn-sm" %></td>
-              <td><%= submission.grade %></td>
+              <td><%= assignment.course_code %></td>
+              <td><%= assignment.id %></td>
+              <td><%= assignment.due_date %></td>
+              <td><%= link_to 'Show', assignment_url(assignment), class: 'btn btn-outline-primary btn-sm' %></td>
+              <td>NOT SUBMITTED</td>
             </tr>
+          <%end%>
         <% end %>
-    <% else %>
+      <% else %>
+        <td colspan="4" align="center">You don't have any pending assignments</td>
+      <% end %>
+
+      <% if @submission_list %>
+        <% @submission_list.each do |submission| %>
+          <tr>
+            <td><%= submission.assignment.course_code %></td>
+            <td><%= submission.assignment_id %></td>
+            <td><%= submission.submission_date %></td>
+            <td><%= link_to 'Show', submission_url(submission), class: "btn btn-outline-primary btn-sm" %></td>
+            <td><%= submission.grade %></td>
+          </tr>
+        <% end %>
+      <% else %>
         <td colspan="4" align="center">You don't have any submissions</td>
-    <% end %>
+      <% end %>
     </tbody>
   </table>
 </div>

@@ -47,30 +47,45 @@
     </div>
   </div>
   <div class="col-lg-7">
-    <pre id="editor" style="height: 84vh"><%= @assignment.template %></pre>
-    <% if is_student? %>
-      <nav class="navbar navbar-light bg-light">
-        <div class="row justify-content-between">
-          <div class="col-sm-9">
-            <select class="form-control" id="select1">
-              <option>Java</option>
-              <option>Ruby</option>
-              <option>Python</option>
-            </select>
+    <%= form_for(@submission, url: save_path) do |f| %>
+      <pre id="editor" style="height: 86vh; margin-bottom: 0px"></pre>
+      <%= f.text_field :source_code, id: :submission_source_code %>
+      <%= f.number_field :assignment_id, id: :submission_assignment_id, style: "display: none", :value => @assignment.id %>
+      <%= f.number_field :id, id: :submission_id, style: "display: none", :value => @submission.id %>
+      <% if is_student? %>
+        <nav class="navbar navbar-light bg-light">
+          <div class="row justify-content-between">
+            <div class="col-sm-9">
+              <select class="form-control" id="select1">
+                <option>Java</option>
+                <option>Ruby</option>
+                <option>Python</option>
+              </select>
+            </div>
+            <div class="col-sm-3 ml-auto">
+              <%= f.submit "Submit", class: "btn btn-success ml-auto" %>
+            </div>
           </div>
-          <div class="col-sm-3 ml-auto">
-            <button type="button" class="btn btn-success ml-auto">Submit</button>
-          </div>
-        </div>
-      </nav>
+        </nav>
+      <% end %>
     <% end %>
   </div>
 </div>
 
 <script>
-    var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/xcode");
-    editor.getSession().setMode("ace/mode/java");
-    editor.setShowPrintMargin(false);
-    document.getElementById('editor').style.fontSize='14px';
+  var editor = ace.edit("editor");
+  var input = $('input[id="submission_source_code"]').hide();
+  <% if !is_student? %>
+    editor.setReadOnly(true);
+  <% end %>
+  console.log(input.val());
+  editor.setTheme("ace/theme/xcode");
+  editor.getSession().setMode("ace/mode/java");
+  editor.setShowPrintMargin(false);
+  editor.setOptions({fontSize: "14px"});
+  editor.setValue("<%= @submission.source_code.inspect[1..-2] %>", 1);
+  editor.getSession().on('change', function() {
+    input.val(editor.getSession().getValue());
+    console.log(input.val());
+  });
 </script>
