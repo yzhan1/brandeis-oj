@@ -7,7 +7,7 @@
   <br>
   <div class="list-group" id="list-tab" role="tablist">
     <% @course_list.each do |course| %>
-        <%= link_to course.course_title, course_url(course), class: "list-group-item list-group-item-action" %>
+      <%= link_to "#{course.course_title} (#{course.course_code})", course_url(course), class: "list-group-item list-group-item-action" %>
     <% end %>
   </div>
   <br><hr>
@@ -20,14 +20,14 @@
       <h4>Submitted: 1/4</h4>
     </div>
   </div> -->
-  <h4>PROGRESS</h4>
+  <h4>PROGRESS HARDCODED</h4>
   <br>
   <div class="row justify-content-md-center">
     <div class="col">
       <h6>COSI 11a</h6>
     </div>
     <div class="col col-md-auto">
-      <h6>Submitted: 25/118</h6>
+      <h6>Submitted: HARDCODED/118</h6>
     </div>
   </div>
   <div class="progress">
@@ -39,7 +39,7 @@
       <h6>COSI 21a</h6>
     </div>
     <div class="col col-md-auto">
-      <h6>Submitted: 45/67</h6>
+      <h6>Submitted: HARDCODED/67</h6>
     </div>
   </div>
   <div class="progress">
@@ -51,7 +51,7 @@
       <h6>COSI 131a</h6>
     </div>
     <div class="col col-md-auto">
-      <h6>Submitted: 20/43</h6>
+      <h6>Submitted: HARDCODED/43</h6>
     </div>
   </div>
   <div class="progress">

@@ -3,7 +3,7 @@
   <br>
   <div class="list-group" id="list-tab" role="tablist">
     <% @course_list.each do |course| %>
-      <%= link_to course.course_title, course_url(course), class: "list-group-item list-group-item-action" %>
+      <%= link_to "#{course.course_title} (#{course.course_code})", course_url(course), class: "list-group-item list-group-item-action" %>
     <% end %>
   </div>
   <% if @course_list.any? %>
@@ -55,8 +55,8 @@
         <% @assignment_list.each do |assignment| %>
           <% if(!assignment.id.in?(@submission_list.select(:assignment_id))) %>
             <tr>
-              <td><%= assignment.course_code %></td>
-              <td><%= assignment.id %></td>
+              <td><%= assignment.course.course_code %></td>
+              <td><%= assignment.name %></td>
               <td><%= assignment.due_date %></td>
               <td><%= link_to 'Show', assignment_url(assignment), class: 'btn btn-outline-primary btn-sm' %></td>
               <td>NOT SUBMITTED</td>
@@ -70,7 +70,7 @@
       <% if @submission_list %>
         <% @submission_list.each do |submission| %>
           <tr>
-            <td><%= submission.assignment.course_code %></td>
+            <td><%= submission.course.course_code %></td>
             <td><%= submission.assignment_id %></td>
             <td><%= submission.submission_date %></td>
             <td><%= link_to 'Show', submission_url(submission), class: "btn btn-outline-primary btn-sm" %></td>

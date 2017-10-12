@@ -3,10 +3,9 @@ class CreateEnrollments < ActiveRecord::Migration[5.1]
     create_table :enrollments do |t|
       #internal fields
       t.float :final_grade
-      t.string :permission
 
       #external references
-      t.string :course_code
+      t.integer :course_id
       t.integer :user_id
 
       t.timestamps

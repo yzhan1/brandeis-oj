@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-  before_action :logged_in_user, only: [:show, :edit, :update, :destroy, :index, :new]  
+  before_action :logged_in_user, only: [:show, :edit, :update, :destroy, :index, :new]
   before_action :set_course, only: [:show, :edit, :update, :destroy]
 
   # GET /courses
@@ -11,7 +11,7 @@ class CoursesController < ApplicationController
   # GET /courses/1
   # GET /courses/1.json
   def show
-    @assignment_list = Assignment.where(course_code: @course.course_code)
+    @assignment_list = Assignment.where(course_id: @course.id)
   end
 
   # GET /courses/new

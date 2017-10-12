@@ -2,14 +2,14 @@ class CreateAssignments < ActiveRecord::Migration[5.1]
   def change
     create_table :assignments do |t|
       #internal fields
-      t.string :assignment_name
+      t.string :name
       t.datetime :due_date
-      t.text :instructions
+      t.string :instructions
       t.string :template
 
       #external references
-      t.string :course_code
-      
+      t.integer :course_id
+
       t.timestamps
     end
   end

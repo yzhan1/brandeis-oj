@@ -15,9 +15,9 @@
   <div class="row" style="margin-left: 0; margin-right: 0">
     <div class="col-lg-5">
       <div class="container">
-        <h3 style="padding-top:20px">Assignment #<%= assignment.id %> <small class="text-muted"><%= assignment.course_code %></small></h3>
+        <h3 style="padding-top:20px">Assignment #<%= assignment.id %> <small class="text-muted"><%= assignment.course.course_code %></small></h3>
         <hr/>
-        
+
         <dl class="row">
           <dt class="col-sm-3">Instructions</dt>
           <dd class="col-sm-9">
@@ -56,7 +56,7 @@
       </nav>
     </div>
   </div>
-  
+
   <script>
     var editor = ace.edit("editor");
     var input = $('input[id="assignment_template"]').hide();

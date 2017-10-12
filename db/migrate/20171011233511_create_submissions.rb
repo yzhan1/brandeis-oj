@@ -4,7 +4,7 @@ class CreateSubmissions < ActiveRecord::Migration[5.1]
       #internal fields
       t.boolean :submitted
       t.datetime :submission_date
-      t.text :source_code
+      t.string :source_code
       t.float :grade
 
       #external references
