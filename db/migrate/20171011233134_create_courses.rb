@@ -5,9 +5,6 @@ class CreateCourses < ActiveRecord::Migration[5.1]
       t.string :course_title
       t.string :course_code
 
-      #external references
-      t.integer :user_id
-
       t.timestamps
     end
   end
