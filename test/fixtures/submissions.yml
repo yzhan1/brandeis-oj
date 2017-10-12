@@ -1,17 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  submitted: false
-  student_id: 1
-  assignment_id: 1
-  submission_date: 2017-09-28 22:47:12
-  source_code: MyText
-  grade: 1.5
-
-two:
-  submitted: false
-  student_id: 1
-  assignment_id: 1
-  submission_date: 2017-09-28 22:47:12
-  source_code: MyText
-  grade: 1.5
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+one: {}
+# column: value
+#
+two: {}
+# column: value

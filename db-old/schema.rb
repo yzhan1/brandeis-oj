@@ -10,51 +10,95 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171011233651) do
+ActiveRecord::Schema.define(version: 20171009170352) do
 
   create_table "announcements", force: :cascade do |t|
+    t.string "course_code"
     t.datetime "announcement_date"
     t.string "announcement_body"
     t.string "announcement_link"
-    t.string "course_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "assignments", force: :cascade do |t|
-    t.string "assignment_name"
     t.datetime "due_date"
+    t.string "course_code"
     t.text "instructions"
     t.string "template"
-    t.string "course_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "assignment_name"
   end
 
   create_table "courses", force: :cascade do |t|
     t.string "course_title"
-    t.string "course_code"
     t.integer "user_id"
+    t.string "course_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "enrollments", force: :cascade do |t|
-    t.float "final_grade"
-    t.string "permission"
-    t.string "course_code"
     t.integer "user_id"
+    t.string "course_code"
+    t.float "final_grade"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "permission"
+  end
+
+  create_table "prod_assignments", force: :cascade do |t|
+    t.datetime "due_date"
+    t.integer "course_id"
+    t.text "instructions"
+    t.string "template"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "prod_courses", force: :cascade do |t|
+    t.string "course_title"
+    t.integer "teacher_id"
+    t.integer "course_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "prod_enrollments", force: :cascade do |t|
+    t.integer "student_id"
+    t.integer "course_id"
+    t.float "final_grade"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "prod_students", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "password"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "prod_submissions", force: :cascade do |t|
+    t.boolean "submitted"
+    t.integer "student_id"
+    t.integer "assignment_id"
+    t.datetime "submission_date"
+    t.text "source_code"
+    t.float "grade"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "submissions", force: :cascade do |t|
     t.boolean "submitted"
+    t.integer "user_id"
+    t.integer "assignment_id"
     t.datetime "submission_date"
     t.text "source_code"
     t.float "grade"
-    t.integer "user_id"
-    t.integer "assignment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

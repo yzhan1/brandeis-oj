@@ -35,7 +35,7 @@ Assignment.create(course_code: "166b", due_date: DateTime.new(2017, 12, 11, 20, 
 Assignment.create(course_code: "21a", instructions: "Print even #", template: "public class Solution {\n\t\n}", due_date: Time.now.strftime("%d/%m/%Y %H:%M"))
 
 Submission.create(user_id: 4, assignment_id: 3, source_code: "public class Solution {\n\treturn null;\n}", submission_date: Time.now.strftime("%d/%m/%Y %H:%M"), grade: 100)
-Submission.create(user_id: 3, assignment_id: 2, source_code: "public class Solution {\n\treturn null;\n}", submission_date: Time.now.strftime("%d/%m/%Y %H:%M"), grade: 80)
+# Submission.create(user_id: 3, assignment_id: 2, source_code: "public class Solution {\n\treturn null;\n}", submission_date: Time.now.strftime("%d/%m/%Y %H:%M"), grade: 80)
 Submission.create(user_id: 2, assignment_id: 1, source_code: "public class Solution {\n\treturn null;\n}", submission_date: Time.now.strftime("%d/%m/%Y %H:%M"), grade: 90)
 Submission.create(user_id: 1, assignment_id: 1, source_code: "public class Solution {\n\treturn null;\n}", submission_date: Time.now.strftime("%d/%m/%Y %H:%M"), grade: 90)
 
