@@ -1,5 +1,5 @@
 <% provide(:title, "Assignment") %>
-<div class="row">
+<div class="row" style="margin-left: 0; margin-right: 0">
   <div class="col-lg-5">
     <div class="container">
       <h3 style="padding-top:20px">Assignment #<%= @assignment.id %> <small class="text-muted"><%= @assignment.course_code %></small></h3>
@@ -46,14 +46,14 @@
       <% end %>
     </div>
   </div>
-  <div class="col-lg-7">
+  <div class="col-lg-7" style="padding-right: 0">
     <%= form_for(@submission, url: save_path) do |f| %>
       <pre id="editor" style="height: 86vh; margin-bottom: 0px"></pre>
       <%= f.text_field :source_code, id: :submission_source_code %>
       <%= f.number_field :assignment_id, id: :submission_assignment_id, style: "display: none", :value => @assignment.id %>
       <%= f.number_field :id, id: :submission_id, style: "display: none", :value => @submission.id %>
       <% if is_student? %>
-        <nav class="navbar navbar-light bg-light">
+        <nav class="navbar navbar-light bg-light" style="padding-right: 0">
           <div class="row justify-content-between">
             <div class="col-sm-9">
               <select class="form-control" id="select1">
@@ -62,7 +62,7 @@
                 <option>Python</option>
               </select>
             </div>
-            <div class="col-sm-3 ml-auto">
+            <div class="col-sm-3">
               <%= f.submit "Submit", class: "btn btn-success ml-auto" %>
             </div>
           </div>

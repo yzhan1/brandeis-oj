@@ -2,7 +2,7 @@
 
 <p><br><br><br></p>
 <div style="display:flex; justify-content: center; align-items: center;">
-  <div class="form-group">
+  <div class="form-group col-4">
     <h1 class="card-title">Login</h1>
     <hr/>
     <%= form_for(:session, url: login_path) do |f| %>
@@ -22,7 +22,6 @@
       </div>
       <div style="display:flex; justify-content: center; align-items: center;">
         <%= f.submit "Login", class: "btn btn-success btn-block", style: "margin-bottom: 10px" %>
-
       </div>
       <hr>
       <div class="row">
@@ -30,16 +29,6 @@
           <%= link_to "Signup", signup_path, class: "btn w-100 btn-primary btn-block" %>
         </div>
       </div>
-      <!-- <div style="display:flex; justify-content: center; align-items: center;">
-
-
-
-
-
-      </div> -->
-
-
-
     <% end %>
   </div>
 </div>

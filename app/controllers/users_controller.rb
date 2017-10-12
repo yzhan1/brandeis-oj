@@ -61,7 +61,7 @@ class UsersController < ApplicationController
           @assignment_list.push assignment_data
         end
       end
-      @submission_list=Submission.where("user_id=#{@user.id}")
+      @submission_list = Submission.where("user_id=#{@user.id} AND submitted")
     else
       @course_list = Course.where("user_id=#{@user.id}")
     end
