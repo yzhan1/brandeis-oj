@@ -13,6 +13,7 @@
 ActiveRecord::Schema.define(version: 20171011233651) do
 
   create_table "announcements", force: :cascade do |t|
+    t.string "name"
     t.datetime "announcement_date"
     t.string "announcement_body"
     t.integer "course_id"
