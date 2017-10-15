@@ -49,7 +49,7 @@
   <div class="col-lg-7" style="padding-right: 0">
     <%= form_for(@submission, url: save_path) do |f| %>
       <pre id="editor" style="height: 86vh; margin-bottom: 0px"></pre>
-      <%= f.text_field :source_code, id: :submission_source_code %>
+      <%= f.text_area :source_code, id: :submission_source_code %>
       <%= f.number_field :assignment_id, id: :submission_assignment_id, style: "display: none", :value => @assignment.id %>
       <%= f.number_field :id, id: :submission_id, style: "display: none", :value => @submission.id %>
       <% if is_student? %>
@@ -74,7 +74,7 @@
 
 <script>
   var editor = ace.edit("editor");
-  var input = $('input[id="submission_source_code"]').hide();
+  var input = $('textarea[id="submission_source_code"]').hide();
   <% if !is_student? %>
     editor.setReadOnly(true);
   <% end %>
@@ -83,7 +83,7 @@
   editor.getSession().setMode("ace/mode/java");
   editor.setShowPrintMargin(false);
   editor.setOptions({fontSize: "14px"});
-  editor.setValue("<%= @submission.source_code.inspect[1..-2] %>", 1);
+  editor.setValue("<%= raw(@submission.source_code.inspect[1..-2]) %>", 1);
   editor.getSession().on('change', function() {
     input.val(editor.getSession().getValue());
     console.log(input.val());

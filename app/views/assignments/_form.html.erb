@@ -38,7 +38,7 @@
       </div>
     </div>
     <div class="col-lg-7" style="padding-right: 0">
-      <%= form.text_field :template, id: :assignment_template %>
+      <%= form.text_area :template, id: :assignment_template %>
       <pre id="editor" style="height: 86vh; margin-bottom: 0px"></pre>
       <nav class="navbar navbar-light bg-light">
         <div class="row justify-content-between">
@@ -59,7 +59,7 @@
 
   <script>
     var editor = ace.edit("editor");
-    var input = $('input[id="assignment_template"]').hide();
+    var input = $('textarea[id="assignment_template"]').hide();
     console.log(input.val());
     editor.setTheme("ace/theme/xcode");
     editor.getSession().setMode("ace/mode/java");

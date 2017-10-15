@@ -21,6 +21,7 @@ class AssignmentsController < ApplicationController
 
   def save
     # submission = Submission.new(submission_params.merge(:user_id => current_user.id)).save!
+    # puts submission_params[:source_code]
     submission = Submission.find(submission_params[:id])
     submission.update(submission_params)
     # not final implementation!!
@@ -28,13 +29,13 @@ class AssignmentsController < ApplicationController
     redirect_to dashboard_url
   end
 
-  def update_submission
-    @submission = Submission.find(params[:id])
-    @submission.update(submission_params)
-    # not final implementation!!
-    flash[:success] = 'saved'
-    redirect_to dashboard_url
-  end
+  # def update_submission
+  #   @submission = Submission.find(params[:id])
+  #   @submission.update(submission_params)
+  #   # not final implementation!!
+  #   flash[:success] = 'saved'
+  #   redirect_to dashboard_url
+  # end
 
   # GET /assignments/new
   def new
