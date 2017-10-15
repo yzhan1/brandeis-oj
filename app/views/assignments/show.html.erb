@@ -40,9 +40,6 @@
         <% else %>
           <td colspan="4" align="center">You don't have any submissions</td>
         <% end %>
-      <% else %>
-        <%= link_to 'Edit', edit_assignment_path(@assignment), class: "btn btn-outline-primary" %>
-        <%= link_to 'Delete', @assignment, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger" %>
       <% end %>
     </div>
   </div>
