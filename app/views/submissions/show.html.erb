@@ -64,6 +64,7 @@
     var editorDiv = document.getElementById("editor");
     editorDiv.style.height = "93vh";
   <% end %>
+  editor.getSession().setUseSoftTabs(false);
   editor.setTheme("ace/theme/xcode");
   editor.getSession().setMode("ace/mode/java");
   editor.setShowPrintMargin(false);
