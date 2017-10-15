@@ -21,12 +21,10 @@ class AssignmentsController < ApplicationController
   end
 
   def save
-    # submission = Submission.new(submission_params.merge(:user_id => current_user.id)).save!
     submission = Submission.find(submission_params[:id])
     submission.update(submission_params)
-    # not final implementation!!
-    flash[:success] = 'saved'
-    redirect_to dashboard_url
+    flash[:success] = 'Code saved'
+    redirect_to submission.assignment
   end
 
   # GET /assignments/new
@@ -36,6 +34,7 @@ class AssignmentsController < ApplicationController
 
   # GET /assignments/1/edit
   def edit
+    params[:course_id] = @assignment.course.id
   end
 
   # POST /assignments
@@ -43,7 +42,7 @@ class AssignmentsController < ApplicationController
     @assignment = Assignment.new(assignment_params)
     respond_to do |format|
       if @assignment.save
-        format.html { redirect_to @assignment.course, notice: 'Assignment was successfully created.' }
+        format.html { redirect_to @assignment.course, :flash => { :success => 'Assignment was successfully created.' } }
         format.json { render :show, status: :created, location: @assignment.course }
       else
         format.html { render :new }
@@ -56,7 +55,7 @@ class AssignmentsController < ApplicationController
   def update
     if @assignment.update(assignment_params)
       flash[:success] = "Assignment updated"
-      redirect_to edit_assignment_path(@assignment)
+      redirect_to edit_assignment_path(@assignment, :course_id => @assignment.course.id)
     else
       render 'edit'
     end
@@ -67,7 +66,7 @@ class AssignmentsController < ApplicationController
     course = @assignment.course
     @assignment.destroy
     respond_to do |format|
-      format.html { redirect_to course, notice: 'Assignment was successfully destroyed.' }
+      format.html { redirect_to course, :flash => { :success => 'Assignment was successfully deleted.' } }
       format.json { head :no_content }
     end
   end
