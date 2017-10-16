@@ -1,15 +1,14 @@
 class SubmissionsController < ApplicationController
   before_action :logged_in_user, only: [:show, :edit, :update, :destroy, :index, :new]  
+  before_action :correct_user, only: [:show, :edit, :update, :destroy]
   before_action :set_submission, only: [:show, :edit, :update, :destroy]
 
   # GET /submissions
-  # GET /submissions.json
   def index
     @submissions = Submission.all
   end
 
   # GET /submissions/1
-  # GET /submissions/1.json
   def show
   end
 
@@ -23,7 +22,6 @@ class SubmissionsController < ApplicationController
   end
 
   # POST /submissions
-  # POST /submissions.json
   def create
     @submission = Submission.new(submission_params)
 
@@ -39,7 +37,6 @@ class SubmissionsController < ApplicationController
   end
 
   # PATCH/PUT /submissions/1
-  # PATCH/PUT /submissions/1.json
   def update
     respond_to do |format|
       if @submission.update(submission_params)
@@ -53,7 +50,6 @@ class SubmissionsController < ApplicationController
   end
 
   # DELETE /submissions/1
-  # DELETE /submissions/1.json
   def destroy
     @submission.destroy
     respond_to do |format|
@@ -70,6 +66,13 @@ class SubmissionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def submission_params
-      params.require(:submission).permit(:submitted, :student_id, :assignment_id, :submission_date, :source_code, :grade)
+      params.require(:submission).permit(:submitted, :user_id, :assignment_id, :submission_date, :source_code, :grade)
+    end
+
+    def correct_user
+      @submission = Submission.find_by(id: params[:id])
+      instructor_access = !is_student? && @submission.assignment.course.enrolled_user?(current_user)
+      # cannot view or edit a submission if user is not the teacher teaching this course or not the student who owns this submission
+      redirect_to(dashboard_url, :flash => { :warning => 'Access denied'} ) unless @submission.user == current_user || instructor_access              
     end
 end

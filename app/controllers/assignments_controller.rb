@@ -1,5 +1,7 @@
 class AssignmentsController < ApplicationController
   before_action :logged_in_user
+  before_action :correct_user, only: [:show, :edit, :update, :destroy]
+  before_action :can_edit, only: [:edit, :update, :destroy]
   before_action :set_assignment, only: [:show, :edit, :update, :destroy]
 
   # GET /assignments
@@ -9,12 +11,13 @@ class AssignmentsController < ApplicationController
 
   # GET /assignments/1
   def show
-    @submission = Submission.where(assignment_id: @assignment.id, user_id: current_user.id).first
-    # move code below to user model after has_many and belongs_to are added
+    if !is_student?
+      redirect_to edit_assignment_path
+    end
+    @submission = @assignment.submissions.where(user_id: current_user.id).first
     if !@submission
-      @submission = Submission.new(user_id: current_user.id, assignment_id: @assignment.id, 
-                                   source_code: @assignment.template, submitted: false)
-      @submission.save! unless !is_student?
+      @submission = Submission.create(user_id: current_user.id, assignment_id: @assignment.id, 
+                                      source_code: @assignment.template, submitted: false)
     end
     # need to delete this? in future
     @submissions = nil
@@ -84,5 +87,17 @@ class AssignmentsController < ApplicationController
 
     def submission_params
       params.require(:submission).permit(:source_code, :assignment_id, :id)
+    end
+
+    def correct_user
+      @assignment = Assignment.find_by(id: params[:id])
+      redirect_to(dashboard_url, :flash => { :warning => 'Access denied' }) unless @assignment.course.enrolled_user?(current_user)
+    end
+
+    def can_edit
+      @assignment = Assignment.find_by(id: params[:id])
+      authorized = @assignment.course.enrolled_user?(current_user) && !is_student?
+      # cannot edit assignment if user is not teacher who's teaching this course
+      redirect_to(dashboard_url, :flash => { :warning => 'Access denied' }) unless authorized
     end
 end
