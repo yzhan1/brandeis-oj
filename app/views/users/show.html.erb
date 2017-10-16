@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<!-- <p id="notice"><%= notice %></p>
 
 <p>
   <strong>Name:</strong>
@@ -16,4 +16,51 @@
 </p>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<%= link_to 'Back', users_path %> -->
+
+<p id="notice"><%= notice %></p>
+
+<div class="container">
+  <br><br>
+  <div class="card">
+  <div class="card-body">
+    <div style="display:flex; justify-content: center; align-items: center;">
+      <h1>Hey, <%= @user.name %>!</h1>
+    </div>
+    <hr>
+    <br>
+    <div class="row">
+      <div class="col">
+
+      </div>
+      <div class="col-md-auto">
+        <!-- Avatar Image -->
+        <img src="/assets/man.png" alt="" style="width: 200px">
+      </div>
+      <div class="col">
+          <br>
+          <strong>Name:</strong>
+          <%= @user.name %> <br>
+          <strong>Email:</strong>
+          <%= @user.email %> <br>
+          <strong>Role:</strong>
+          <%= @user.role %> <br>
+          <%= link_to 'Edit', edit_user_path(@user) %>
+      </div>
+      <div class="col">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+
+
+
+
+<!-- <p>
+  <strong>Password:</strong>
+  <%= @user.password %>
+</p> -->
