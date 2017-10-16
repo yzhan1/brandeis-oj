@@ -1,2 +1,0 @@
-class ProdEnrollment < ApplicationRecord
-end

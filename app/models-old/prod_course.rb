@@ -1,2 +1,0 @@
-class ProdCourse < ApplicationRecord
-end

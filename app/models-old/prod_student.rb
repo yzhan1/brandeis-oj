@@ -1,2 +1,0 @@
-class ProdStudent < ApplicationRecord
-end

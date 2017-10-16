@@ -1,2 +1,0 @@
-class ProdSubmission < ApplicationRecord
-end
