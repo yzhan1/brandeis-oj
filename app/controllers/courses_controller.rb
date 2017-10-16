@@ -28,9 +28,9 @@ class CoursesController < ApplicationController
     @course = Course.new(course_params)
     respond_to do |format|
       if @course.save
+        Enrollment.create(user_id: current_user.id, course_id: @course.id)
         format.html { redirect_to @course, :flash => { :success => 'Course was successfully created.' } }
         format.json { render :show, status: :created, location: @course }
-        format.json { Enrollment.create(user_id: current_user.id, course_id: @course.id) }
       else
         format.html { render :new }
         format.json { render json: @course.errors, status: :unprocessable_entity }
@@ -74,6 +74,7 @@ class CoursesController < ApplicationController
 
     def correct_user
       @course = current_user.courses.find_by(id: params[:id])
+      puts @course
       redirect_to(dashboard_url, :flash => { :warning => 'Access denied' }) if @course.nil?
     end
 
