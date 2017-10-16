@@ -30,6 +30,7 @@ class CoursesController < ApplicationController
       if @course.save
         format.html { redirect_to @course, :flash => { :success => 'Course was successfully created.' } }
         format.json { render :show, status: :created, location: @course }
+        format.json { Enrollment.create(user_id: current_user.id, course_id: @course.id) }
       else
         format.html { render :new }
         format.json { render json: @course.errors, status: :unprocessable_entity }
@@ -68,7 +69,7 @@ class CoursesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
-      params.require(:course).permit(:course_title, :teacher_id, :course_code)
+      params.require(:course).permit(:course_title, :course_code)
     end
 
     def correct_user

@@ -11,22 +11,29 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :course_title %>
-    <%= form.text_field :course_title, id: :course_course_title %>
+  <div class="row" style="margin-left: 0; margin-right: 0">
+    <div class="container">
+      <div class="row" style="margin-left: 0; margin-right: 0">
+        <dl class="row">
+          <dt class="col-sm-3">
+            <%= form.label :course_title %>
+          </dt>
+          <dd class="col-sm-9">
+            <%= form.text_field :course_title, id: :course_course_title, class: "form-control", rows: "2"%>
+          </dd>
+          <dt class="col-sm-3">
+            <%= form.label :course_code %>
+          </dt>
+          <dd class="col-sm-9">
+            <%= form.text_field :course_code, id: :course_course_code %>
+          </dd>
+          <div class="ml-auto">
+            <%= form.submit "Save", class: "btn btn-success ml-auto"%>
+            <%= link_to 'Back', courses_path, class: "btn btn-danger ml-auto" %>
+          </div>
+        </dl>
+      </div>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.number_field :user_id, id: :course_user_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :course_code %>
-    <%= form.text_field :course_code, id: :course_course_code %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
 <% end %>
