@@ -24,7 +24,6 @@ class SubmissionsController < ApplicationController
   # POST /submissions
   def create
     @submission = Submission.new(submission_params)
-
     respond_to do |format|
       if @submission.save
         format.html { redirect_to @submission, :flash => { :success => 'Submission was successfully created.' } }

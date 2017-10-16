@@ -2,11 +2,7 @@ module SessionsHelper
 
   def log_in(user)
     session[:user_id] = user.id
-    if user.role == "student"
-      session[:is_student] = true
-    else
-      session[:is_student] = false
-    end
+    session[:is_student] = user.role == 'student'
   end
 
   def remember(user)
@@ -28,18 +24,11 @@ module SessionsHelper
   end
 
   def is_student?
-    if session[:is_student]
-      true
-    else
-      false
-    end
+    session[:is_student]
   end
 
   def logged_in_redirect
-    if logged_in?
-      # flash[:warning] = 'You have logged in already!'
-      redirect_to dashboard_url
-    end
+    redirect_to dashboard_url if logged_in?
   end
 
   def logged_in?
