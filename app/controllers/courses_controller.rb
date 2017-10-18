@@ -54,9 +54,10 @@ class CoursesController < ApplicationController
   # DELETE /courses/1
   # DELETE /courses/1.json
   def destroy
+    current_user.enrollments.where(course_id: @course.id).first.destroy
     @course.destroy
     respond_to do |format|
-      format.html { redirect_to courses_url, :flash => { :success => 'Course was successfully deleted.' } }
+      format.html { redirect_to dashboard_url, :flash => { :success => 'Course was successfully deleted.' } }
       format.json { head :no_content }
     end
   end
@@ -74,7 +75,6 @@ class CoursesController < ApplicationController
 
     def correct_user
       @course = current_user.courses.find_by(id: params[:id])
-      puts @course
       redirect_to(dashboard_url, :flash => { :warning => 'Access denied' }) if @course.nil?
     end
 

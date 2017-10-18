@@ -32,6 +32,11 @@ class AssignmentsController < ApplicationController
     redirect_to submission.assignment
   end
 
+  def autosave
+    submission = Submission.find(submission_params[:id])
+    submission.update(submission_params)
+  end
+
   # GET /assignments/new
   def new
     @assignment = Assignment.new
@@ -93,13 +98,13 @@ class AssignmentsController < ApplicationController
 
     def correct_user
       @assignment = Assignment.find_by(id: params[:id])
-      redirect_to(dashboard_url, :flash => { :warning => 'Access denied' }) unless @assignment.course.enrolled_user?(current_user)
+      redirect_back(fallback_location: dashboard_url, :flash => { :warning => 'Access denied' }) unless @assignment.course.enrolled_user?(current_user)
     end
 
     def can_edit
       @assignment = Assignment.find_by(id: params[:id])
       authorized = @assignment.course.enrolled_user?(current_user) && !is_student?
       # cannot edit assignment if user is not teacher who's teaching this course
-      redirect_to(dashboard_url, :flash => { :warning => 'Access denied' }) unless authorized
+      redirect_back(fallback_location: dashboard_url, :flash => { :warning => 'Access denied' }) unless authorized
     end
 end

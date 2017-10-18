@@ -44,7 +44,7 @@
     </div>
   </div>
   <div class="col-lg-7" style="padding-right: 0">
-    <%= form_for(@submission, url: save_path) do |f| %>
+    <%= form_for(@submission, url: save_path, authenticity_token: true) do |f| %>
       <pre id="editor" style="height: 86vh; margin-bottom: 0px"></pre>
       <%= f.text_area :source_code, id: :submission_source_code %>
       <%= f.number_field :assignment_id, id: :submission_assignment_id, style: "display: none", :value => @assignment.id %>
@@ -86,4 +86,18 @@
     input.val(editor.getSession().getValue());
     console.log(input.val());
   });
+
+  setInterval(autosave, 5000);
+
+  function autosave() {
+    $.ajax({
+      type: 'POST',
+      url: '/autosave',
+      data: $('form').serialize(),
+      dataType: 'script',
+      success: function(data) {
+        console.log(data);
+      }
+    });
+  }
 </script>
