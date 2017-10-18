@@ -63,12 +63,13 @@ class AssignmentsController < ApplicationController
 
   # PATCH/PUT /assignments/1
   def update
-    if @assignment.update(assignment_params)
-      flash[:success] = "Assignment updated"
-      redirect_to edit_assignment_path(@assignment, :course_id => @assignment.course.id)
-    else
-      render 'edit'
-    end
+    @assignment.update(assignment_params)
+    # if @assignment.update(assignment_params)
+    #   flash[:success] = "Assignment updated"
+    #   redirect_to edit_assignment_path(@assignment, :course_id => @assignment.course.id)
+    # else
+    #   render 'edit'
+    # end
   end
 
   # DELETE /assignments/1

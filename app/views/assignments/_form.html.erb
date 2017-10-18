@@ -1,4 +1,4 @@
-<%= form_with(model: assignment, local: true) do |form| %>
+<%= form_with(model: assignment, local: true, authenticity_token: true) do |form| %>
   <% if assignment.errors.any? %>
     <div id="error_explanation">
       <div class="alert alert-danger" role="alert">
@@ -73,5 +73,19 @@
       input.val(editor.getSession().getValue());
       console.log(input.val());
     });
+
+    setInterval(autosave, 5000);
+
+    function autosave() {
+      $.ajax({
+        type: 'PATCH',
+        url: '/save',
+        data: $('form').serialize(),
+        dataType: 'script',
+        success: function(data) {
+          console.log(data);
+        }
+      });
+    }
   </script>
 <% end %>
