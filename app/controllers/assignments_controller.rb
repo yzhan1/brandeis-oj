@@ -15,9 +15,9 @@ class AssignmentsController < ApplicationController
     @submission = @assignment.submissions.where(user_id: current_user.id).first
     if !@submission
       @submission = Submission.create(
-        user_id: current_user.id, 
-        assignment_id: @assignment.id,                               
-        source_code: @assignment.template, 
+        user_id: current_user.id,
+        assignment_id: @assignment.id,
+        source_code: @assignment.template,
         submitted: false
       )
     end
@@ -47,6 +47,7 @@ class AssignmentsController < ApplicationController
     @assignment = Assignment.new(assignment_params)
     respond_to do |format|
       if @assignment.save
+        Announcemnet.create(name: "New Assignment: #{params[:assignment][:name]}", couse_id: params[:assignment][:course_id], announcement_body: "A new assignment has been created!", announcement_date: DateTime.now) # TODO check if this is workingk
         format.html { redirect_to @assignment.course, :flash => { :success => 'Assignment was successfully created.' } }
         format.json { render :show, status: :created, location: @assignment.course }
       else
