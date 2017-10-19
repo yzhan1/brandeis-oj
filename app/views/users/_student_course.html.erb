@@ -9,18 +9,34 @@
   <% if @course_list.any? %>
     <br>
   <% end %>
-  <div class="row justify-content-md-center">
-    <div class="col">
-      <div class="input-group">
-        <span class="input-group-addon" id="basic-addon1">Code</span>
-        <input type="text" class="form-control" placeholder="Enter course code..." aria-label="Username" aria-describedby="basic-addon1">
+
+    <%= form_for(@enrollment, url: enroll_path) do |f| %>
+      <div class="form-group">
+        <div class="row">
+          <div class="col">
+            <div class="input-group">
+              <span class="input-group-addon" id="basic-addon1">Code</span>
+              <%= f.text_field :course_id, class: "form-control", placeholder: "Enter course code..", type: "text" %>
+            </div>
+          </div>
+          <div class="col-md-auto">
+            <div class="input-group">
+              <%= f.submit "Enroll", class: "btn btn-success" %>
+            </div>
+          </div>
+        </div>
       </div>
+    <% end %>
+
+    <!-- <div class="col">
+
     </div>
     <div class="col col-md-auto">
       <button type="button" class="btn btn-success ml-auto">Enroll</button>
-    </div>
+      <%= link_to "Enroll", enroll_path, class: "btn btn-success ml-auto btn-block", type: "button" %>
+    </div> -->
 
-  </div>
+
   <br><hr>
   <div class="row justify-content-md-center">
     <div class="col">

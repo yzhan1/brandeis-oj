@@ -16,7 +16,7 @@
     <% @enrollments.each do |enrollment| %>
       <tr>
         <td><%= enrollment.user_id %></td>
-        <td><%= enrollment.course_code %></td>
+        <td><%= enrollment.course_id %></td>
         <td><%= enrollment.final_grade %></td>
         <td><%= link_to 'Show', enrollment %></td>
         <td><%= link_to 'Edit', edit_enrollment_path(enrollment) %></td>
