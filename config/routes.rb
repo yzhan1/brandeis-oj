@@ -24,4 +24,6 @@ Rails.application.routes.draw do
   patch '/autosave', to: 'assignments#autosave'
 
   get '/submissions', to: 'submissions#index'
+
+  post '/enroll', to: 'enrollments#create_enrollment_dashboard'
 end
