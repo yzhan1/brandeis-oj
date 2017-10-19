@@ -26,7 +26,6 @@ class EnrollmentsController < ApplicationController
   # POST /enrollments.json
   def create
     @enrollment = Enrollment.new(enrollment_params)
-
     respond_to do |format|
       if @enrollment.save
         format.html { redirect_to @enrollment, success: 'Enrollment was successfully created.' }
@@ -36,6 +35,11 @@ class EnrollmentsController < ApplicationController
         format.json { render json: @enrollment.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def create_enrollment_dashboard
+    enroll_course params[:enrollment][:course_id] # Even though the course_id is passed, the user should input the course_code. Need to know how to use forms better.
+    redirect_to root_url
   end
 
   # PATCH/PUT /enrollments/1
@@ -71,5 +75,12 @@ class EnrollmentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def enrollment_params
       params.require(:enrollment).permit(:student_id, :course_code, :final_grade, :permission)
+    end
+
+    def enroll_course course_code
+      if !Course.where(course_code: course_code).nil? && !Course.where(course_code: course_code).first.nil?
+        new_enrollment = Enrollment.new(course_id: Course.where(course_code: course_code).first.id, user_id: session[:user_id])
+        new_enrollment.save
+      end
     end
 end

@@ -21,4 +21,6 @@ Rails.application.routes.draw do
   get '/assignments', to: 'assignments#index'
   post '/save', to: 'assignments#save'
   patch '/save', to: 'assignments#save'
+
+  post '/enroll', to: 'enrollments#create_enrollment_dashboard'
 end

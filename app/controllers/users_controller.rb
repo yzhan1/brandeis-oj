@@ -49,6 +49,7 @@ class UsersController < ApplicationController
   def dashboard
     @user = User.find(session[:user_id])
     @enrollment_list = Enrollment.where("user_id=#{@user.id}")
+    @enrollment = Enrollment.new
     @course_list = Array.new
     @announcement_list = Array.new
     @assignment_list = Array.new
