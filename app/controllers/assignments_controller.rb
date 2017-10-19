@@ -11,18 +11,22 @@ class AssignmentsController < ApplicationController
 
   # GET /assignments/1
   def show
-    redirect_to edit_assignment_path if !is_student?
-    @submission = @assignment.submissions.where(user_id: current_user.id).first
-    if !@submission
-      @submission = Submission.create(
-        user_id: current_user.id, 
-        assignment_id: @assignment.id,                               
-        source_code: @assignment.template, 
-        submitted: false
-      )
+    redirect_to edit_assignment_path if is_student?
+    if is_student?
+      @submission = @assignment.submissions.where(user_id: current_user.id).first
+      if !@submission
+        @submission = Submission.create(
+          user_id: current_user.id,
+          assignment_id: @assignment.id,
+          source_code: @assignment.template,
+          submitted: false
+        )
+      end
+    else
+      @submissions = @assignment.submissions
+      @course = @assignment.course
     end
-    # need to delete this? in future
-    @submissions = nil
+
   end
 
   def save

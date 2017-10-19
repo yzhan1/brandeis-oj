@@ -22,4 +22,6 @@ Rails.application.routes.draw do
   post '/save', to: 'assignments#save'
   patch '/save', to: 'assignments#save'
   patch '/autosave', to: 'assignments#autosave'
+
+  get '/submissions', to: 'submissions#index'
 end

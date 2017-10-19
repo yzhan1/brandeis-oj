@@ -31,6 +31,9 @@
         <th>Assignment Name</th>
         <th>Due Date</th>
         <th>Actions</th>
+        <% if !is_student? %>
+          <th>Submissions</th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
@@ -39,14 +42,19 @@
         <tr>
           <td><%= assignment.name %></td>
           <td><%= assignment.due_date %></td>
-          <td>
-            <% if !is_student? %>
+          <% if !is_student? %>
+            <td>
               <%= link_to 'Edit', edit_assignment_path(assignment, course_id: @course.id), class: "btn btn-outline-primary btn-sm" %>
               <%= link_to 'Delete', assignment, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger btn-sm" %>
-            <% else %>
-              <%= link_to 'Show', assignment, class: "btn btn-outline-primary btn-sm" %>
-            <% end %>
+            </td>
+            <td>
+              <%= link_to 'Show', assignment_url(assignment), class: "btn btn-outline-success btn-sm" %>
+            </td>
+          <% else %>
+            <td>
+            <%= link_to 'Show', assignment, class: "btn btn-outline-primary btn-sm" %>
           </td>
+          <% end %>
         </tr>
         <% end %>
       <% else %>
