@@ -1,47 +1,47 @@
 <% if is_student? %>
   <%= render "student_show.html.erb" %>
 <% else %>
-<% provide(:title, "Assignment Details") %>
-<br>
-<div class="container">
-  <h3>
-    <div class="justify-content-between" style="display: flex">
-      <div>
-        <%= @assignment.name %>
-        (<%= @course.course_code %>)
+  <% provide(:title, "Assignment Details") %>
+  <br>
+  <div class="container">
+    <h3>
+      <div class="justify-content-between" style="display: flex">
+        <div>
+          <%= @assignment.name %>
+          (<%= @course.course_code %>)
+        </div>
       </div>
-    </div>
-  </h3>
-  <hr/>
-  <h4 style="display: flex; margin-bottom: 10px" class="justify-content-between">
-    <div>List of Submissions</div>
-    <% if !is_student? %>
-      <%= link_to 'New Assignment', new_assignment_path(:course_id => @course.id), class: "btn btn-outline-primary btn-sm" %>
-    <% end %>
-  </h4>
-  <table class="table table-striped table-bordered">
-    <thead>
-      <tr>
-        <th>Student Name</th>
-        <th>Submitted Date</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% if @submissions %>
-        <% @submissions.each do |submission| %>
-          <tr>
-            <td><%= submission.user.name %></td>
-            <td><%= submission.submission_date %></td>
-            <td>
-              <%= link_to 'Show', submission_url(submission), class: "btn btn-outline-success btn-sm" %>
-            </td>
-          </tr>
-        <% end %>
-      <% else %>
-        <td colspan="4" align="center">No assignments</td>
+    </h3>
+    <hr/>
+    <h4 style="display: flex; margin-bottom: 10px" class="justify-content-between">
+      <div>List of Submissions</div>
+      <% if !is_student? %>
+        <%= link_to 'New Assignment', new_assignment_path(:course_id => @course.id), class: "btn btn-outline-primary btn-sm" %>
       <% end %>
-    </tbody>
-  </table>
-</div>
-<%end%>
+    </h4>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Student Name</th>
+          <th>Submitted Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @submissions %>
+          <% @submissions.each do |submission| %>
+            <tr>
+              <td><%= submission.user.name %></td>
+              <td><%= submission.submission_date %></td>
+              <td>
+                <%= link_to 'Show', submission_url(submission), class: "btn btn-outline-success btn-sm" %>
+              </td>
+            </tr>
+          <% end %>
+        <% else %>
+          <td colspan="4" align="center">No assignments</td>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

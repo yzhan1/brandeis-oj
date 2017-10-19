@@ -42,28 +42,28 @@
         <% end %>
       <% end %>
     </div>
-    <div class="col-lg-7" style="padding-right: 0">
-      <%= form_for(@submission, url: save_path, authenticity_token: true) do |f| %>
-        <pre id="editor" style="height: 86vh; margin-bottom: 0px"></pre>
-        <%= f.text_area :source_code, id: :submission_source_code %>
-        <%= f.number_field :assignment_id, id: :submission_assignment_id, style: "display: none", :value => @assignment.id %>
-        <%= f.number_field :id, id: :submission_id, style: "display: none", :value => @submission.id %>
-        <nav class="navbar navbar-light bg-light" style="padding-right: 0">
-          <div class="row justify-content-between">
-            <div class="col-sm-9">
-              <select class="form-control" id="select1">
-                <option>Java</option>
-                <option>Ruby</option>
-                <option>Python</option>
-              </select>
-            </div>
-            <div class="col-sm-3">
-              <%= f.submit "Submit", class: "btn btn-success ml-auto" %>
-            </div>
+  </div>
+  <div class="col-lg-7" style="padding-right: 0">
+    <%= form_for(@submission, url: save_path, authenticity_token: true) do |f| %>
+      <pre id="editor" style="height: 86vh; margin-bottom: 0px"></pre>
+      <%= f.text_area :source_code, id: :submission_source_code %>
+      <%= f.number_field :assignment_id, id: :submission_assignment_id, style: "display: none", :value => @assignment.id %>
+      <%= f.number_field :id, id: :submission_id, style: "display: none", :value => @submission.id %>
+      <nav class="navbar navbar-light bg-light" style="padding-right: 0">
+        <div class="row justify-content-between">
+          <div class="col-sm-9">
+            <select class="form-control" id="select1">
+              <option>Java</option>
+              <option>Ruby</option>
+              <option>Python</option>
+            </select>
           </div>
-        </nav>
-      <% end %>
-    </div>
+          <div class="col-sm-3">
+            <%= f.submit "Submit", class: "btn btn-success ml-auto" %>
+          </div>
+        </div>
+      </nav>
+    <% end %>
   </div>
 </div>
 
