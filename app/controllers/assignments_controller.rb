@@ -11,7 +11,6 @@ class AssignmentsController < ApplicationController
 
   # GET /assignments/1
   def show
-    redirect_to edit_assignment_path if is_student?
     if is_student?
       @submission = @assignment.submissions.where(user_id: current_user.id).first
       if !@submission

@@ -1,3 +1,6 @@
+<% if is_student? %>
+  <% render "student_show.html.erb" %>
+<% else %>
 <% provide(:title, "Assignment Details") %>
 <br>
 <div class="container">
@@ -41,3 +44,4 @@
     </tbody>
   </table>
 </div>
+<%end%>
