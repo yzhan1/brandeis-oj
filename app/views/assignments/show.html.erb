@@ -1,7 +1,10 @@
 <% if is_student? %>
+  <% provide(:title, "Assignment Detail") %>
+  <% breadcrumb :assignment, @assignment %>
   <%= render "student_show.html.erb" %>
 <% else %>
-  <% provide(:title, "Assignment Details") %>
+  <% breadcrumb :submissions, @assignment %>
+  <% provide(:title, "Assignment Submissions") %>
   <br>
   <div class="container">
     <h3>
