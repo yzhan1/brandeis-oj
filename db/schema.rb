@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20171011233651) do
     t.datetime "submission_date"
     t.string "source_code"
     t.float "grade"
+    t.string "comments"
     t.integer "user_id"
     t.integer "assignment_id"
     t.datetime "created_at", null: false
