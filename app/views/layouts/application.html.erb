@@ -21,9 +21,7 @@
     <% end %>
     <%= render 'layouts/header' %>
     <div class="breadcrumb" style="border-radius: 0px; margin-bottom: 0px">
-      <div class="container">
-        <%= breadcrumbs separator: " / ", style: :inline %>
-      </div>
+      <%= breadcrumbs separator: " / ", style: :inline %>
     </div>
     <%= yield %>
   </body>
