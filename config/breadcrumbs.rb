@@ -34,12 +34,12 @@ crumb :edit_assignment do |assignment|
 end
 
 crumb :submissions do |assignment|
-  link "Submissions for #{assignment.name}", assignment
+  link "Submissions (assignment ##{assignment.id})", assignment
   parent :course, assignment.course
 end
 
 crumb :submission do |submission|
-  link "Submission from #{submission.user.name}", submission
+  link "Submission", submission
   parent :submissions, submission.assignment
 end
 
