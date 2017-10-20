@@ -41,6 +41,7 @@
     </div>
     <div class="col-lg-7" style="padding-right: 0">
       <%= form.text_area :template, id: :assignment_template %>
+      <%= token_tag(nil) %>
       <pre id="editor" style="height: 86vh; margin-bottom: 0px"></pre>
       <nav class="navbar navbar-light bg-light">
         <div class="row justify-content-between">
@@ -79,7 +80,7 @@
     function autosave() {
       $.ajax({
         type: 'PATCH',
-        url: '/save',
+        url: '/assignments/<%= @assignment.id %>',
         data: $('form').serialize(),
         dataType: 'script',
         success: function(data) {
