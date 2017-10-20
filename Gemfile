@@ -42,7 +42,7 @@ source 'https://rails-assets.org' do
 end
 
 gem 'toastr-rails'
-
+gem "gretel"
 gem 'activerecord-reset-pk-sequence'
 
 # Use Capistrano for deployment

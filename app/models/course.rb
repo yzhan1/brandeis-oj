@@ -1,4 +1,6 @@
 class Course < ApplicationRecord
+  validates :course_title, presence: true
+  validates :course_code, presence: true
   has_many :enrollments
   has_many :announcements
   has_many :assignments
