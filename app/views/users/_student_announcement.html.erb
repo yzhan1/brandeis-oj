@@ -1,14 +1,22 @@
 <div class="col">
-  <h4>ANNOUNCEMENTS</h4>
-  <% @announcement_list.each do |announcement| %>
-      <br>
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title"><%="COSI #{announcement.course.course_code} #{announcement.announcement_date.to_s}"%></h4>
-          <p class="card-text"><%=announcement.announcement_body%></p>
-          <a href="#" class="btn btn-primary">Open</a>
-        </div>
+  <div class="card">
+    <div class="card-body" style="position: relative; height: 600px; overflow-y: scroll;">
+      <div id="list-example" class="list-group"></div>
+      <div data-spy="scroll" data-target="#list-example" data-offset="0" class="scrollspy-example">
+        <h4>ANNOUNCEMENTS</h4> <br>
+        <% @announcement_list.each do |announcement| %>
+          <div class="card bg-light mb-3">
+            <div class="card-header"><%="COSI #{announcement.course.course_code} (#{announcement.announcement_date.strftime('%B %d, %Y')})"%></div>
+            <div class="card-body">
+              <h4 class="card-title"><%="COSI #{announcement.course.course_code}"%></h4>
+              <p class="card-text"><%=announcement.announcement_body%></p>
+            </div>
+          </div>
+        <% end %>
       </div>
-      <br>
-  <% end %>
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
 </div>
