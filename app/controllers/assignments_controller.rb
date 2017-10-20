@@ -25,7 +25,6 @@ class AssignmentsController < ApplicationController
       @submissions = @assignment.submissions
       @course = @assignment.course
     end
-
   end
 
   def save
