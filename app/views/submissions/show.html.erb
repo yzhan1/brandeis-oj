@@ -1,7 +1,7 @@
 <div class="row" style="margin-left: 0; margin-right: 0">
   <div class="col-lg-5">
     <div class="container">
-      <h3 style="padding-top:20px">Assignment #<%= @submission.assignment_id %> <small class="text-muted"><%= @submission.user.name %></small></h3>
+      <h3 style="padding-top:20px"><%= @submission.assignment.name %> <small class="text-muted"><%= @submission.user.name %></small></h3>
       <hr/>
       
       <dl class="row">
@@ -12,12 +12,7 @@
 
         <dt class="col-sm-3">Instructions</dt>
         <dd class="col-sm-9">
-          Instructions from assignment...
-        </dd>
-
-        <dt class="col-sm-3">Example</dt>
-        <dd class="col-sm-9">
-          Test examples...
+          <%= @submission.assignment.instructions %>
         </dd>
 
         <dt class="col-sm-3">Date</dt>
