@@ -18,12 +18,13 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
-  get '/assignments', to: 'assignments#index'
-  post '/save', to: 'assignments#save'
-  patch '/save', to: 'assignments#save'
-  patch '/autosave', to: 'assignments#autosave'
+  get '/assignments',   to: 'assignments#index'
+  post '/save',         to: 'assignments#save'
+  patch '/save',        to: 'assignments#save'
+  patch '/autosave',    to: 'assignments#autosave'
 
-  get '/submissions', to: 'submissions#index'
+  get '/submissions',   to: 'submissions#index'
 
-  post '/enroll', to: 'enrollments#create_enrollment_dashboard'
+  post '/enroll',       to: 'enrollments#create_enrollment_dashboard'
+
 end

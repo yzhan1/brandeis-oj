@@ -12,6 +12,7 @@ class CoursesController < ApplicationController
   # GET /courses/1
   def show
     @assignment_list = Assignment.where(course_id: @course.id)
+    @enrollment_id = Enrollment.find_by(user_id: current_user.id, course_id: @course.id)
   end
 
   # GET /courses/new
