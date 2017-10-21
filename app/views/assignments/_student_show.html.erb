@@ -1,52 +1,22 @@
 <% provide(:title, "Assignment") %>
 <div class="row" style="margin-left: 0; margin-right: 0">
-  <div class="col-lg-5">
+  <div class="col-lg-5 assignment-details">
     <div class="container">
       <h3 style="padding-top:20px"><%= @assignment.name %> <small class="text-muted"><%= @assignment.course.course_code %></small></h3>
       <hr/>
       <dl class="row">
         <dt class="col-sm-3">Description</dt>
         <dd class="col-sm-9"><%= @assignment.instructions %></dd>
-        <dt class="col-sm-3">Example</dt>
-        <dd class="col-sm-9">
-          <p>Given n = 5, return 1 + 1 + 2 + 3 + 5 = 12</p>
-          <p>Given n = 7, return 1 + 1 + 2 + 3 + 5 + 8 + 13 = 33</p>
-        </dd>
         <dt class="col-sm-3">Due Date</dt>
         <dd class="col-sm-9"><%= @assignment.due_date %></dd>
       </dl>
       <hr/>
-      <% if is_student? %>
-        <% if @submissions %>
-          <h5>Your submissions</h5>
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Time submitted</th>
-                <th>Score</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @submissions.each do |submission| %>
-                <tr>
-                  <td><%= submission.submission_date %></td>
-                  <td><%= submission.grade %></td>
-                  <td><%= link_to 'Show', submission_url(submission), class: "btn btn-outline-primary btn-sm" %></td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        <% else %>
-          <td colspan="4" align="center">You don't have any submissions</td>
-        <% end %>
-      <% end %>
     </div>
   </div>
   <div class="col-lg-7" style="padding-right: 0">
     <%= form_for(@submission, url: save_path) do |f| %>
       <%= token_tag(nil) %>
-      <pre id="editor" style="height: 86vh; margin-bottom: 0px"></pre>
+      <pre id="editor" style="margin-bottom: 0px" class="editor-div"></pre>
       <%= f.text_area :source_code, id: :submission_source_code %>
       <%= f.number_field :assignment_id, id: :submission_assignment_id, style: "display: none", :value => @assignment.id %>
       <%= f.number_field :id, id: :submission_id, style: "display: none", :value => @submission.id %>

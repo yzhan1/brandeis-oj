@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :correct_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
   def index
@@ -13,7 +13,11 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    @user = User.new
+    if logged_in?
+      redirect_to dashboard_url, :flash => { :warning => 'You logged in already' }
+    else
+      @user = User.new
+    end
   end
 
   # GET /users/1/edit
@@ -31,7 +35,6 @@ class UsersController < ApplicationController
       render 'new'
     end
   end
-
 
   # PATCH/PUT /users/1
   def update

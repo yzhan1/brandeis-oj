@@ -6,3 +6,16 @@
   float: none; /* Added */
   margin-bottom: 10px; /* Added */
 }
+
+.editor-div {
+  height: calc(100vh - 161px);
+}
+
+.submission-div {
+  height: calc(100vh - 107px);
+}
+
+.assignment-details {
+  height: calc(100vh - 107px);
+  overflow-y: scroll;
+}

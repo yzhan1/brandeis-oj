@@ -1,7 +1,7 @@
 <% provide(:title, "Submission Detail") %>
 <% breadcrumb :submission, @submission %>
 <div class="row" style="margin-left: 0; margin-right: 0">
-  <div class="col-lg-5">
+  <div class="col-lg-5 assignment-details">
     <div class="container">
       <h3 style="padding-top:20px"><%= @submission.assignment.name %> <small class="text-muted"><%= @submission.user.name %></small></h3>
       <hr/>
@@ -35,8 +35,8 @@
     </div>
   </div>
   <div class="col-lg-7" style="padding-right: 0">
-    <pre id="editor" style="height: 86vh; margin-bottom: 0px"><%= raw(@submission.source_code) %></pre>
     <% if !is_student? %>
+      <pre id="editor" style="margin-bottom: 0px" class="editor-div"><%= raw(@submission.source_code) %></pre>
       <nav class="navbar navbar-light bg-light">
         <div class="row justify-content-between">
           <div class="col-sm-9">
@@ -51,6 +51,8 @@
           </div>
         </div>
       </nav>
+    <% else %>
+      <pre id="editor" style="margin-bottom: 0px" class="submission-div"><%= raw(@submission.source_code) %></pre>
     <% end %>
   </div>
 </div>

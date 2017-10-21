@@ -13,7 +13,7 @@
   <% end %>
 
   <div class="row" style="margin-left: 0; margin-right: 0">
-    <div class="col-lg-5">
+    <div class="col-lg-5 assignment-details">
       <div class="container">
         <h3 style="padding-top:20px">Edit Assignment</small></h3>
         <hr/>
@@ -27,10 +27,6 @@
           <dd class="col-sm-9">
             <%= form.text_area :instructions, id: :assignment_instructions, class: "form-control", rows: "2" %>
           </dd>
-          <dt class="col-sm-3">Example</dt>
-          <dd class="col-sm-9">
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-          </dd>
           <dt class="col-sm-3">Due Date</dt>
           <dd class="col-sm-9">
             <%= form.datetime_select :due_date, id: :assignment_due_date, class: "form-control" %>
@@ -42,7 +38,7 @@
     <div class="col-lg-7" style="padding-right: 0">
       <%= form.text_area :template, id: :assignment_template %>
       <%= token_tag(nil) %>
-      <pre id="editor" style="height: 86vh; margin-bottom: 0px"></pre>
+      <pre id="editor" style="margin-bottom: 0px" class="editor-div"></pre>
       <nav class="navbar navbar-light bg-light">
         <div class="row justify-content-between">
           <div class="col-sm-9">

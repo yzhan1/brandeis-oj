@@ -2,7 +2,6 @@
   <% if submission.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(submission.errors.count, "error") %> prohibited this submission from being saved:</h2>
-
       <ul>
       <% submission.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -16,14 +15,12 @@
       <dd class="col-sm-9">
         <%= form.number_field :grade, id: :submission_grade, class: "form-control" %>
       </dd>
-
       <dt class="col-sm-3">Comments</dt>
       <dd class="col-sm-9">
         <%= form.text_area :comments, id: :submission_comments, class: "form-control" %>
       </dd>
-
-      <div class="container">
-        <%= form.submit "Save", class: "btn btn-outline-success" %>
+      <div class="container" style="padding-top: 15px">
+        <%= form.submit "Save", class: "btn btn-outline-success btn-block" %>
       </div>
     </dl>
   </div>

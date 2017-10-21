@@ -20,9 +20,11 @@
       <% end %>
     <% end %>
     <%= render 'layouts/header' %>
-    <div class="breadcrumb" style="border-radius: 0px; margin-bottom: 0px">
-      <%= breadcrumbs separator: " / ", style: :inline %>
-    </div>
+    <% if logged_in? %>
+      <div class="breadcrumb" style="border-radius: 0px; margin-bottom: 0px">
+        <%= breadcrumbs separator: " / ", style: :inline %>
+      </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>
