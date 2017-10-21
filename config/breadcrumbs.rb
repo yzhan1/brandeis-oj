@@ -3,7 +3,7 @@ crumb :root do
 end
 
 crumb :dashboard do
-  link "Dashboard", dashboard_path
+  link "", dashboard_path
 end
 
 crumb :course do |course|
