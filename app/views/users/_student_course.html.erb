@@ -73,7 +73,7 @@
             <tr>
               <td><%= assignment.course.course_code %></td>
               <td><%= assignment.name %></td>
-              <td><%= assignment.due_date %></td>
+              <td><%= assignment.due_date.strftime('%b %d %Y, %H:%M') %></td>
               <td><%= link_to 'Show', assignment_url(assignment), class: 'btn btn-outline-primary btn-sm' %></td>
               <td>NOT SUBMITTED</td>
             </tr>

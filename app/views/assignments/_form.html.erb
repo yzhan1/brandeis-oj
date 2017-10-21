@@ -15,7 +15,7 @@
   <div class="row" style="margin-left: 0; margin-right: 0">
     <div class="col-lg-5 assignment-details">
       <div class="container">
-        <h3 style="padding-top:20px">Edit Assignment</small></h3>
+        <h3 style="padding-top:20px">New/Edit Assignment</small></h3>
         <hr/>
         <%= form.hidden_field :course_id, value: params['course_id'] %>
         <dl class="row">
@@ -65,12 +65,15 @@
     editor.getSession().setMode("ace/mode/java");
     editor.setShowPrintMargin(false);
     editor.setOptions({fontSize: "14px"});
-    editor.setValue("<%= @assignment.template.inspect[1..-2] %>", 1);
+    editor.setValue("");
+    <% if !@assignment.template.inspect %>
+      editor.setValue("<%= @assignment.template.inspect[1..-2] %>", 1);
+    <% end %>
     editor.getSession().on('change', function() {
       input.val(editor.getSession().getValue());
       console.log(input.val());
     });
-
+/*
     setInterval(autosave, 5000);
 
     function autosave() {
@@ -83,6 +86,6 @@
           console.log(data);
         }
       });
-    }
+    }*/
   </script>
 <% end %>

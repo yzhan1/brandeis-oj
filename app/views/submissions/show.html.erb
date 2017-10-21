@@ -19,7 +19,7 @@
 
         <dt class="col-sm-3">Date</dt>
         <dd class="col-sm-9">
-          <%= @submission.submission_date %>
+          <%= @submission.submission_date.strftime('%a, %b %d %Y, %H:%M') %>
         </dd>
 
         <% if is_student? %>

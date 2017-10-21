@@ -8,7 +8,7 @@
         <dt class="col-sm-3">Description</dt>
         <dd class="col-sm-9"><%= @assignment.instructions %></dd>
         <dt class="col-sm-3">Due Date</dt>
-        <dd class="col-sm-9"><%= @assignment.due_date %></dd>
+        <dd class="col-sm-9"><%= @assignment.due_date.strftime('%a, %b %d %Y, %H:%M') %></dd>
       </dl>
       <hr/>
     </div>
