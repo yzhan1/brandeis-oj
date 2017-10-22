@@ -6,14 +6,36 @@
         <h4 style="display: flex; margin-bottom: 10px" class="justify-content-between">
           <div>Announcements</div>
         </h4>
-        <% @course.announcements.each do |announcement| %>
+        <div id="accordion" role="tablist" aria-multiselectable="true">
+          <!--Showing only the first indexes data-->
           <div class="card bg-light mb-3">
-            <div class="card-header"><%="#{announcement.announcement_date.strftime('%B %d, %Y')}"%></div>
-            <div class="card-body">
-              <p class="card-text"><%=announcement.announcement_body%></p>
+            <div class="card-header" role="tab" id="heading0">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse0" aria-expanded="true" aria-controls="collapse0">
+                <%="#{@course.announcements[0].announcement_date.strftime('%B %d, %Y')}"%>
+              </a>
+            </div>
+            <div id="collapse0" class="collapse show" role="tabpanel" aria-labelledby="heading0">
+              <div class="card-body">
+                <p class="card-text"><%=@course.announcements[0].announcement_body%></p>
+              </div>
             </div>
           </div>
-        <% end %>
+          <!--Only show the header of the second announcement onwards-->
+          <% @course.announcements.drop(1).each_with_index do |announcement, index| %>
+            <div class="card bg-light mb-3">
+              <div class="card-header" role="tab" id="heading<%="#{index+1}"%>">
+                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse<%="#{index+1}"%>" aria-expanded="false" aria-controls="collapse<%="#{index+1}"%>">
+                  <%="#{announcement.announcement_date.strftime('%B %d, %Y')}"%>
+                </a>
+              </div>
+              <div id="collapse<%="#{index+1}"%>" class="collapse" role="tabpanel" aria-labelledby="heading<%="#{index+1}"%>">
+                <div class="card-body">
+                  <p class="card-text"><%=announcement.announcement_body%></p>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
