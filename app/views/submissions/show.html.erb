@@ -33,6 +33,7 @@
       </dl>
       <hr/>
     </div>
+    <br/>
   </div>
   <div class="col-lg-7" style="padding-right: 0">
     <% if !is_student? %>
@@ -59,10 +60,6 @@
 
 <script>
   var editor = ace.edit("editor");
-  <% if is_student? %>
-    var editorDiv = document.getElementById("editor");
-    editorDiv.style.height = "93vh";
-  <% end %>
   editor.getSession().setUseSoftTabs(false);
   editor.setTheme("ace/theme/xcode");
   editor.getSession().setMode("ace/mode/java");
