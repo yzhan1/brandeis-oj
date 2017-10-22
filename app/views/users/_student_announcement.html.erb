@@ -4,15 +4,38 @@
       <div id="list-example" class="list-group"></div>
       <div data-spy="scroll" data-target="#list-example" data-offset="0" class="scrollspy-example">
         <h4>ANNOUNCEMENTS</h4> <br>
-        <% @announcement_list.each do |announcement| %>
+        <div id="accordion" role="tablist" aria-multiselectable="true">
+          <!--Show header and body for first card-->
           <div class="card bg-light mb-3">
-            <div class="card-header"><%="COSI #{announcement.course.course_code} (#{announcement.announcement_date.strftime('%B %d, %Y')})"%></div>
-            <div class="card-body">
-              <h4 class="card-title"><%="COSI #{announcement.course.course_code}"%></h4>
-              <p class="card-text"><%=announcement.announcement_body%></p>
+            <div class="card-header">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse0" aria-expanded="true" aria-controls="collapse0">
+                <%="COSI #{@announcement_list[0].course.course_code} (#{@announcement_list[0].announcement_date.strftime('%B %d, %Y')})"%>
+              </a>
+            </div>
+            <div id="collapse0" class="collapse show" role="tabpanel" aria-labelledby="heading0">
+              <div class="card-body">
+                <h4 class="card-title"><%="COSI #{@announcement_list[0].course.course_code}"%></h4>
+                <p class="card-text"><%=@announcement_list[0].announcement_body%></p>
+              </div>
             </div>
           </div>
-        <% end %>
+          <!--Only show the header of the second announcement onwards-->
+          <% @announcement_list.drop(1).each_with_index do |announcement, index| %>
+            <div class="card bg-light mb-3">
+              <div class="card-header">
+                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse<%="#{index+1}"%>" aria-expanded="false" aria-controls="collapse<%="#{index+1}"%>">
+                  <%="COSI #{announcement.course.course_code} (#{announcement.announcement_date.strftime('%B %d, %Y')})"%>
+                </a>
+              </div>
+              <div id="collapse<%="#{index+1}"%>" class="collapse" role="tabpanel" aria-labelledby="heading<%="#{index+1}"%>">
+                <div class="card-body">
+                  <h4 class="card-title"><%="COSI #{announcement.course.course_code}"%></h4>
+                  <p class="card-text"><%=announcement.announcement_body%></p>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
