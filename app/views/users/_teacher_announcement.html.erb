@@ -31,16 +31,18 @@
   <hr>
   <br>
   <h4>PREVIOUS ANNOUNCEMENTS</h4>
-  <% @announcement_list.each do |announcement| %>
-      <br>
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title"><%="COSI #{announcement.course.course_code} #{announcement.announcement_date.to_s}"%></h4>
-          <p class="card-text"><%=announcement.announcement_body%></p>
-          <a href="#" class="btn btn-primary">Open</a>
-          <a href="#" class="btn btn-danger">Delete</a>
+  <% if @announcement_list.present? %>
+    <% @announcement_list.each do |announcement| %>
+        <br>
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title"><%="COSI #{announcement.course.course_code} #{announcement.announcement_date.to_s}"%></h4>
+            <p class="card-text"><%=announcement.announcement_body%></p>
+            <a href="#" class="btn btn-primary">Open</a>
+            <a href="#" class="btn btn-danger">Delete</a>
+          </div>
         </div>
-      </div>
-      <br>
+        <br>
+    <% end %>
   <% end %>
 </div>
