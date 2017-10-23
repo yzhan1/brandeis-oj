@@ -77,9 +77,9 @@ class EnrollmentsController < ApplicationController
       params.require(:enrollment).permit(:student_id, :course_code, :final_grade, :permission)
     end
 
-    def enroll_course course_code
-      if !Course.where(course_code: course_code).nil? && !Course.where(course_code: course_code).first.nil?
-        new_enrollment = Enrollment.new(course_id: Course.where(course_code: course_code).first.id, user_id: session[:user_id])
+    def enroll_course permission
+      if !Course.where(permission: permission).nil? && !Course.where(permission: permission).first.nil?
+        new_enrollment = Enrollment.new(course_id: Course.where(permission: permission).first.id, user_id: session[:user_id])
         new_enrollment.save
       end
     end

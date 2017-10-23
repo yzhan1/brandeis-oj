@@ -7,7 +7,11 @@
   <br>
   <div class="list-group" id="list-tab" role="tablist">
     <% @course_list.each do |course| %>
+      <% if course.permission==nil%>
+      <%=  link_to "#{course.course_title} (#{course.course_code})", edit_course_path(course), class: "list-group-item list-group-item-action" %>
+      <% else %>
       <%= link_to "#{course.course_title} (#{course.course_code})", course_url(course), class: "list-group-item list-group-item-action" %>
+      <% end %>
     <% end %>
   </div>
   <br><hr>
