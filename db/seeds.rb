@@ -20,10 +20,10 @@ User.create(name: 'Pito Salas', email: 'rpsalas@brandeis.edu', password: '123456
 User.create(name: 'Antonella', email: 'antonella@brandeis.edu', password: '123456', password_confirmation: '123456', role: 'teacher')
 User.create(name: 'Tim Hickey', email: 'tjhickey@brandeis.edu', password: '123456', password_confirmation: '123456', role: 'teacher')
 
-Course.create(course_code:"11a", course_title:"Intro to Programming")
-Course.create(course_code:"12b", course_title:"Advanced Programming Techniques")
-Course.create(course_code:"21a", course_title:"Data Structures and Algorithms")
-Course.create(course_code:"166b", course_title:"Capstone: Software Engineering")
+Course.create(course_code:"11a", course_title:"Intro to Programming", permission: SecureRandom.hex(10))
+Course.create(course_code:"12b", course_title:"Advanced Programming Techniques", permission: SecureRandom.hex(10))
+Course.create(course_code:"21a", course_title:"Data Structures and Algorithms", permission: SecureRandom.hex(10))
+Course.create(course_code:"166b", course_title:"Capstone: Software Engineering", permission: SecureRandom.hex(10))
 
 Assignment.create(name: "Fibonacci Algorithm", course_id: 1, instructions: "Write Fib", template: "public class Solution {\n\t\n}", due_date: Time.now.strftime("%d/%m/%Y %H:%M"))
 Assignment.create(name: "Printing out Sentences", course_id: 1, instructions: "Print a bunch of sentences.", template: "public class Solution {\n\t\n}", due_date: Time.now.strftime("%d/%m/%Y %H:%M"))
