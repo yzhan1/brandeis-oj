@@ -6,7 +6,7 @@
         <h4 style="display: flex; margin-bottom: 10px" class="justify-content-between">
           <div>Announcements</div>
         </h4>
-        <% if @course.announcement.present? %>
+        <% if @course.announcements.present? %>
           <div id="accordion" role="tablist" aria-multiselectable="true">
             <!--Showing only the first indexes data-->
             <div class="card bg-light mb-3">
