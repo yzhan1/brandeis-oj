@@ -19,10 +19,12 @@
         <%= javascript_tag "toastr.#{message_type}('#{message}')" %>
       <% end %>
     <% end %>
-
     <%= render 'layouts/header' %>
-    
+    <% if logged_in? %>
+      <div class="breadcrumb" style="border-radius: 0px; margin-bottom: 0px">
+        <%= breadcrumbs separator: " / ", style: :inline %>
+      </div>
+    <% end %>
     <%= yield %>
-
   </body>
 </html>

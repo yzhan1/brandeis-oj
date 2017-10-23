@@ -1,7 +1,8 @@
 <% if is_student? %>
+  <% breadcrumb :assignment, @assignment %>
   <%= render "student_show.html.erb" %>
 <% else %>
-  <% provide(:title, "Assignment Details") %>
+  <% breadcrumb :submissions, @assignment %>
   <br>
   <div class="container">
     <h3>
@@ -15,9 +16,6 @@
     <hr/>
     <h4 style="display: flex; margin-bottom: 10px" class="justify-content-between">
       <div>List of Submissions</div>
-      <% if !is_student? %>
-        <%= link_to 'New Assignment', new_assignment_path(:course_id => @course.id), class: "btn btn-outline-primary btn-sm" %>
-      <% end %>
     </h4>
     <table class="table table-striped table-bordered">
       <thead>
@@ -39,7 +37,7 @@
             </tr>
           <% end %>
         <% else %>
-          <td colspan="4" align="center">No assignments</td>
+          <td colspan="4" align="center">No Submissions</td>
         <% end %>
       </tbody>
     </table>

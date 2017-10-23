@@ -1,7 +1,5 @@
-
-
-
-
+<% provide(:title, "Edit Profile") %>
+<% breadcrumb :edit_user, @user %>
 <div class="container">
   <br><br>
   <div class="card">
@@ -18,20 +16,17 @@
           </div>
         </div>
         <div class="row">
-
           <div class="col-md-auto">
             <!-- Avatar Image -->
-            <img src="/assets/man.png" alt="" style="width: 200px">
+            <%= image_tag('/man.png', size: "200") %>
           </div>
           <div class="col">
             <%= render 'form-update', user: @user %>
-
             <br>
-            <%= link_to 'Back', user_path %>
           </div>
-
         </div>
       </div>
     </div>
   </div>
+  <br><br><br>
 </div>

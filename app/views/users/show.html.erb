@@ -1,66 +1,38 @@
-<!-- <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
-
-<p>
-  <strong>Role:</strong>
-  <%= @user.role %>
-</p>
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %> -->
-
+<% provide(:title, "My Profile") %>
+<% breadcrumb :user, @user %>
 <p id="notice"><%= notice %></p>
-
 <div class="container">
   <br><br>
   <div class="card">
-  <div class="card-body">
-    <div style="display:flex; justify-content: center; align-items: center;">
-      <h1>Hey, <%= @user.name %>!</h1>
-    </div>
-    <hr>
-    <br>
-    <div class="row">
-      <div class="col">
+    <div class="card-body">
+      <div style="display:flex; justify-content: center; align-items: center;">
+        <h1>Hey, <%= @user.name %>!</h1>
+      </div>
+      <hr>
+      <br>
+      <div class="row">
+        <div class="col">
 
-      </div>
-      <div class="col-md-auto">
-        <!-- Avatar Image -->
-        <%= image_tag('/man.png', size: "200") %>
-      </div>
-      <div class="col">
-          <br>
-          <strong>Name:</strong>
-          <%= @user.name %> <br>
-          <strong>Email:</strong>
-          <%= @user.email %> <br>
-          <strong>Role:</strong>
-          <%= @user.role %> <br>
-          <%= link_to 'Edit', edit_user_path(@user) %>
-      </div>
-      <div class="col">
+        </div>
+        <div class="col-md-auto">
+          <!-- Avatar Image -->
+          <%= image_tag('/man.png', size: "200") %>
+        </div>
+        <div class="col">
+            <br>
+            <strong>Name:</strong>
+            <%= @user.name %> <br>
+            <strong>Email:</strong>
+            <%= @user.email %> <br>
+            <strong>Role:</strong>
+            <%= @user.role %> <br>
+            <br>
+            <%= link_to 'Edit Profile', edit_user_path(@user), class: "btn btn-outline-primary" %>
+        </div>
+        <div class="col">
 
+        </div>
       </div>
     </div>
   </div>
 </div>
-
-
-</div>
-
-
-
-
-<!-- <p>
-  <strong>Password:</strong>
-  <%= @user.password %>
-</p> -->
