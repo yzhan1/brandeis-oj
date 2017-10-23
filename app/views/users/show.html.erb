@@ -26,7 +26,8 @@
             <%= @user.email %> <br>
             <strong>Role:</strong>
             <%= @user.role %> <br>
-            <%= link_to 'Edit', edit_user_path(@user) %>
+            <br>
+            <%= link_to 'Edit Profile', edit_user_path(@user), class: "btn btn-outline-primary" %>
         </div>
         <div class="col">
 
