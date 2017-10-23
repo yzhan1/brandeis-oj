@@ -45,6 +45,9 @@ gem 'toastr-rails'
 gem "gretel"
 gem 'activerecord-reset-pk-sequence'
 
+#to generate course permission strings
+gem 'rubysl-securerandom'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

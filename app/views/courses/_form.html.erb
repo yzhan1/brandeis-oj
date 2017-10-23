@@ -27,6 +27,12 @@
           <dd class="col-sm-9">
             <%= form.text_field :course_code, id: :course_course_code, class: "form-control" %>
           </dd>
+          <dt class="col-sm-3">
+            <%= form.label :permission %>
+          </dt>
+          <dd class="col-sm-9">
+            <%= form.text_field :permission, id: :course_permission %>
+          </dd>
           <div class="ml-auto" style="margin-top: 20px">
             <%= form.submit "Save", class: "btn btn-success ml-auto"%>
             <%= link_to 'Back', course, class: "btn btn-danger ml-auto" %>

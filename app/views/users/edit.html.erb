@@ -16,17 +16,20 @@
           </div>
         </div>
         <div class="row">
+
           <div class="col-md-auto">
             <!-- Avatar Image -->
-            <%= image_tag('/man.png', size: "200") %>
+            <img src="/assets/man.png" alt="" style="width: 200px">
           </div>
           <div class="col">
             <%= render 'form-update', user: @user %>
+
             <br>
+            <%= link_to 'Back', user_path %>
           </div>
+
         </div>
       </div>
     </div>
   </div>
-  <br><br><br>
 </div>
