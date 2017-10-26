@@ -48,6 +48,9 @@ gem 'activerecord-reset-pk-sequence'
 #to generate course permission strings
 gem 'rubysl-securerandom'
 
+#rails-admin
+gem 'rails_admin', '~> 1.2'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
