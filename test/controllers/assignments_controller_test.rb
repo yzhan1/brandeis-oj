@@ -7,8 +7,6 @@ class AssignmentsControllerTest < ActionDispatch::IntegrationTest
     @test_teacher.enroll_course('11a')
     @test_student.enroll_course('11a')
     @assignment = assignments(:one)
-    @course = courses(:one)
-    @assignment.course = @course
   end
 
   test "should get new" do
@@ -21,6 +19,12 @@ class AssignmentsControllerTest < ActionDispatch::IntegrationTest
     log_in_as(@test_student)
     get edit_assignment_url(@assignment)
     assert_redirected_to dashboard_url
+  end
+
+  test "teacher can edit assignment" do
+    log_in_as(@test_teacher)
+    get edit_assignment_url(@assignment)
+    assert_response :success
   end
 
   # test "should create assignment" do
@@ -37,7 +41,7 @@ class AssignmentsControllerTest < ActionDispatch::IntegrationTest
   #   assert_redirected_to assignment_url(Assignment.last)
   # end
 
-  # test "should show assignment" do
+  # test "student can see assignment" do
   #   log_in_as(@test_student)
   #   get assignment_url(@assignment)
   #   assert_response :success

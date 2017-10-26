@@ -1,6 +1,6 @@
 one:
   name: A new assignment
-  course_id: 1
+  course: course_one
   instructions: Do this and do that
   template: public class Solution {}
-  due_date: DateTime.new(2017, 11, 11, 20, 10, 0)
+  due_date: Time.now.strftime("%d/%m/%Y %H:%M")
