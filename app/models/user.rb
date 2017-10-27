@@ -35,7 +35,9 @@ class User < ApplicationRecord
     update_attribute(:remember_digest, nil)
   end
 
-  # maybe a better place to save submissions?
-  def save_submission
+  def enroll_course permission
+    if !Course.where(permission: permission).nil? && !Course.where(permission: permission).first.nil?
+      enrollments << Enrollment.new(course_id: Course.where(permission: permission).first.id)
+    end
   end
 end
