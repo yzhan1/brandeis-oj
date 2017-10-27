@@ -34,7 +34,7 @@ class AssignmentsController < ApplicationController
       flash[:success] = 'Code saved'
     elsif params[:commit] == 'Run'
       @result = submission.run
-      flash[:result] = @result
+      flash[:result] = 1
     end
     redirect_to submission.assignment
   end
