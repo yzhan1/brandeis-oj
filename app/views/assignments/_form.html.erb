@@ -67,7 +67,7 @@
     editor.setOptions({fontSize: "14px"});
     editor.setValue("");
     <% if @assignment.template.inspect != 'nil' %>
-      editor.setValue("<%= @assignment.template.inspect[1..-2] %>", 1);
+      editor.setValue("<%= raw(@assignment.template.inspect[1..-2]) %>", 1);
     <% end %>
     editor.getSession().on('change', function() {
       input.val(editor.getSession().getValue());
