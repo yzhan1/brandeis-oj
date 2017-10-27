@@ -51,6 +51,9 @@ gem 'rubysl-securerandom'
 #rails-admin
 gem 'rails_admin', '~> 1.2'
 
+gem 'sidekiq'
+gem 'sidekiq-status'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

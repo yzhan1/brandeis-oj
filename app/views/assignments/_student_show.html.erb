@@ -11,6 +11,12 @@
         <dd class="col-sm-9"><%= @assignment.due_date.strftime('%a, %b %d %Y, %H:%M') %></dd>
       </dl>
       <hr/>
+      <h3>Result</h3>
+      <% if flash[:result] %>
+        <p><%= flash[:result] %></p>
+      <% else %>
+        <p>Go run your code</p>
+      <% end %>
     </div>
     <br/>
   </div>
@@ -23,12 +29,15 @@
       <%= f.number_field :id, id: :submission_id, style: "display: none", :value => @submission.id %>
       <nav class="navbar navbar-light bg-light" style="padding-right: 0">
         <div class="row justify-content-between">
-          <div class="col-sm-9">
+          <div class="col-sm-6">
             <select class="form-control" id="select1">
               <option>Java</option>
               <option>Ruby</option>
               <option>Python</option>
             </select>
+          </div>
+          <div class="col-sm-3">
+            <%= f.submit "Run", class: "btn btn-outline-primary ml-auto" %>
           </div>
           <div class="col-sm-3">
             <%= f.submit "Submit", class: "btn btn-outline-success ml-auto" %>
@@ -57,9 +66,9 @@
     console.log(input.val());
   });
 
-  setInterval(autosave, 10000);
+  // setInterval(autosave, 10000);
 
-  function autosave() {
+  <%# function autosave() {
     $.ajax({
       type: 'PATCH',
       url: '/autosave',
@@ -69,5 +78,5 @@
         console.log(data);
       }
     });
-  }
+  } %>
 </script>

@@ -2,7 +2,7 @@ class AssignmentsController < ApplicationController
   before_action :logged_in_user
   before_action :correct_user, only: [:show, :edit, :update, :destroy]
   before_action :can_edit, only: [:edit, :update, :destroy]
-  before_action :set_assignment, only: [:show, :edit, :update, :destroy]
+  before_action :set_assignment, only: [:show, :edit, :update, :destroy, :run]
 
   # GET /assignments
   def index
@@ -30,7 +30,12 @@ class AssignmentsController < ApplicationController
   def save
     submission = Submission.find(submission_params[:id])
     submission.update(submission_params)
-    flash[:success] = 'Code saved'
+    if params[:commit] == 'Submit'
+      flash[:success] = 'Code saved'
+    elsif params[:commit] == 'Run'
+      @result = submission.run
+      flash[:result] = @result
+    end
     redirect_to submission.assignment
   end
 

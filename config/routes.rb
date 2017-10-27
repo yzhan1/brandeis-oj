@@ -23,7 +23,8 @@ Rails.application.routes.draw do
   post '/save',         to: 'assignments#save'
   patch '/save',        to: 'assignments#save'
   patch '/autosave',    to: 'assignments#autosave'
-
+  post '/run',          to: 'assignments#run'
+ 
   get '/submissions',   to: 'submissions#index'
 
   post '/enroll',       to: 'enrollments#create_enrollment_dashboard'
