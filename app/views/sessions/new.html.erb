@@ -21,12 +21,12 @@
         <% end %>
       </div>
       <div style="display:flex; justify-content: center; align-items: center;">
-        <%= f.submit "Login", class: "btn btn-success btn-block", style: "margin-bottom: 10px" %>
+        <%= f.submit "Login", class: "btn btn-outline-success btn-block", style: "margin-bottom: 10px" %>
       </div>
       <hr>
       <div class="row">
         <div class="col">
-          <%= link_to "Signup", signup_path, class: "btn w-100 btn-primary btn-block" %>
+          <p>Don't have an account? <%= link_to "Signup now!", signup_path %></p>
         </div>
       </div>
     <% end %>
