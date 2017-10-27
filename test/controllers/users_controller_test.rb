@@ -34,11 +34,11 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   # end
 
   # test "should create user" do
-  #   assert_difference('User.count') do
-  #     post signup_url, params: { user: { email: @user.email, name: @user.name, password_digest: @user.password_digest, remember_digest: @user.remember_digest, role: @user.role } }
-  #   end
-  #
-  #   assert_redirected_to user_url(User.last)
+  #   # assert_difference('User.count') do
+  #   post signup_url, params: { user: { email: "soemthing@email.com", name: "Name", password: "password", password_confirmation: "password", role: "student" } }
+  #   # end
+  #   # assert is_logged_in?
+  #   assert_redirected_to dashboard_url
   # end
 
   # test "should update user" do
@@ -53,5 +53,5 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   #
   #   assert_redirected_to users_url
   # end
-  
+
 end

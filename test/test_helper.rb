@@ -13,6 +13,10 @@ class ActiveSupport::TestCase
   def log_in_as(user)
     session[:user_id] = user.id
   end
+
+  def digest_password pw
+    User.digest(pw)
+  end
 end
 
 class ActionDispatch::IntegrationTest
