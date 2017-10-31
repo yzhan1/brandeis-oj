@@ -7,8 +7,8 @@ class Submission < ApplicationRecord
     dir_name = self.user.id
     mkdir = `cd tmp\nmkdir #{dir_name}`
     File.write("tmp/#{dir_name}/Solution.java", code)
-    res = JSON.generate(`cd tmp\ncd #{dir_name}\njavac Solution.java\n java Solution`)
+    res = `cd tmp\ncd #{dir_name}\njavac Solution.java\n java Solution`
     remove = `rm -rf tmp/#{dir_name}`
-    return JSON.parse(res)    
+    return res
   end
 end
