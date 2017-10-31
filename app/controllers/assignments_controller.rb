@@ -30,7 +30,7 @@ class AssignmentsController < ApplicationController
       flash[:success] = 'Code saved'
     elsif params[:commit] == 'Run'
       @result = submission.run
-      puts @result
+      @result = @result.split("\n")
       flash[:result] = @result
     end
     redirect_to submission.assignment

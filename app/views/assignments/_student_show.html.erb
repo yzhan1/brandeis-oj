@@ -13,9 +13,13 @@
       <hr/>
       <h3>Result</h3>
       <% if flash[:result] %>
-        <p><%= flash[:result] %></p>
+        <p>
+          <% flash[:result].each do |line|%>
+          <%= line %><br>
+          <% end %>
+        </p>
       <% else %>
-        <p>Go run your code</p>
+        <p>No code has been compiled.</p>
       <% end %>
     </div>
     <br/>
