@@ -11,78 +11,94 @@
         <dd class="col-sm-9"><%= @assignment.due_date.strftime('%a, %b %d %Y, %H:%M') %></dd>
       </dl>
       <hr/>
-      <h3>Result</h3>
+      <h3>Standard Output</h3>
+      <br>
       <% if flash[:result] %>
-        <p>
-          <% iter = 0 %>
+      <% iter = 0 %>
+      <div class="row" style="border: 2px solid rgb(179, 179, 179);">
+        <div class="col-md-auto" style="background-color: rgb(179, 179, 179);">
           <% flash[:result].each do |line|%>
-          <% iter+=1 %>
-          <%= "#{iter}. #{line}" %><br>
+          <div class="row">
+            <div class="col" >
+              <% iter+=1 %>
+              <b><%= "#{iter}. " %></b>
+            </div>
+          </div>
           <% end %>
-        </p>
-      <% else %>
-        <p>No code has been compiled.</p>
-      <% end %>
-    </div>
-    <br/>
-  </div>
-  <div class="col-lg-7" style="padding-right: 0">
-    <%= form_for(@submission, url: save_path) do |f| %>
-      <%= token_tag(nil) %>
-      <pre id="editor" style="margin-bottom: 0px" class="editor-div"></pre>
-      <%= f.text_area :source_code, id: :submission_source_code %>
-      <%= f.number_field :assignment_id, id: :submission_assignment_id, style: "display: none", :value => @assignment.id %>
-      <%= f.number_field :id, id: :submission_id, style: "display: none", :value => @submission.id %>
-      <nav class="navbar navbar-light bg-light" style="padding-right: 0">
-        <div class="row justify-content-between">
-          <div class="col-sm-6">
-            <select class="form-control" id="select1">
-              <option>Java</option>
-              <option>Ruby</option>
-              <option>Python</option>
-            </select>
-          </div>
-          <div class="col-sm-3">
-            <%= f.submit "Run", class: "btn btn-outline-primary ml-auto" %>
-          </div>
-          <div class="col-sm-3">
-            <%= f.submit "Submit", class: "btn btn-outline-success ml-auto" %>
-          </div>
         </div>
-      </nav>
+        <div class="col">
+          <% flash[:result].each do |line|%>
+          <div class="row">
+            <div class="col">
+              <%= "#{line}" %>
+            </div>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    <% else %>
+    <p>No code has been compiled.</p>
     <% end %>
   </div>
+  <br/>
+</div>
+<div class="col-lg-7" style="padding-right: 0">
+  <%= form_for(@submission, url: save_path) do |f| %>
+  <%= token_tag(nil) %>
+  <pre id="editor" style="margin-bottom: 0px" class="editor-div"></pre>
+  <%= f.text_area :source_code, id: :submission_source_code %>
+  <%= f.number_field :assignment_id, id: :submission_assignment_id, style: "display: none", :value => @assignment.id %>
+  <%= f.number_field :id, id: :submission_id, style: "display: none", :value => @submission.id %>
+  <nav class="navbar navbar-light bg-light" style="padding-right: 0">
+    <div class="row justify-content-between">
+      <div class="col-sm-6">
+        <select class="form-control" id="select1">
+          <option>Java</option>
+          <option>Ruby</option>
+          <option>Python</option>
+        </select>
+      </div>
+      <div class="col-sm-3">
+        <%= f.submit "Run", class: "btn btn-outline-primary ml-auto" %>
+      </div>
+      <div class="col-sm-3">
+        <%= f.submit "Submit", class: "btn btn-outline-success ml-auto" %>
+      </div>
+    </div>
+  </nav>
+  <% end %>
+</div>
 </div>
 
 <script>
-  var editor = ace.edit("editor");
-  var input = $('textarea[id="submission_source_code"]').hide();
-  <% if !is_student? %>
-    editor.setReadOnly(true);
-  <% end %>
+var editor = ace.edit("editor");
+var input = $('textarea[id="submission_source_code"]').hide();
+<% if !is_student? %>
+editor.setReadOnly(true);
+<% end %>
+console.log(input.val());
+editor.setTheme("ace/theme/xcode");
+editor.getSession().setUseSoftTabs(false);
+editor.getSession().setMode("ace/mode/java");
+editor.setShowPrintMargin(false);
+editor.setOptions({fontSize: "14px"});
+editor.setValue("<%= raw(@submission.source_code.inspect[1..-2]) %>", 1);
+editor.getSession().on('change', function() {
+  input.val(editor.getSession().getValue());
   console.log(input.val());
-  editor.setTheme("ace/theme/xcode");
-  editor.getSession().setUseSoftTabs(false);
-  editor.getSession().setMode("ace/mode/java");
-  editor.setShowPrintMargin(false);
-  editor.setOptions({fontSize: "14px"});
-  editor.setValue("<%= raw(@submission.source_code.inspect[1..-2]) %>", 1);
-  editor.getSession().on('change', function() {
-    input.val(editor.getSession().getValue());
-    console.log(input.val());
+});
+
+// setInterval(autosave, 10000);
+
+<%# function autosave() {
+  $.ajax({
+    type: 'PATCH',
+    url: '/autosave',
+    data: $('form').serialize(),
+    dataType: 'script',
+    success: function(data) {
+      console.log(data);
+    }
   });
-
-  // setInterval(autosave, 10000);
-
-  <%# function autosave() {
-    $.ajax({
-      type: 'PATCH',
-      url: '/autosave',
-      data: $('form').serialize(),
-      dataType: 'script',
-      success: function(data) {
-        console.log(data);
-      }
-    });
-  } %>
+} %>
 </script>
