@@ -14,8 +14,10 @@
       <h3>Result</h3>
       <% if flash[:result] %>
         <p>
+          <% iter = 0 %>
           <% flash[:result].each do |line|%>
-          <%= line %><br>
+          <% iter+=1 %>
+          <%= "#{iter}. #{line}" %><br>
           <% end %>
         </p>
       <% else %>
