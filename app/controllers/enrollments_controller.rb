@@ -39,7 +39,7 @@ class EnrollmentsController < ApplicationController
 
   def create_enrollment_dashboard
     current_user.enroll_course params[:enrollment][:course_id] # Even though the course_id is passed, the user should input the course_code. Need to know how to use forms better.
-    redirect_to root_url
+    redirect_to dashboard_url
   end
 
   # PATCH/PUT /enrollments/1

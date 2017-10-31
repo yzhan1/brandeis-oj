@@ -21,7 +21,7 @@
       <% @assignment_list.each do |assignment| %>
         <tr>
           <td><%= assignment.name %></td>
-          <td><%= assignment.due_date %></td>
+          <td><%= assignment.due_date.strftime('%b %d %Y, %H:%M') %></td>
           <% if !is_student? %>
             <td>
               <%= link_to 'Edit', edit_assignment_path(assignment, course_id: @course.id), class: "btn btn-outline-primary btn-sm" %>

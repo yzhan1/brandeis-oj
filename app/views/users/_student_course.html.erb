@@ -10,23 +10,23 @@
     <br>
   <% end %>
 
-    <%= form_for(@enrollment, url: enroll_path) do |f| %>
-      <div class="form-group">
-        <div class="row">
-          <div class="col">
-            <div class="input-group">
-              <span class="input-group-addon" id="basic-addon1">Code</span>
-              <%= f.text_field :course_id, class: "form-control", placeholder: "Enter permission string..", type: "text" %>
-            </div>
+  <%= form_for(@enrollment, url: enroll_path) do |f| %>
+    <div class="form-group">
+      <div class="row">
+        <div class="col">
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Code</span>
+            <%= f.text_field :course_id, class: "form-control", placeholder: "Enter permission string..", type: "text" %>
           </div>
-          <div class="col-md-auto">
-            <div class="input-group">
-              <%= f.submit "Enroll", class: "btn btn-outline-success" %>
-            </div>
+        </div>
+        <div class="col-md-auto">
+          <div class="input-group">
+            <%= f.submit "Enroll", class: "btn btn-outline-success" %>
           </div>
         </div>
       </div>
-    <% end %>
+    </div>
+  <% end %>
 
     <!-- <div class="col">
 
@@ -83,10 +83,11 @@
         <td colspan="4" align="center">You don't have any pending assignments</td>
       <% end %>
 
+      <!-- This part need to get fixed -->
       <% if @submission_list %>
         <% @submission_list.each do |submission| %>
           <tr>
-            <td><%= submission.course.course_code %></td>
+            <td><%= submission.assignment.course.course_code %></td>
             <td><%= submission.assignment_id %></td>
             <td><%= submission.submission_date %></td>
             <td><%= link_to 'Show', submission_url(submission), class: "btn btn-outline-primary btn-sm" %></td>

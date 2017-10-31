@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :dashboard]
   before_action :correct_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
@@ -13,11 +13,8 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    if logged_in?
-      redirect_to dashboard_url, :flash => { :warning => 'You logged in already' }
-    else
-      @user = User.new
-    end
+    return redirect_to dashboard_url, :flash => { :warning => 'You logged in already' } unless !logged_in?
+    @user = User.new
   end
 
   # GET /users/1/edit
@@ -50,22 +47,11 @@ class UsersController < ApplicationController
   end
 
   def dashboard
-    @user = User.find(session[:user_id])
-    @enrollment_list = Enrollment.where("user_id=#{@user.id}")
     @enrollment = Enrollment.new
-    @course_list = Array.new
-    @announcement_list = Array.new
-    @assignment_list = Array.new
-    @enrollment_list.each do |enrollment_data|
-      @course_list.push Course.where("id='#{enrollment_data.course_id}'")[0]
-        Announcement.where("course_id='#{enrollment_data.course_id}'").each do |announcement_data|
-          @announcement_list.push announcement_data
-        end
-        Assignment.where("assignments.course_id='#{enrollment_data.course_id}'").each do |assignment_data|
-        @assignment_list.push assignment_data
-      end
-    end
-    @submission_list = Submission.where("user_id=#{@user.id} AND submitted")
+    @course_list = @user.courses
+    @announcement_list = @course_list.map { |course| course.announcements.map { |a| a } }.flatten(2)
+    @assignment_list = @course_list.map { |course| course.assignments.map { |a| a } }.flatten(2)
+    @submission_list = @user.submissions.where(:submitted => true)
   end
 
   # DELETE /users/1
@@ -80,7 +66,7 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:id])
+      @user = current_user || User.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

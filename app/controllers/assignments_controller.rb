@@ -13,14 +13,10 @@ class AssignmentsController < ApplicationController
   def show
     if is_student?
       @submission = @assignment.submissions.where(user_id: current_user.id).first
-      if !@submission
-        @submission = Submission.create(
-          user_id: current_user.id,
-          assignment_id: @assignment.id,
-          source_code: @assignment.template,
-          submitted: false
-        )
-      end
+      @submission ||= Submission.create(
+        user_id: current_user.id,
+        assignment_id: @assignment.id,
+        source_code: @assignment.template)
     else
       @submissions = @assignment.submissions
       @course = @assignment.course
@@ -41,8 +37,7 @@ class AssignmentsController < ApplicationController
   end
 
   def autosave
-    submission = Submission.find(submission_params[:id])
-    submission.update(submission_params)
+    Submission.find(submission_params[:id]).update(submission_params)
   end
 
   # GET /assignments/new

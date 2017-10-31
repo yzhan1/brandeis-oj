@@ -4,15 +4,9 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = nil
     email = params[:session][:email].downcase
-    # check if user exists
-    if User.exists?(email: email)
-      user = User.find_by(email: email)
-    end
-
-    if user && user.authenticate(params[:session][:password])      
-      # render student dashboard
+    user = User.exists?(email: email) ? User.find_by(email: email) : nil
+    if user && user.authenticate(params[:session][:password])
       log_in user
       params[:session][:remember_me] == '1' ? remember(user) : forget(user)
       redirect_to dashboard_url
