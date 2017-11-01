@@ -36,39 +36,41 @@
           <% end %>
         </div>
       </div>
-    <% else %>
-    <p>No code has been compiled.</p>
-    <% end %>
+      <% else %>
+      <p>No code has been compiled.</p>
+      <% end %>
+    </div>
+    <br/>
   </div>
-  <br/>
-</div>
-<div class="col-lg-7" style="padding-right: 0">
-  <%= form_for(@submission, url: save_path) do |f| %>
-  <%= token_tag(nil) %>
-  <pre id="editor" style="margin-bottom: 0px" class="editor-div"></pre>
-  <%= f.text_area :source_code, id: :submission_source_code %>
-  <%= f.number_field :assignment_id, id: :submission_assignment_id, style: "display: none", :value => @assignment.id %>
-  <%= f.number_field :id, id: :submission_id, style: "display: none", :value => @submission.id %>
-  <nav class="navbar navbar-light bg-light" style="padding-right: 0">
-    <div class="row justify-content-between">
-      <div class="col-sm-6">
-        <select class="form-control" id="select1">
-          <option>Java</option>
-          <option>Ruby</option>
-          <option>Python</option>
-        </select>
-      </div>
-      <div class="col-sm-3">
-        <%= f.submit "Run", class: "btn btn-outline-primary ml-auto" %>
-      </div>
-      <div class="col-sm-3">
-        <%= f.submit "Submit", class: "btn btn-outline-success ml-auto" %>
+  <div class="col-lg-7" style="padding-right: 0">
+    <%= form_for(@submission, url: save_path) do |f| %>
+    <%= token_tag(nil) %>
+    <pre id="editor" style="margin-bottom: 0px" class="editor-div"></pre>
+    <%= f.text_area :source_code, id: :submission_source_code %>
+    <%= f.number_field :assignment_id, id: :submission_assignment_id, style: "display: none", :value => @assignment.id %>
+    <%= f.number_field :id, id: :submission_id, style: "display: none", :value => @submission.id %>
+    <div class="container" style="background-color: rgb(232, 232, 232); padding: 10px;">
+      <div class="row">
+        <div class="col">
+          <select class="form-control" id="select1">
+            <option>Java</option>
+            <option>Ruby</option>
+            <option>Python</option>
+          </select>
+        </div>
+        <div class="col"></div>
+        <div class="col">
+          <%= f.submit "Run", class: "btn btn-outline-primary ml-auto w-100" %>
+        </div>
+        <div class="col">
+          <%= f.submit "Submit", class: "btn btn-outline-success ml-auto w-100" %>
+        </div>
       </div>
     </div>
-  </nav>
-  <% end %>
+    <% end %>
+  </div>
 </div>
-</div>
+<br><br>
 
 <script>
 var editor = ace.edit("editor");
