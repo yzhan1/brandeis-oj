@@ -43,11 +43,9 @@ class AssignmentsController < ApplicationController
   def progress
     job_id = job_id_param
     if !Sidekiq::Status::complete? job_id
-      puts "processing"
       @data = {"message" => "Processing"}
-    else 
-      puts Sidekiq::Status::get_all(job_id)
-      @data = {"output" => Sidekiq::Status::get_all(job_id)[:stdout]}
+    else
+      @data = {"output" => Sidekiq::Status::get_all(job_id)["stdout"].split("\n")}
     end
     respond_to do |format|
       format.json { render json: @data }

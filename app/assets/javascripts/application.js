@@ -36,51 +36,96 @@ toastr.options = {
   "hideMethod": "fadeOut"
 }
 
-$('document').ready(function() {
-  var runField = $('input[id=run]');
-  var jobID;
+$('document').ready(() => {
+  const runField = $('input[id=run]')
+  const runButton = $('.btn-run')
+  const saveButton = $('.btn-save')
+  const buttonList = [runButton, saveButton]
+  const stdoutSection = $('.stdout-section')
 
-  $('.btn-run').on('click', function(event) {
-    console.log('run clicked');
-    runField.val(1);
-    event.preventDefault();
-    runCode();
-  });
+  runButton.on('click', (event) => {
+    console.log('run clicked')
+    event.preventDefault()
+    runField.val(1)
+    changeButtonState(buttonList, true)
+    updateStdoutSection()
+    runCode()
+  })
 
-  $('.btn-save').on('click', function(event) {
-    console.log('save clicked');
-    runField.val(0);
-  });
+  saveButton.on('click', (event) => {
+    console.log('save clicked')
+    runField.val(0)
+  })
 
-  function runCode() {
+  const changeButtonState = (buttonList, bool) => {
+    buttonList.forEach(button => button.prop('disabled', bool))
+  }
+
+  const runCode = () => {
     $.ajax({
-      beforeSend: function(xhr) {
+      beforeSend: (xhr) => {
         xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
       },
       type: 'PATCH',
       url: '/save.json',
       data: $('form.edit_submission').serialize(),
       dataType: 'json',
-      success: function(json) {
-        setTimeout(getResult(json.id), 20000);
+      success: (json) => {
+        getResult(json.id)
       }
-    });
+    })
   }
 
-  function getResult(jobID) {
-    $.ajax({
-      type: 'GET',
-      url: '/progress/' + jobID + '.json',
-      success: function(data) {
-        console.log(data);
-        if (data.message == "Processing") {
-          console.log(data);
-        } else {
-          console.log(data.output);
-          return false;
-        }
-        setInterval(getResult(jobID), 20000);
-      }
-    });
+  const getResult = (jobID) => {
+    setTimeout(() => {
+      $.ajax({
+        type: 'GET',
+        url: '/progress/' + jobID + '.json',
+        success: (data) => {
+          if (data.message == "Processing") {
+            console.log(data)
+          } else {
+            console.log(data.output)
+            changeButtonState(buttonList, false)
+            updateResult(data.output)
+            return false
+          }
+        },
+        timeout: 2000
+      })
+    }, 2000)
   }
-});
+
+  const updateStdoutSection = () => {
+    $('.empty-msg').remove()
+    $('.stdout').hide()
+    stdoutSection.append(`
+      <div class="progress-msg">
+        <p class="running-msg">Running...</>
+        <div class="progress">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+        </div>
+      </div>`
+    )
+  }
+
+  const updateResult = (output) => {
+    $('.progress-msg').remove()
+    $('.stdout').show()
+    $('.row-num-col').empty()
+    $('.line-col').empty()
+    for (let i = 0; i < output.length; i++) {
+      line = output[i]
+      $('.row-num-col').append(`
+        <div class="row">
+          <div class="col"><b>${i}</b></div>
+        </div>`
+      )
+      $('.line-col').append(`
+        <div class="row">
+          <div class="col">${line}</div>
+        </div>`
+      )
+    }
+  }
+})
