@@ -5,23 +5,19 @@
     <div class="container">
       <h3 style="padding-top:20px"><%= @submission.assignment.name %> <small class="text-muted"><%= @submission.user.name %></small></h3>
       <hr/>
-
       <dl class="row">
         <dt class="col-sm-3">From Student</dt>
         <dd class="col-sm-9">
           <%= @submission.user.name %>
         </dd>
-
         <dt class="col-sm-3">Instructions</dt>
         <dd class="col-sm-9">
           <%= @submission.assignment.instructions %>
         </dd>
-
         <dt class="col-sm-3">Date</dt>
         <dd class="col-sm-9">
           <%= @submission.submission_date.strftime('%a, %b %d %Y, %H:%M') %>
         </dd>
-
         <% if is_student? %>
           <dt class="col-sm-3">Grade</dt>
           <dd class="col-sm-9">
@@ -32,26 +28,28 @@
         <% end %>
       </dl>
       <hr/>
+      <%= render 'shared/stdout' %>
     </div>
     <br/>
   </div>
   <div class="col-lg-7" style="padding-right: 0">
     <% if !is_student? %>
       <pre id="editor" style="margin-bottom: 0px" class="editor-div"><%= raw(@submission.source_code) %></pre>
-      <nav class="navbar navbar-light bg-light">
-        <div class="row justify-content-between">
-          <div class="col-sm-9">
+      <div class="container" style="background-color: rgb(232, 232, 232); padding: 10px;">
+        <div class="row" style="margin: 0px">
+          <div class="col">
             <select class="form-control" id="select1">
               <option>Java</option>
               <option>Ruby</option>
               <option>Python</option>
             </select>
           </div>
-          <div class="col-sm-3 ml-auto">
-            <button class="btn btn-outline-success">Run code</button>
+          <div class="col"></div>
+          <div class="col">
+            <%= link_to "Run", run_url(id: @submission.id), method: :post, class: "btn btn-primary ml-auto w-100" %>
           </div>
         </div>
-      </nav>
+      </div>
     <% else %>
       <pre id="editor" style="margin-bottom: 0px" class="submission-div"><%= raw(@submission.source_code) %></pre>
     <% end %>

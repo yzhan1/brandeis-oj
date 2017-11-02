@@ -1,14 +1,15 @@
+require 'open3'
+
 class Submission < ApplicationRecord
   belongs_to :assignment
   belongs_to :user
 
   def run
-    code = self.source_code
-    dir_name = self.user.id
+    dir_name = user.id
     mkdir = `cd tmp\nmkdir #{dir_name}`
-    File.write("tmp/#{dir_name}/Solution.java", code)
-    res = `cd tmp\ncd #{dir_name}\njavac Solution.java\n java Solution`
+    File.write("tmp/#{dir_name}/Solution.java", source_code)
+    stdout_err, status = Open3.capture2e("cd tmp\ncd #{dir_name}\njavac Solution.java\njava Solution")
     remove = `rm -rf tmp/#{dir_name}`
-    return res
+    return stdout_err
   end
 end

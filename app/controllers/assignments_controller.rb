@@ -26,14 +26,32 @@ class AssignmentsController < ApplicationController
   def save
     submission = Submission.find(submission_params[:id])
     submission.update(submission_params)
-    if params[:commit] == 'Submit'
+    puts submission.id
+    if run?[:run] == "0"
       flash[:success] = 'Code saved'
-    elsif params[:commit] == 'Run'
-      @result = submission.run
-      @result = @result.split("\n")
-      flash[:result] = @result
+      redirect_to submission.assignment
+    else
+      job_id = CompileWorker.perform_async(submission.id)
+      puts "job_id = #{job_id}"
+      res = {"id" => job_id}
+      respond_to do |format|
+        format.json { render json: res }
+      end
     end
-    redirect_to submission.assignment
+  end
+
+  def progress
+    job_id = job_id_param
+    if !Sidekiq::Status::complete? job_id
+      puts "processing"
+      @data = {"message" => "Processing"}
+    else 
+      puts Sidekiq::Status::get_all(job_id)
+      @data = {"output" => Sidekiq::Status::get_all(job_id)[:stdout]}
+    end
+    respond_to do |format|
+      format.json { render json: @data }
+    end
   end
 
   def autosave
@@ -99,6 +117,14 @@ class AssignmentsController < ApplicationController
 
     def submission_params
       params.require(:submission).permit(:source_code, :assignment_id, :id)
+    end
+
+    def run?
+      params.require(:submission).permit(:run)
+    end
+
+    def job_id_param
+      params.require(:id)
     end
 
     def correct_user

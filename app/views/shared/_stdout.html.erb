@@ -1,0 +1,28 @@
+<h3>Standard Output</h3>
+<br>
+<% if flash[:result] %>
+<% iter = 0 %>
+<div class="row" style="border: 2px solid rgb(179, 179, 179); margin: 0px">
+  <div class="col-md-auto" style="background-color: rgb(179, 179, 179);">
+    <% flash[:result].each do |line|%>
+    <div class="row">
+      <div class="col" >
+        <% iter += 1 %>
+        <b><%= "#{iter}" %></b>
+      </div>
+    </div>
+    <% end %>
+  </div>
+  <div class="col">
+    <% flash[:result].each do |line|%>
+    <div class="row">
+      <div class="col">
+        <%= "#{line}" %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
+<% else %>
+<p>No code has been compiled.</p>
+<% end %>
