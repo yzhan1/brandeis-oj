@@ -3,6 +3,7 @@ require 'open3'
 class Submission < ApplicationRecord
   belongs_to :assignment
   belongs_to :user
+  has_many :codes
 
   def run
     dir_name = user.id
