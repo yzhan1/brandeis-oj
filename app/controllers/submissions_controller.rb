@@ -22,17 +22,10 @@ class SubmissionsController < ApplicationController
   end
   
   def run
-    job_id = CompileWorker.perform_async(@submission.id)
-    res = {"id" => job_id}
+    res = run_code(@submission.id)
     respond_to do |format|
       format.json { render json: res }
     end
-    # flash[:result] = @submission.run.split("\n")
-    # redirect_to @submission
-  end
-
-  def progress
-    Sidekiq::Status::complete? submission_param
   end
 
   # POST /submissions
@@ -80,10 +73,6 @@ class SubmissionsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def submission_params
       params.require(:submission).permit(:submitted, :user_id, :assignment_id, :submission_date, :source_code, :grade, :comments)
-    end
-
-    def submission_param
-      params.permit(:id)
     end
 
     def correct_user

@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   patch '/autosave',    to: 'assignments#autosave'
 
   post '/run',          to: 'submissions#run'
-  get '/progress/:id',  to: 'assignments#progress'
+  get '/progress/:id',  to: 'application#progress'
   get '/submissions',   to: 'submissions#index'
 
   post '/enroll',       to: 'enrollments#create_enrollment_dashboard'

@@ -30,24 +30,10 @@ class AssignmentsController < ApplicationController
       flash[:success] = 'Assignment submitted'
       redirect_to submission.assignment.course
     else # elsif params[:commit] == "Run"
-      job_id = CompileWorker.perform_async(submission.id)
-      puts "job_id = #{job_id}"
-      res = {"id" => job_id}
+      res = run_code(submission.id)
       respond_to do |format|
         format.json { render json: res }
       end
-    end
-  end
-
-  def progress
-    job_id = job_id_param
-    if !Sidekiq::Status::complete? job_id
-      @data = {"message" => "Processing"}
-    else
-      @data = {"output" => Sidekiq::Status::get_all(job_id)["stdout"].split("\n")}
-    end
-    respond_to do |format|
-      format.json { render json: @data }
     end
   end
 
@@ -118,10 +104,6 @@ class AssignmentsController < ApplicationController
 
     def run?
       params.require(:submission).permit(:run)
-    end
-
-    def job_id_param
-      params.require(:id)
     end
 
     def correct_user
