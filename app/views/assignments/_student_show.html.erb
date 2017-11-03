@@ -23,7 +23,7 @@
     <%= f.number_field :assignment_id, id: :submission_assignment_id, style: "display: none", :value => @assignment.id %>
     <%= f.number_field :id, id: :submission_id, style: "display: none", :value => @submission.id %>
     <%= f.number_field :run, id: :run, style: "display: none", :value => 0 %>
-    <div class="container" style="background-color: rgb(232, 232, 232); padding: 10px;">
+    <div class="container" style="background-color: #eaecef; padding: 10px;">
       <div class="row" style="margin: 0px">
         <div class="col-6">
         </div>
@@ -40,33 +40,11 @@
 </div>
 
 <script>
-var editor = ace.edit("editor");
-var input = $('textarea[id="submission_source_code"]').hide();
+<%= render 'shared/editor.js' %>
 <% if !is_student? %>
 editor.setReadOnly(true);
 <% end %>
-editor.$blockScrolling = Infinity;
-editor.setTheme("ace/theme/monokai");
-editor.getSession().setUseSoftTabs(false);
-editor.getSession().setMode("ace/mode/java");
-editor.setShowPrintMargin(false);
-editor.setOptions({fontSize: "14px"});
 editor.setValue("<%= raw(@submission.source_code.inspect[1..-2]) %>", 1);
-editor.getSession().on('change', function() {
-  input.val(editor.getSession().getValue());
-});
-
-// setInterval(autosave, 5000);
-
-function autosave() {
-  $.ajax({
-    type: 'PATCH',
-    url: '/autosave',
-    data: $('form').serialize(),
-    dataType: 'script',
-    success: function(data) {
-      console.log(data);
-    }
-  });
-}
+editor.getSession().on('change', () => input.val(editor.getSession().getValue()))
+<%= render 'shared/autosave.js' %>
 </script>

@@ -46,11 +46,11 @@ class SubmissionsController < ApplicationController
   def update
     respond_to do |format|
       if @submission.update(submission_params)
-        format.html { redirect_to @submission, :flash => { :success => 'Submission was successfully updated.' } }
-        format.json { render :show, status: :ok, location: @submission }
+        format.html { redirect_to @submission }
+        format.js { render :js => "toastr.success('Submission updated')" }
       else
-        format.html { render :edit }
-        format.json { render json: @submission.errors, status: :unprocessable_entity }
+        format.html { render @submission }
+        format.js { render js => "toastr.error('Please enter all fields')" }
       end
     end
   end

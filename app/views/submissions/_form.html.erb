@@ -1,4 +1,4 @@
-<%= form_with(model: submission, local: true) do |form| %>
+<%= form_with(model: submission, remote: true) do |form| %>
   <% if submission.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(submission.errors.count, "error") %> prohibited this submission from being saved:</h2>
@@ -17,7 +17,7 @@
       </dd>
       <dt class="col-sm-3">Comments</dt>
       <dd class="col-sm-9">
-        <%= form.text_area :comments, id: :submission_comments, class: "form-control" %>
+        <%= form.text_area :comments, id: :submission_comments, class: "form-control", rows: 5 %>
       </dd>
       <div class="container" style="padding-top: 15px">
         <%= form.submit "Save", class: "btn btn-success btn-block" %>

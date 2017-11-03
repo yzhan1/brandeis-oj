@@ -1,4 +1,4 @@
-<%= form_with(model: assignment, local: true, authenticity_token: true) do |form| %>
+<%= form_with(model: assignment, remote: true, authenticity_token: true) do |form| %>
   <% if assignment.errors.any? %>
     <div id="error_explanation">
       <div class="alert alert-danger" role="alert">
@@ -25,7 +25,7 @@
           </dd>
           <dt class="col-sm-3">Instructions</dt>
           <dd class="col-sm-9">
-            <%= form.text_area :instructions, id: :assignment_instructions, class: "form-control", rows: "2" %>
+            <%= form.text_area :instructions, id: :assignment_instructions, class: "form-control", rows: "15" %>
           </dd>
           <dt class="col-sm-3">Due Date</dt>
           <dd class="col-sm-9">
@@ -39,53 +39,25 @@
       <%= form.text_area :template, id: :assignment_template %>
       <%= token_tag(nil) %>
       <pre id="editor" style="margin-bottom: 0px" class="editor-div"></pre>
-      <nav class="navbar navbar-light bg-light">
-        <div class="row justify-content-between">
-          <div class="col-sm-9">
-            <select class="form-control" id="select1">
-              <option>Java</option>
-              <option>Ruby</option>
-              <option>Python</option>
-            </select>
-          </div>
-          <div class="col-sm-3 ml-auto">
-            <%= form.submit "Save", class: "btn btn-outline-success ml-auto" %>
-          </div>
+      <div class="container" style="background-color: #eaecef; padding: 10px;">
+      <div class="row" style="margin: 0px">
+        <div class="col-8">
         </div>
-      </nav>
+        <div class="col-4">
+          <%= form.submit "Save", class: "btn btn-success ml-auto w-100" %>
+        </div>
+      </div>
+    </div>
     </div>
   </div>
 
   <script>
-    var editor = ace.edit("editor");
-    var input = $('textarea[id="assignment_template"]').hide();
-    console.log(input.val());
-    editor.setTheme("ace/theme/monokai");
-    editor.getSession().setUseSoftTabs(false);
-    editor.getSession().setMode("ace/mode/java");
-    editor.setShowPrintMargin(false);
-    editor.setOptions({fontSize: "14px"});
-    editor.setValue("");
-    <% if @assignment.template.inspect != 'nil' %>
-      editor.setValue("<%= raw(@assignment.template.inspect[1..-2]) %>", 1);
-    <% end %>
-    editor.getSession().on('change', function() {
-      input.val(editor.getSession().getValue());
-      console.log(input.val());
-    });
-
-    setInterval(autosave, 5000);
-
-    function autosave() {
-      $.ajax({
-        type: 'PATCH',
-        url: '/assignments/<%= @assignment.id %>',
-        data: $('form').serialize(),
-        dataType: 'script',
-        success: function(data) {
-          console.log(data);
-        }
-      });
-    }
+  <%= render 'shared/editor.js' %>
+  var input = $('textarea[id="assignment_template"]').hide()
+  editor.setValue("")
+  <% if @assignment.template.inspect != 'nil' %>
+  editor.setValue("<%= raw(@assignment.template.inspect[1..-2]) %>", 1)
+  <% end %>
+  editor.getSession().on('change', () => input.val(editor.getSession().getValue()))
   </script>
 <% end %>

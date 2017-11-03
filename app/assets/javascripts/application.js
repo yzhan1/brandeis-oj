@@ -102,7 +102,7 @@ document.addEventListener("turbolinks:load", () => {
     $('.stdout').hide()
     stdoutSection.append(`
       <div class="progress-msg">
-        <p class="running-msg">Running...</>
+        <p>Running...</>
         <div class="progress">
           <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
         </div>
@@ -122,9 +122,10 @@ document.addEventListener("turbolinks:load", () => {
           <div class="col"><b>${i + 1}</b></div>
         </div>`
       )
+      if (line.trim() == "") line = '<br/>'
       $('.line-col').append(`
-        <div class="row">
-          <div class="col">${line}</div>
+        <div class="row" style="overflow-x: auto; white-space: nowrap">
+          <div class="col" style="display: inline-block; float: none">${line}</div>
         </div>`
       )
     }
