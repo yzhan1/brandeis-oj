@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   include SessionsHelper, SubmissionsHelper
 
   def progress
-    job_id = job_id_param
+    job_id = job_id_param[:id]
     data = completed?(job_id)
     respond_to do |format|
       format.json { render json: data }
@@ -20,6 +20,6 @@ class ApplicationController < ActionController::Base
     end
 
     def job_id_param
-      params.require(:id)
+      params.permit(:id, :format)
     end
 end
