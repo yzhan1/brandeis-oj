@@ -22,7 +22,7 @@ class SubmissionsController < ApplicationController
   end
   
   def run
-    job_id = CompileWorker.perform_async(submission)
+    job_id = CompileWorker.perform_async(@submission.id)
     res = {"id" => job_id}
     respond_to do |format|
       format.json { render json: res }

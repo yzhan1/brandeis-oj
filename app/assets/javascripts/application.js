@@ -36,20 +36,24 @@ toastr.options = {
   "hideMethod": "fadeOut"
 }
 
-$('document').ready(() => {
+document.addEventListener("turbolinks:load", () => {
   const runField = $('input[id=run]')
   const runButton = $('.btn-run')
   const saveButton = $('.btn-save')
   const buttonList = [runButton, saveButton]
   const stdoutSection = $('.stdout-section')
 
-  runButton.on('click', (event) => {
+  runButton.on('click', function(event) {
     console.log('run clicked')
     event.preventDefault()
     runField.val(1)
     changeButtonState(buttonList, true)
     updateStdoutSection()
-    runCode()
+    if (this.id == "teacher-run") {
+      runCode({ id: this.name }, 'POST', '/run.json')
+    } else {
+      runCode($('form.edit_submission').serialize(), 'PATCH', '/save.json')
+    }
   })
 
   saveButton.on('click', (event) => {
@@ -61,23 +65,19 @@ $('document').ready(() => {
     buttonList.forEach(button => button.prop('disabled', bool))
   }
 
-  const runCode = () => {
+  const runCode = (data, type, url) => {
     $.ajax({
       beforeSend: (xhr) => {
         xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
       },
-      type: 'PATCH',
-      url: '/save.json',
-      data: $('form.edit_submission').serialize(),
+      type, url, data,
       dataType: 'json',
-      success: (json) => {
-        getResult(json.id)
-      }
+      success: (json) => { getResult(json.id) }
     })
   }
 
   const getResult = (jobID) => {
-    setTimeout(() => {
+    const poller = () => {
       $.ajax({
         type: 'GET',
         url: '/progress/' + jobID + '.json',
@@ -86,14 +86,16 @@ $('document').ready(() => {
             console.log(data)
           } else {
             console.log(data.output)
+            clearInterval(pollInterval)
             changeButtonState(buttonList, false)
             updateResult(data.output)
             return false
           }
-        },
-        timeout: 2000
+        }
       })
-    }, 2000)
+    }
+    var pollInterval = setInterval(() => poller(), 2000)
+    poller()
   }
 
   const updateStdoutSection = () => {
@@ -103,7 +105,7 @@ $('document').ready(() => {
       <div class="progress-msg">
         <p class="running-msg">Running...</>
         <div class="progress">
-          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+          <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
         </div>
       </div>`
     )
@@ -118,7 +120,7 @@ $('document').ready(() => {
       line = output[i]
       $('.row-num-col').append(`
         <div class="row">
-          <div class="col"><b>${i}</b></div>
+          <div class="col"><b>${i + 1}</b></div>
         </div>`
       )
       $('.line-col').append(`

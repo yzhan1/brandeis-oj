@@ -26,11 +26,10 @@ class AssignmentsController < ApplicationController
   def save
     submission = Submission.find(submission_params[:id])
     submission.update(submission_params)
-    puts submission.id
-    if run?[:run] == "0"
-      flash[:success] = 'Code saved'
-      redirect_to submission.assignment
-    else
+    if run?[:run] == "0" # params[:commit] == "Submit"
+      flash[:success] = 'Assignment submitted'
+      redirect_to submission.assignment.course
+    else # elsif params[:commit] == "Run"
       job_id = CompileWorker.perform_async(submission.id)
       puts "job_id = #{job_id}"
       res = {"id" => job_id}
