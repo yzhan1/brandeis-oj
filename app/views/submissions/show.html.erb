@@ -51,5 +51,6 @@
 
 <script>
 <%= render 'shared/editor.js' %>
+editor.getSession().setMode("ace/mode/<%= @submission.assignment.lang %>")
 editor.setReadOnly(true)
 </script>

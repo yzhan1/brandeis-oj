@@ -41,6 +41,7 @@
 
 <script>
 <%= render 'shared/editor.js' %>
+editor.getSession().setMode("ace/mode/<%= @submission.assignment.lang %>")
 <% if !is_student? %>
 editor.setReadOnly(true);
 <% end %>

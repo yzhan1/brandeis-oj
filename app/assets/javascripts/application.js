@@ -1,15 +1,3 @@
-// This is a manifest file that'll be compiled into application.js, which will include all the files
-// listed below.
-//
-// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, or any plugin's
-// vendor/assets/javascripts directory can be referenced here using a relative path.
-//
-// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
-// compiled file. JavaScript code in this file should be added after the last require_* statement.
-//
-// Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
-// about supported directives.
-//
 //= require jquery3
 //= require rails-ujs
 //= require turbolinks
@@ -18,6 +6,7 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require toastr
+//= require assignments
 
 toastr.options = {
   "closeButton": false,
@@ -36,7 +25,7 @@ toastr.options = {
   "hideMethod": "fadeOut"
 }
 
-document.addEventListener("turbolinks:load", () => {
+document.addEventListener('turbolinks:load', () => {
   const runField = $('input[id=run]')
   const runButton = $('.btn-run')
   const saveButton = $('.btn-save')
@@ -49,7 +38,7 @@ document.addEventListener("turbolinks:load", () => {
     runField.val(1)
     changeButtonState(buttonList, true)
     updateStdoutSection()
-    if (this.id == "teacher-run") {
+    if (this.id == 'teacher-run') {
       runCode({ id: this.name }, 'POST', '/run.json')
     } else {
       runCode($('form.edit_submission').serialize(), 'PATCH', '/save.json')
@@ -71,7 +60,7 @@ document.addEventListener("turbolinks:load", () => {
         xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
       }, type, url, data,
       dataType: 'json',
-      success: (json) => { getResult(json.id) }
+      success: json => getResult(json.id)
     })
   }
 
@@ -81,7 +70,7 @@ document.addEventListener("turbolinks:load", () => {
         type: 'GET',
         url: '/progress/' + jobID + '.json',
         success: (data) => {
-          if (data.message == "Processing") {
+          if (data.message == 'Processing') {
             console.log(data)
           } else {
             console.log(data.output)
@@ -116,13 +105,12 @@ document.addEventListener("turbolinks:load", () => {
     $('.row-num-col').empty()
     $('.line-col').empty()
     for (let i = 0; i < output.length; i++) {
-      line = output[i]
+      line = output[i].trim() == '' ? '<br/>' : output[i]
       $('.row-num-col').append(`
         <div class="row">
           <div class="col"><b>${i + 1}</b></div>
         </div>`
       )
-      if (line.trim() == "") line = '<br/>'
       $('.line-col').append(`
         <div class="row" style="overflow-x: auto; white-space: nowrap">
           <div class="col" style="display: inline-block; float: none">${line}</div>

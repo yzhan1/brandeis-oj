@@ -1,5 +1,5 @@
 // setInterval(autosave, 5000)
-const autosave = () => {
+function autosave() {
   $.ajax({
     type: 'PATCH',
     url: '/autosave',

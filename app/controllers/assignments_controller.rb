@@ -27,8 +27,7 @@ class AssignmentsController < ApplicationController
     submission = Submission.find(submission_params[:id])
     submission.update(submission_params)
     if run?[:run] == "0" # params[:commit] == "Submit"
-      flash[:success] = 'Assignment submitted'
-      redirect_to submission.assignment.course
+      redirect_to submission.assignment.course, :flash => { :success => 'Assignment submitted' }
     else # elsif params[:commit] == "Run"
       res = run_code(submission.id)
       respond_to do |format|
@@ -43,7 +42,7 @@ class AssignmentsController < ApplicationController
 
   # GET /assignments/new
   def new
-    @assignment = Assignment.new
+    @assignment = Assignment.new(lang: 'java')
   end
 
   # GET /assignments/1/edit
@@ -97,7 +96,7 @@ class AssignmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def assignment_params
-      params.require(:assignment).permit(:name, :due_date, :course_id, :instructions, :template)
+      params.require(:assignment).permit(:name, :due_date, :course_id, :instructions, :template, :lang)
     end
 
     def submission_params
