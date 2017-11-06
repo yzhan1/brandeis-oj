@@ -71,7 +71,7 @@ class AssignmentsController < ApplicationController
       if @assignment.update(assignment_params)
         format.html { redirect_to edit_assignment_path(@assignment, :course_id => @assignment.course.id) }
         format.js { render :js => "toastr.success('Assignment saved')" }
-      else 
+      else
         format.html { redirect_to edit_assignment_path(@assignment, :course_id => @assignment.course.id) }
         format.js { render :js => "toastr.error('Please enter all fields')" }
       end
