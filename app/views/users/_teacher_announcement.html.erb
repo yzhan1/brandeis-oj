@@ -1,31 +1,31 @@
 <div class="col">
   <h4>NEW ANNOUNCEMENT</h4>
   <br>
-  <form>
-    <div class="form-group">
-      <label for="courseSelection">Course:</label>
-      <select class="form-control" id="courseSelection">
-        <% @course_list.each do |course| %>
-          <option>
-          <%="#{course.course_title} (#{course.course_code})"%>
-          </option>
-        <% end %>
-      </select>
 
+  <% courses_array = Array.new %>
+  <% id_hashes = Hash.new %>
+  <% @course_list.each do |course| %>
+    <% courses_array.push("#{course.course_title} (#{course.course_code})")%>
+    <% id_hashes["#{course.course_title} (#{course.course_code})"] = course.id %>
+  <% end %>
+
+  <%= form_for(:announcement, url: announce_path) do |f| %>
+    <div class="form-group">
+      <%= f.label :course %>
+      <%= f.select :course, options_from_collection_for_select(@course_list, :id, :course_title), {}, class: "form-control" %>
     </div>
     <div class="form-group">
-      <label for="exampleFormControlTextarea1">Announcement</label>
-      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Enter and announcement..."></textarea>
+      <%= f.label :title %>
+      <%= f.text_field :title, class: "form-control", placeholder: "Enter a title..." %>
     </div>
-  </form>
-
-  <div class="row justify-content-md-center">
-    <div class="col">
+    <div class="form-group">
+      <%= f.label :announcement_body %>
+      <%= f.text_area :announcement_body, rows: 5, class: "form-control", placeholder: "Enter an announcement..." %>
     </div>
-    <div class="col col-md-auto">
-      <button type="button" class="btn btn-outline-success ml-auto">Create</button>
+    <div class="form-group">
+      <%= f.submit "Create", class: "btn btn-outline-success" %>
     </div>
-  </div>
+  <% end %>
 
   <br>
   <hr>

@@ -28,5 +28,7 @@ Rails.application.routes.draw do
   get '/progress/:id',  to: 'application#progress'
   get '/submissions',   to: 'submissions#index'
 
+  post '/announce',     to: 'users#create_announcement'
+
   post '/enroll',       to: 'enrollments#create_enrollment_dashboard'
 end
