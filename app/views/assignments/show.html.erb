@@ -30,7 +30,7 @@
           <% @submissions.each do |submission| %>
             <tr>
               <td><%= submission.user.name %></td>
-              <td><%= submission.submission_date %></td>
+              <td><%= submission.submission_date.strftime('%b %d %Y, %H:%M') %></td>
               <td>
                 <%= link_to 'Show', submission_url(submission), class: "btn btn-outline-success btn-sm" %>
               </td>

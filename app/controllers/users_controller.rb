@@ -49,9 +49,13 @@ class UsersController < ApplicationController
   def dashboard
     @enrollment = Enrollment.new
     @course_list = @user.courses
-    @announcement_list = @course_list.map { |course| course.announcements.map { |a| a } }.flatten(2)
-    @assignment_list = @course_list.map { |course| course.assignments.map { |a| a } }.flatten(2)
-    @submission_list = @user.submissions.where(:submitted => true)
+    @announcement_list = @course_list.map { |course| course.announcements }.flatten 2
+    @assignment_list = @course_list.map { |course| course.assignments }.flatten 2
+    if is_student?
+      @submission_list = @user.submissions.where(submitted: true)
+      submitted = @submission_list.map { |submission| submission.assignment.id }
+      @assignment_list = @assignment_list.select { |assignment| !submitted.include?(assignment.id) }
+    end
   end
 
   # DELETE /users/1

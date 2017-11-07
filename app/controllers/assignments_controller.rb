@@ -16,19 +16,22 @@ class AssignmentsController < ApplicationController
       @submission ||= Submission.create(
         user_id: current_user.id,
         assignment_id: @assignment.id,
-        source_code: @assignment.template)
+        source_code: @assignment.template,
+        submitted: false)
     else
-      @submissions = @assignment.submissions
+      @submissions = @assignment.submissions.where(submitted: true)
       @course = @assignment.course
     end
   end
 
   def save
     submission = Submission.find(submission_params[:id])
-    submission.update(submission_params)
-    if run?[:run] == "0" # params[:commit] == "Submit"
+    sub_attr = submission_params.merge(submission_date: Time.now)
+    submission.update(sub_attr)
+    if run?[:run] == "0"
+      submission.update(submitted: true)
       redirect_to submission.assignment.course, :flash => { :success => 'Assignment submitted' }
-    else # elsif params[:commit] == "Run"
+    else
       res = run_code(submission.id)
       respond_to do |format|
         format.json { render json: res }

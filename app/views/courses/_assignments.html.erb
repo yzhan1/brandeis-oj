@@ -28,7 +28,7 @@
               <%= link_to 'Delete', assignment, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger btn-sm" %>
             </td>
             <td>
-              <%= link_to 'Show', assignment_url(assignment), class: "btn btn-outline-success btn-sm" %>
+              <%= link_to 'Show', assignment, class: "btn btn-outline-success btn-sm" %>
             </td>
           <% else %>
             <td>
@@ -42,4 +42,7 @@
     <% end %>
     </tbody>
   </table>
+  <% if is_student? %>
+    <%= render 'submissions' %>
+  <% end %>
 </div>

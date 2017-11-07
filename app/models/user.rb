@@ -12,7 +12,7 @@ class User < ApplicationRecord
   has_many :enrollments
   has_many :courses, through: :enrollments
 
-  def User.digest(string)
+  def User.digest string
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
   end
@@ -26,7 +26,7 @@ class User < ApplicationRecord
     update_attribute(:remember_digest, User.digest(remember_token))
   end
 
-  def authenticated?(remember_token)
+  def authenticated? remember_token
     return false if remember_digest.nil?
     BCrypt::Password.new(remember_digest).is_password?(remember_token)
   end
@@ -36,8 +36,16 @@ class User < ApplicationRecord
   end
 
   def enroll_course permission
-    if !Course.where(permission: permission).nil? && !Course.where(permission: permission).first.nil?
-      enrollments << Enrollment.new(course_id: Course.where(permission: permission).first.id)
+    course_list = Course.where(permission: permission)
+    if !course_list.nil? && !course_list.first.nil?
+      course = course_list.first
+      enrollments << Enrollment.new(course_id: course.id)
+    else
+      false
     end
+  end
+
+  def submissions_for assignments
+    submissions.where(submitted: true, assignment_id: assignments.ids)
   end
 end

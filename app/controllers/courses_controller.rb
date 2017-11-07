@@ -13,6 +13,11 @@ class CoursesController < ApplicationController
   def show
     @assignment_list = @course.assignments
     @enrollment_id = Enrollment.find_by(user_id: current_user.id, course_id: @course.id)
+    if is_student?
+      @submissions = current_user.submissions_for(@assignment_list)
+      submitted = @submissions.map { |submission| submission.assignment.id }
+      @assignment_list = @course.assignments.where.not(id: submitted)
+    end
   end
 
   # GET /courses/new

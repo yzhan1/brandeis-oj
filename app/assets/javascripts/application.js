@@ -25,7 +25,7 @@ toastr.options = {
   "hideMethod": "fadeOut"
 }
 
-document.addEventListener('turbolinks:load', () => {
+$(document).on('turbolinks:load', () => {
   const runField = $('input[id=run]')
   const runButton = $('.btn-run')
   const saveButton = $('.btn-save')

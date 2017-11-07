@@ -40,7 +40,11 @@ end
 
 crumb :submission do |submission|
   link "Submission", submission
-  parent :submissions, submission.assignment
+  if is_student?
+    parent :course, submission.assignment.course
+  else
+    parent :submissions, submission.assignment
+  end
 end
 
 crumb :user do |user|
