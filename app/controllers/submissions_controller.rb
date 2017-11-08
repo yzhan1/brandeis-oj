@@ -23,7 +23,7 @@ class SubmissionsController < ApplicationController
 
   def save_or_run
     submission = Submission.find submission_params[:id]
-    sub_attr = submission_params.merge submission_date: Time.now
+    sub_attr = submission_params.merge(submission_date: Time.now)
     submission.update sub_attr
     run? ? do_run(submission.id) : do_save(submission)
   end
@@ -74,7 +74,7 @@ class SubmissionsController < ApplicationController
         format.js { render :js => "toastr.success('Submission updated')" }
       else
         format.html { render @submission }
-        format.js { render js => "toastr.error('Please enter all fields')" }
+        format.js { render :js => "toastr.error('Please enter all fields')" }
       end
     end
   end
