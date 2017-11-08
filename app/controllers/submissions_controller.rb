@@ -49,7 +49,7 @@ class SubmissionsController < ApplicationController
   end
 
   def autosave
-    Submission.find(submission_params[:id]).update(submission_params)
+    Submission.find(submission_params[:id]).update(submission_params.merge submission_date: Time.now)
   end
 
   # POST /submissions

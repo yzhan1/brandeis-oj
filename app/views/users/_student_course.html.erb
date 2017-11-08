@@ -64,7 +64,13 @@
           <tr>
             <td><%= assignment.course.course_code %></td>
             <td><%= assignment.name %></td>
-            <td><%= assignment.due_date.strftime('%b %d %Y, %H:%M') %></td>
+            <% if assignment.pass_due? %>
+            <td style="color: red">
+            <% else %>
+            <td>
+            <% end %>
+              <%= assignment.due_date.strftime('%b %d %Y, %H:%M') %>
+            </td>
             <td><%= link_to 'Show', assignment, class: 'btn btn-outline-primary btn-sm' %></td>
           </tr>
         <% end %>
