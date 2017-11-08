@@ -53,5 +53,7 @@ editor.setReadOnly(true);
 <% end %>
 editor.setValue("<%= raw(@submission.source_code.inspect[1..-2]) %>", 1);
 editor.getSession().on('change', () => input.val(editor.getSession().getValue()))
-<%= render 'shared/autosave.js' %>
+<% if !@submission.assignment.pass_due? %>
+  <%= render 'shared/autosave.js' %>
+<% end %>
 </script>
