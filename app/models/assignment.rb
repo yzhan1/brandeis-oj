@@ -6,4 +6,8 @@ class Assignment < ApplicationRecord
   validates :course_id, presence: true
   has_many :submissions
   belongs_to :course
+
+  def pass_due?
+    Time.now > due_date ? true : false
+  end
 end

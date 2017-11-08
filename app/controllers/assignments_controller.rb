@@ -24,25 +24,6 @@ class AssignmentsController < ApplicationController
     end
   end
 
-  def save
-    submission = Submission.find(submission_params[:id])
-    sub_attr = submission_params.merge(submission_date: Time.now)
-    submission.update(sub_attr)
-    if run?[:run] == "0"
-      submission.update(submitted: true)
-      redirect_to submission.assignment.course, :flash => { :success => 'Assignment submitted' }
-    else
-      res = run_code(submission.id)
-      respond_to do |format|
-        format.json { render json: res }
-      end
-    end
-  end
-
-  def autosave
-    Submission.find(submission_params[:id]).update(submission_params)
-  end
-
   # GET /assignments/new
   def new
     @assignment = Assignment.new(lang: 'java')
@@ -59,7 +40,7 @@ class AssignmentsController < ApplicationController
     respond_to do |format|
       if @assignment.save
         Announcement.create(name: "New Assignment: #{params[:assignment][:name]}", course_id: params[:assignment][:course_id], announcement_body: "A new assignment has been created!", announcement_date: DateTime.now) # TODO check if this is workingk
-        format.html { redirect_to @assignment.course, :flash => { :success => 'Assignment was successfully created.' } }
+        format.html { redirect_to @assignment.course, flash: { success: 'Assignment was successfully created.' } }
         format.json { render :show, status: :created, location: @assignment.course }
       else
         format.html { render :new }
@@ -86,7 +67,7 @@ class AssignmentsController < ApplicationController
     course = @assignment.course
     @assignment.destroy
     respond_to do |format|
-      format.html { redirect_to course, :flash => { :success => 'Assignment was successfully deleted.' } }
+      format.html { redirect_to course, flash: { success: 'Assignment was successfully deleted.' } }
       format.json { head :no_content }
     end
   end
@@ -100,14 +81,6 @@ class AssignmentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def assignment_params
       params.require(:assignment).permit(:name, :due_date, :course_id, :instructions, :template, :lang)
-    end
-
-    def submission_params
-      params.require(:submission).permit(:source_code, :assignment_id, :id)
-    end
-
-    def run?
-      params.require(:submission).permit(:run)
     end
 
     def correct_user
