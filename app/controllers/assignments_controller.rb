@@ -72,7 +72,20 @@ class AssignmentsController < ApplicationController
     end
   end
 
+  # GET /run_tests
+  def run_tests
+    puts "The params are ======== #{params.inspect}"
+    # assignment = Assignment.find()
+    # puts assignment.inspect
+    # Up to here we have gotten the right assignment to run tests on
+    res = test_code(test_params[:assignment_id])
+    puts "The res is: #{res}"
+    message = "Automated testing is almost completed... hang in there!"
+    render js: "document.querySelector('#test-results').innerHTML = '#{message}';"
+  end
+
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_assignment
       @assignment = Assignment.find(params[:id])
@@ -80,7 +93,11 @@ class AssignmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def assignment_params
-      params.require(:assignment).permit(:name, :due_date, :course_id, :instructions, :template, :lang)
+      params.require(:assignment).permit(:name, :due_date, :course_id, :instructions, :template, :lang, :test_code)
+    end
+
+    def test_params
+      params.permit(:assignment_id)
     end
 
     def correct_user

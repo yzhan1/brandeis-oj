@@ -1,11 +1,11 @@
-class CompileWorker
+class JunitWorker
   include Sidekiq::Worker
   include Sidekiq::Status::Worker
 
-  def perform(submission_id)
-    submission = Submission.find(submission_id)
+  def perform(assignment_id)
+    assignment = Assignment.find(assignment_id)
     # Added a parameter to detect the language of the submission
-    result = submission.run(submission.assignment.lang)
+    result = assignment.test_submission(assignment.lang)
     store stdout: result
   end
 

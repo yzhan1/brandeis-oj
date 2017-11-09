@@ -1,4 +1,5 @@
 <% if @announcement_list.present? %>
+  <% @announcement_list = (@announcement_list.sort_by {|announcement| announcement.announcement_date }).reverse %>
   <div id="accordion" role="tablist" aria-multiselectable="true">
     <!--Show header and body for first card-->
     <div class="card bg-light mb-3">
