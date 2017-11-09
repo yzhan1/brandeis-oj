@@ -28,10 +28,6 @@ toastr.options = {
   "hideMethod": "fadeOut"
 }
 
-$(document).ready(function(){
-    $('[data-toggle="popover"]').popover();
-});
-
 $(document).on('turbolinks:load', () => {
   const runField = $('input[id=run]')
   const runButton = $('.btn-run')
@@ -39,6 +35,7 @@ $(document).on('turbolinks:load', () => {
   const buttonList = [runButton, saveButton]
   const stdoutSection = $('.stdout-section')
 
+  $('[data-toggle="popover"]').popover();
 
   runButton.on('click', function(event) {
     console.log('run clicked')
