@@ -32,6 +32,7 @@ $(document).on('turbolinks:load', () => {
   const buttonList = [runButton, saveButton]
   const stdoutSection = $('.stdout-section')
 
+
   runButton.on('click', function(event) {
     console.log('run clicked')
     event.preventDefault()

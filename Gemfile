@@ -34,6 +34,7 @@ gem 'jquery-rails', '4.3.1'
 
 # Adding bootstrap gems
 gem 'bootstrap', '= 4.0.0.alpha6'
+gem 'bootstrap-popover-rails'
 gem 'will_paginate',           '3.1.5'
 gem 'will_paginate-bootstrap4'
 gem 'popper_js'

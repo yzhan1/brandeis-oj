@@ -31,7 +31,9 @@ class CoursesController < ApplicationController
 
   # POST /courses
   def create
-    @course = Course.new(course_params)
+    all_params = course_params
+    all_params[:permission] = SecureRandom.hex(10)
+    @course = Course.new(all_params)
     respond_to do |format|
       if @course.save
         Enrollment.create(user_id: current_user.id, course_id: @course.id)
@@ -76,7 +78,7 @@ class CoursesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
-      params.require(:course).permit(:course_title, :course_code, :permission)
+      params.require(:course).permit(:course_title, :course_code)
     end
 
     def correct_user
