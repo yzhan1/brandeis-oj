@@ -26,4 +26,6 @@ Rails.application.routes.draw do
   post '/announce',     to: 'users#create_announcement'
 
   post '/enroll',       to: 'enrollments#create_enrollment_dashboard'
+
+  get '/test',          to: 'assignments#run_tests'
 end

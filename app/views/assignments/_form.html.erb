@@ -1,67 +1,108 @@
 <%= form_with(model: assignment, remote: true, authenticity_token: true) do |form| %>
-  <% if assignment.errors.any? %>
-    <div id="error_explanation">
-      <div class="alert alert-danger" role="alert">
-        <h2><%= pluralize(assignment.errors.count, "error") %> prohibited this assignment from being saved:</h2>
-        <ul>
-        <% assignment.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-        </ul>
-      </div>
-    </div>
-  <% end %>
+<% if assignment.errors.any? %>
+<div id="error_explanation">
+  <div class="alert alert-danger" role="alert">
+    <h2><%= pluralize(assignment.errors.count, "error") %> prohibited this assignment from being saved:</h2>
+    <ul>
+      <% assignment.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+<% end %>
 
-  <div class="row" style="margin-left: 0; margin-right: 0">
-    <div class="col-lg-5 assignment-details">
-      <div class="container">
-        <h3 style="padding-top:20px">New/Edit Assignment</small></h3>
-        <hr/>
-        <%= form.hidden_field :course_id, value: params['course_id'] %>
-        <dl class="row">
-          <dt class="col-sm-3">Name</dt>
-          <dd class="col-sm-9">
-            <%= form.text_field :name, id: :assignment_name, class: "form-control" %>
-          </dd>
-          <dt class="col-sm-3">Instructions</dt>
-          <dd class="col-sm-9">
-            <%= form.text_area :instructions, id: :assignment_instructions, class: "form-control", rows: "15" %>
-          </dd>
-          <dt class="col-sm-3">Due Date</dt>
-          <dd class="col-sm-9">
-            <%= form.datetime_select :due_date, id: :assignment_due_date, class: "form-control" %>
-          </dd>
-        </dl>
-        <hr/>
-      </div>
-    </div>
-    <div class="col-lg-7" style="padding-right: 0">
-      <%= form.text_area :template, id: :assignment_template %>
-      <%= token_tag(nil) %>
-      <pre id="editor" style="margin-bottom: 0px" class="editor-div"></pre>
-      <div class="container" style="background-color: #eaecef; padding: 10px;">
-      <div class="row" style="margin: 0px">
-        <div class="col-4">
+<div class="row" style="margin-left: 0; margin-right: 0; background-color: #A7BBC3;">
+  <div class="col-lg-5 assignment-details">
+    <div class="container">
+      <% if @assignment.test_code.inspect == 'nil' && @assignment.template.inspect == 'nil' %>
+        <% @partial_title = "New" %>
+      <% else %>
+        <% @partial_title = "Edit" %>
+      <% end %>
+      <h3 style="padding-top:20px"><%= @partial_title %> Assignment</small></h3>
+      <hr/>
+      <%= form.hidden_field :course_id, value: params['course_id'] %>
+      <dl class="row">
+        <dt class="col-sm-3">Name</dt>
+        <dd class="col-sm-9">
+          <%= form.text_field :name, id: :assignment_name, class: "form-control" %>
+        </dd>
+        <dt class="col-sm-3">Language</dt>
+        <dd class="col-sm-9">
           <%= form.select(:lang, ['java', 'python', 'ruby'], {}, id: :assignment_lang, class: "form-control") %>
-        </div>
-        <div class="col-4">
-        </div>
-        <div class="col-4">
-          <%= form.submit "Save", class: "btn btn-success ml-auto w-100" %>
-        </div>
-      </div>
-    </div>
+        </dd>
+        <dt class="col-sm-3">Instructions</dt>
+        <dd class="col-sm-9">
+          <%= form.text_area :instructions, id: :assignment_instructions, class: "form-control", rows: "15" %>
+        </dd>
+        <dt class="col-sm-3">Due Date</dt>
+        <dd class="col-sm-9">
+          <%= form.datetime_select :due_date, id: :assignment_due_date, class: "form-control" %>
+        </dd>
+      </dl>
     </div>
   </div>
+  <div class="col-lg-7" style="padding-right: 0">
+    <%= form.text_area :template, id: :assignment_template %>
+    <%= token_tag(nil) %>
+    <pre id="editor" style="margin-bottom: 0px" class="editor-div-assgn"></pre>
+  </div>
+</div>
+<div class="row" style="margin-left: 0; margin-right: 0; background-color: #COC2CE; padding-top: 40px;">
+  <div class="col" style="padding-left: 0;">
+    <div class="row" style="display:flex; justify-content: center; align-items: center; padding-bottom: 25px;">
+      <h1>Automated Testing</h1>
+    </div>
+    <br>
+    <div class="row" style="margin-left: 0; margin-right: 0">
+      <div class="col-lg-6" style="padding-right: 0; padding-left: 0">
+        <%= form.text_area :test_code, id: :test_code_editor %>
+        <%= token_tag(nil) %>
+        <pre id="editor2" style="margin-bottom: 0px" class="editor-div"></pre>
+      </div>
+      <div class="col-lg-6 assignment-details">
+        <div class="container">
+          <h3 style="padding-top:20px">Including Unit Tests</small></h3>
+          <hr/>
+          <p>For the moment only JUnit testing is supported, but we are working to get some python and ruby testing ready as soon as possible!</p>
+          <p>You can write tests in this file just as you are used to write your own JUnit classes. If you need some help you can checkout the <%= link_to "official site", "http://junit.org/junit4/", target: "_blank", rel: "nofollow" %> for JUnit's documentation. We are currently using JUnit version 4.12. Happy testing!</p>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4">
+        <%= form.submit "Update Assignment", class: "btn btn-outline-success ml-auto w-100" %>
+        <br><br><br>
+      </div>
+      <div class="col-4"></div>
+    </div>
+  </div>
+</div>
 
-  <script>
+<script>
   <%= render 'shared/editor.js' %>
   editor.getSession().setMode("ace/mode/<%= @assignment.lang %>")
   var input = $('textarea[id="assignment_template"]').hide()
   editor.setValue("")
   <% if @assignment.template.inspect != 'nil' %>
-  editor.setValue("<%= raw(@assignment.template.inspect[1..-2]) %>", 1)
+    editor.setValue("<%= raw(@assignment.template.inspect[1..-2]) %>", 1)
   <% end %>
   editor.getSession().on('change', () => input.val(editor.getSession().getValue()))
-  </script>
+</script>
+
+<script>
+  <%= render 'shared/tests_editor.js' %>
+  tests_editor.getSession().setMode("ace/mode/<%= @assignment.lang %>")
+  var input2 = $('textarea[id="test_code_editor"]').hide()
+  tests_editor.setValue("import org.junit.Test;\nimport static org.junit.Assert.assertEquals;\n\npublic class JunitTests {\n\n\t@Test\n\tpublic void autoGeneratedTest() {\n\n\t\t/*\n\t\tWrite a test here...\n\t\tmake sure you include\n\t\tat least one assertion.\n\n\t\tFor JUnit documentation go to:\n\t\thttp://junit.org/junit4/javadoc/latest/\n\t\t*/\n\n\t}\n\n}")
+  input2.val(tests_editor.getSession().getValue())
+  <% if @assignment.test_code.inspect != 'nil' %>
+    tests_editor.setValue("<%= raw(@assignment.test_code.inspect[1..-2]) %>", 1)
+  <% end %>
+  tests_editor.getSession().on('change', () => input2.val(tests_editor.getSession().getValue()))
+</script>
+
 <% end %>
