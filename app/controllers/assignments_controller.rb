@@ -16,8 +16,8 @@ class AssignmentsController < ApplicationController
       @submission ||= Submission.create(
         user_id: current_user.id,
         assignment_id: @assignment.id,
-        source_code: @assignment.template,
         submitted: false)
+      @code ||= @submission.codes.create(user_code: @assignment.template)
     else
       @submissions = @assignment.submissions.where(submitted: true)
       @course = @assignment.course

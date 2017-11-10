@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20171108181200) do
   end
 
   create_table "codes", force: :cascade do |t|
-    t.string "source_code"
+    t.string "user_code"
     t.string "directory"
     t.string "filename"
     t.integer "test_id"
