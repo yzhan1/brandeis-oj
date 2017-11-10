@@ -96,7 +96,7 @@ class SubmissionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def submission_params
-      params.require(:submission).permit(:id, :submitted, :user_id, :assignment_id, :submission_date, :grade, :comments, codes_attributes: [:user_code])
+      params.require(:submission).permit(:id, :submitted, :user_id, :assignment_id, :submission_date, :grade, :comments, codes_attributes: [:source_code])
     end
 
     def correct_user
