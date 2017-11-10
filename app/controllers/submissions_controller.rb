@@ -22,8 +22,8 @@ class SubmissionsController < ApplicationController
   end
 
   def save_or_run
-    @user_code = params[:submission][:code][:source_code]
     submission = Submission.find submission_params[:id]
+    submission.update(source_code: params[:submission][:code][:source_code])
     sub_attr = submission_params.merge(submission_date: Time.now)
     submission.update sub_attr
     run? ? do_run(submission.id) : do_save(submission)
