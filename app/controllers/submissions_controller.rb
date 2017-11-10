@@ -43,7 +43,7 @@ class SubmissionsController < ApplicationController
   end
 
   def do_run submission_id
-    res = run_code(submission_id, @user_code)
+    res = run_code(submission_id)
     respond_to do |format|
       format.json { render json: res }
     end
