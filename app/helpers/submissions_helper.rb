@@ -1,6 +1,6 @@
 module SubmissionsHelper
-  def run_code(submission_id)
-    job_id = CompileWorker.perform_async(submission_id)
+  def run_code(submission_id, user_code)
+    job_id = CompileWorker.perform_async(submission_id, user_code)
     puts "job_id = #{job_id}"
     res = {"id" => job_id}
   end
