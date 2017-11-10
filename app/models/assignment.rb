@@ -8,6 +8,8 @@ class Assignment < ApplicationRecord
   validates :course_id, presence: true
   has_many :submissions
   belongs_to :course
+  has_attached_file :pdf_instruction
+  validates_attachment_content_type :pdf_instruction, :content_type => ['application/pdf']
 
   def pass_due?
     Time.now > due_date ? true : false

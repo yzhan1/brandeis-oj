@@ -15,6 +15,8 @@
         <% end %>
           <%= @assignment.due_date.strftime('%a, %b %d %Y, %H:%M') %>
         </dd>
+        <dt class="col-sm-3">PDF</dt>
+        <dd class="col-sm-9"><%= @assignment.pdf_instruction %></dd>
       </dl>
       <hr/>
       <%= render 'shared/stdout' %>

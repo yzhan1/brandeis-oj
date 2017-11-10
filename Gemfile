@@ -56,6 +56,9 @@ gem 'sidekiq'
 gem 'sidekiq-status'
 gem 'rubysl-open3'
 
+gem 'paperclip'
+gem 'aws-sdk', '~> 2.3'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
