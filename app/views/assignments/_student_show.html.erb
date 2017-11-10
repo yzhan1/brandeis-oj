@@ -56,37 +56,32 @@
 <%= render 'shared/editor.js' %>
 editor.getSession().setMode("ace/mode/<%= @submission.assignment.lang %>")
 <% if !is_student? %>
-editor.setReadOnly(true);
+editor.setReadOnly(true)
 <% end %>
-editor.setValue("<%= raw(@submission.source_code.inspect[1..-2]) %>", 1);
+editor.setValue("<%= raw(@submission.source_code.inspect[1..-2]) %>", 1)
 editor.getSession().on('change', () => input.val(editor.getSession().getValue()))
 <%= render 'shared/autosave.js' %>
 </script>
 
-<!DOCTYPE html>
-<html>
-<head>
-  <style>
-    @import url('http://getbootstrap.com/2.3.2/assets/css/bootstrap.css');
-    .container {
-      margin-top: 10px;
-    }
-    .nav-tabs > li {
-      position:relative;
-    }
-    .nav-tabs > li > a {
-      display:inline-block;
-    }
-    .nav-tabs > li > span {
-      display:none;
-      cursor:pointer;
-      position:absolute;
-      right: 6px;
-      top: 8px;
-      color: red;
-    }
-    .nav-tabs > li:hover > span {
-      display: inline-block;
-    }
-  </style>
-</head>
+<style>
+  .container {
+    margin-top: 10px;
+  }
+  .nav-tabs > li {
+    position:relative;
+  }
+  .nav-tabs > li > a {
+    display:inline-block;
+  }
+  .nav-tabs > li > span {
+    display:none;
+    cursor:pointer;
+    position:absolute;
+    right: 6px;
+    top: 8px;
+    color: red;
+  }
+  .nav-tabs > li:hover > span {
+    display: inline-block;
+  }
+</style>

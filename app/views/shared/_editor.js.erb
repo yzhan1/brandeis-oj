@@ -7,26 +7,24 @@ editor.getSession().setMode("ace/mode/java")
 editor.setShowPrintMargin(false)
 editor.setOptions({fontSize: "14px"})
 
-$(".nav-tabs").on("click", "a", function (e) {
-  e.preventDefault();
-//  console.log($(this).attr('href'))
-//  console.log($($(this).attr('href')))
+$(".nav-tabs").on("click", "a", function(e) {
+  e.preventDefault()
   if (!$(this).hasClass('add-class')) {
-    $(this).tabs();
+    $('.tab-content').children('div.tab-pane').removeClass('active')
+    $($(this).attr('href')).addClass('active')
   }
+}).on("click", "span", function() {
+  var anchor = $(this).siblings('a')
+  $(anchor.attr('href')).remove()
+  $(this).parent().remove()
+  $('.nav-tabs li').children('a').first().click()
 })
-  .on("click", "span", function () {
-    var anchor = $(this).siblings('a');
-    $(anchor.attr('href')).remove();
-    $(this).parent().remove();
-    $(".nav-tabs li").children('a').first().click();
-  });
 
-$('.add-class').click(function (e) {
-  e.preventDefault();
-  var id = $(".nav-tabs").children().length;
-  var tabId = 'class_' + id;
-  $(this).closest('li').before('<li><a href="#class_' + id + '">New Tab</a> <span> x </span></li>');
-  $('.tab-content').append('<div class="tab-pane" id="' + tabId + '">Tab' + id + '</div>');
-  $('.nav-tabs li:nth-child(' + id + ') a').click();
-});
+$('.add-class').click(function(e) {
+  e.preventDefault()
+  var id = $('.nav-tabs').children().length
+  var tabId = 'class_' + id
+  $(this).closest('li').before(`<li><a href="#${ tabId }">New Tab</a> <span> x </span></li>`)
+  $('.tab-content').append(`<div class="tab-pane active" id="${ tabId }">Tab ${ id }</div>`)
+  $(`.nav-tabs li:nth-child(${ id }) a`).click()
+})
