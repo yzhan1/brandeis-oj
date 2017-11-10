@@ -22,10 +22,12 @@
     <br/>
   </div>
   <div class="col-lg-7" style="padding-right: 0">
-    <%= form_for(@submission, url: save_path) do |f| %>
+    <%= nested_form_for @submission, :url => url_for(:controller => 'submissions', :action => 'save_or_run') do |f| %>
     <%= token_tag(nil) %>
     <pre id="editor" style="margin-bottom: 0px" class="editor-div"></pre>
-    <%= f.text_area :source_code, id: :submission_source_code %>
+    <%= f.fields_for @code do |c|%>
+      <%= c.text_area :user_code, id: :code_area%>
+    <%end%>
     <%= f.number_field :assignment_id, id: :submission_assignment_id, style: "display: none", :value => @assignment.id %>
     <%= f.number_field :id, id: :submission_id, style: "display: none", :value => @submission.id %>
     <%= f.number_field :run, id: :run, style: "display: none", :value => 0 %>
@@ -51,7 +53,7 @@ editor.getSession().setMode("ace/mode/<%= @submission.assignment.lang %>")
 <% if !is_student? %>
 editor.setReadOnly(true);
 <% end %>
-editor.setValue("<%= raw(@submission.source_code.inspect[1..-2]) %>", 1);
+editor.setValue("<%= raw(@submission.codes.first.user_code.inspect[1..-2]) %>", 1);
 editor.getSession().on('change', () => input.val(editor.getSession().getValue()))
 <% if !@submission.assignment.pass_due? %>
   <%= render 'shared/autosave.js' %>

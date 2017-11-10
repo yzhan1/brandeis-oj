@@ -55,6 +55,7 @@ gem 'rails_admin', '~> 1.2'
 gem 'sidekiq'
 gem 'sidekiq-status'
 gem 'rubysl-open3'
+gem "nested_form"
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

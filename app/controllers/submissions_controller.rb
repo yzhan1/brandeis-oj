@@ -1,5 +1,5 @@
 class SubmissionsController < ApplicationController
-  before_action :logged_in_user, only: [:show, :edit, :update, :destroy, :index, :new]  
+  before_action :logged_in_user, only: [:show, :edit, :update, :destroy, :index, :new]
   before_action :correct_user, only: [:show, :edit, :update, :destroy]
   before_action :set_submission, only: [:show, :edit, :update, :destroy, :run]
 
@@ -36,7 +36,7 @@ class SubmissionsController < ApplicationController
       redirect_to submission.assignment.course, :flash => { :success => 'Assignment submitted' }
     end
   end
-  
+
   def run
     do_run @submission.id
   end
@@ -96,14 +96,14 @@ class SubmissionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def submission_params
-      params.require(:submission).permit(:id, :submitted, :user_id, :assignment_id, :submission_date, :source_code, :grade, :comments)
+      params.require(:submission).permit(:id, :submitted, :user_id, :assignment_id, :submission_date, :grade, :comments, codes_attributes: [:user_code])
     end
 
     def correct_user
       @submission = Submission.find_by(id: params[:id])
       instructor_access = !is_student? && @submission.assignment.course.enrolled_user?(current_user)
       # cannot view or edit a submission if user is not the teacher teaching this course or not the student who owns this submission
-      redirect_to(dashboard_url, :flash => { :warning => 'Access denied'} ) unless @submission.user == current_user || instructor_access              
+      redirect_to(dashboard_url, :flash => { :warning => 'Access denied'} ) unless @submission.user == current_user || instructor_access
     end
 
     def run?
