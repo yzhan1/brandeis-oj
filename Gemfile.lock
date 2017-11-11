@@ -288,11 +288,8 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   jquery-rails (= 4.3.1)
   listen (>= 3.0.5, < 3.2)
-<<<<<<< HEAD
   nested_form
-=======
   paperclip
->>>>>>> attachment
   pg (= 0.20.0)
   popper_js
   pry-rails
