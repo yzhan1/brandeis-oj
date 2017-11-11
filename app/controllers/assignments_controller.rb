@@ -54,7 +54,7 @@ class AssignmentsController < ApplicationController
     respond_to do |format|
       if @assignment.update(assignment_params)
         format.html { redirect_to edit_assignment_path(@assignment, :course_id => @assignment.course.id) }
-        format.js { render :js => "toastr.success('Assignment saved')" }
+        format.js
       else
         format.html { redirect_to edit_assignment_path(@assignment, :course_id => @assignment.course.id) }
         format.js { render :js => "toastr.error('Please enter all fields')" }
@@ -85,7 +85,6 @@ class AssignmentsController < ApplicationController
   end
 
   private
-
     # Use callbacks to share common setup or constraints between actions.
     def set_assignment
       @assignment = Assignment.find(params[:id])
@@ -93,7 +92,7 @@ class AssignmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def assignment_params
-      params.require(:assignment).permit(:name, :due_date, :course_id, :instructions, :template, :lang, :test_code)
+      params.require(:assignment).permit(:name, :due_date, :course_id, :instructions, :template, :lang, :test_code, :pdf_instruction)
     end
 
     def test_params

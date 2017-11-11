@@ -15,6 +15,8 @@
         <% end %>
           <%= @assignment.due_date.strftime('%a, %b %d %Y, %H:%M') %>
         </dd>
+        <dt class="col-sm-3">PDF Instructions</dt>
+        <dd class="col-sm-9"><%= link_to 'View', "http:#{@assignment.pdf_instruction}", target: "_blank" %></dd>
       </dl>
       <hr/>
       <%= render 'shared/stdout' %>
@@ -51,7 +53,7 @@
 <%= render 'shared/editor.js' %>
 editor.getSession().setMode("ace/mode/<%= @submission.assignment.lang %>")
 <% if !is_student? %>
-editor.setReadOnly(true);
+editor.setReadOnly(true)
 <% end %>
 editor.setValue("<%= raw(@submission.codes.first.source_code.inspect[1..-2]) %>", 1);
 editor.getSession().on('change', () => input.val(editor.getSession().getValue()))
