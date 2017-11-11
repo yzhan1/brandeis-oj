@@ -34,5 +34,4 @@ class Assignment < ApplicationRecord
     remove = `rm -rf tmp/#{dir_name}`
     return stdout_err
   end
-
 end

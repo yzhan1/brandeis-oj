@@ -36,9 +36,15 @@
         <dd class="col-sm-9">
           <%= form.text_area :instructions, id: :assignment_instructions, class: "form-control", rows: "15" %>
         </dd>
+        <% if assignment.pdf_instruction != nil %>
+        <dt class="col-sm-3">Instructions</dt>
+        <dd class="col-sm-9" id="file-name">
+          <%= assignment.pdf_instruction_file_name %>
+        </dd>
+        <% end %>
         <dt class="col-sm-3">PDF</dt>
         <dd class="col-sm-9">
-          <%= form.file_field :pdf_instruction, id: :assignment_pdf_instruction, class: "form-control" %>
+          <%= form.file_field :pdf_instruction, id: :assignment_pdf_instruction %>
         </dd>
         <dt class="col-sm-3">Due Date</dt>
         <dd class="col-sm-9">
