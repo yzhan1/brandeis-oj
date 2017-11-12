@@ -55,10 +55,10 @@ Rails.application.configure do
   # config.paperclip_defaults = {
   #   storage: :s3,
   #   s3_credentials: {
-  #     bucket: 'aspirinx-assets',
-  #     access_key_id: 'AKIAIOTOIO5R5IKFQTCQ',
-  #     secret_access_key: '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',
-  #     s3_region: 'us-east-1',
+  #     bucket: '',
+  #     access_key_id: '',
+  #     secret_access_key: '',
+  #     s3_region: '',
   #   }
   # }
 end
