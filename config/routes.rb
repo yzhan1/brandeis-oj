@@ -7,9 +7,6 @@ Rails.application.routes.draw do
   resources :courses
 
   root 'sessions#new'
-  get '/about',         to: 'static_pages#about'
-  get '/contact',       to: 'static_pages#contact'
-  get '/demo',          to: 'static_pages#demo'
 
   get '/signup',        to: 'users#new'
   post '/signup',       to: 'users#create'
@@ -19,14 +16,16 @@ Rails.application.routes.draw do
   post '/login',        to: 'sessions#create'
   delete '/logout',     to: 'sessions#destroy'
 
-  get '/assignments',   to: 'assignments#index'
-  post '/save',         to: 'assignments#save'
-  patch '/save',        to: 'assignments#save'
-  patch '/autosave',    to: 'assignments#autosave'
-
+  post '/save',         to: 'submissions#save_or_run'
+  patch '/save',        to: 'submissions#save_or_run'
+  patch '/autosave',    to: 'submissions#autosave'
   post '/run',          to: 'submissions#run'
+
   get '/progress/:id',  to: 'application#progress'
-  get '/submissions',   to: 'submissions#index'
+
+  post '/announce',     to: 'users#create_announcement'
 
   post '/enroll',       to: 'enrollments#create_enrollment_dashboard'
+
+  get '/test',          to: 'assignments#run_tests'
 end

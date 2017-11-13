@@ -7,7 +7,7 @@ class CreateSubmissions < ActiveRecord::Migration[5.1]
       t.string :source_code
       t.float :grade
       t.string :comments
-      
+
       #external references
       t.integer :user_id
       t.integer :assignment_id

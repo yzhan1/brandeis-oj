@@ -31,6 +31,9 @@
             Permission
           </dt>
           <dd class="col-sm-9">
+            <% if course.permission.nil? %>
+            
+            <% end %>
             <%=  course.permission %>
           </dd>
           <div class="ml-auto" style="margin-top: 20px">

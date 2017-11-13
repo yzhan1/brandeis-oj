@@ -21,14 +21,21 @@
       <% @assignment_list.each do |assignment| %>
         <tr>
           <td><%= assignment.name %></td>
-          <td><%= assignment.due_date.strftime('%b %d %Y, %H:%M') %></td>
+          <% if assignment.pass_due? && is_student? %>
+          <td style="color: red">
+          <% else %>
+          <td>
+          <% end %>
+            <%= assignment.due_date.strftime('%b %d %Y, %H:%M') %>
+          </td>
           <% if !is_student? %>
             <td>
               <%= link_to 'Edit', edit_assignment_path(assignment, course_id: @course.id), class: "btn btn-outline-primary btn-sm" %>
               <%= link_to 'Delete', assignment, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger btn-sm" %>
             </td>
             <td>
-              <%= link_to 'Show', assignment_url(assignment), class: "btn btn-outline-success btn-sm" %>
+              <%= link_to 'Show', assignment, class: "btn btn-outline-success btn-sm" %>
+              <%= link_to 'Run Tests', test_path(assignment_id: assignment.id.to_s), class: "btn btn-outline-info btn-sm", remote: true %>
             </td>
           <% else %>
             <td>
@@ -42,4 +49,7 @@
     <% end %>
     </tbody>
   </table>
+  <% if is_student? %>
+    <%= render 'submissions' %>
+  <% end %>
 </div>

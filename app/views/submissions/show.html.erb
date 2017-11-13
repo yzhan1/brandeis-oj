@@ -1,9 +1,9 @@
-<% provide(:title, "Submission Detail") %>
+<% provide(:title, "View Submission") %>
 <% breadcrumb :submission, @submission %>
 <div class="row" style="margin-left: 0; margin-right: 0">
   <div class="col-lg-5 assignment-details">
     <div class="container">
-      <h3 style="padding-top:20px"><%= @submission.assignment.name %> <small class="text-muted"><%= @submission.user.name %></small></h3>
+      <h3 style="padding-top:20px"><%= @submission.assignment.name %>  <small class="text-muted"><%= @submission.user.name %></small></h3>
       <hr/>
       <dl class="row">
         <dt class="col-sm-3">From</dt>
@@ -23,6 +23,10 @@
           <dd class="col-sm-9">
             <%= @submission.grade %>
           </dd>
+          <dt class="col-sm-3">Comments</dt>
+          <dd class="col-sm-9">
+            <%= @submission.comments %>
+          </dd>
         <% else %>
           <%= render 'form', submission: @submission %>
         <% end %>
@@ -33,19 +37,15 @@
     <br/>
   </div>
   <div class="col-lg-7" style="padding-right: 0">
-    <% if !is_student? %>
-      <pre id="editor" style="margin-bottom: 0px" class="editor-div"><%= raw(@submission.source_code) %></pre>
-      <div class="container" style="background-color: rgb(232, 232, 232); padding: 10px;">
-        <div class="row" style="margin: 0px">
-          <div class="col-8"></div>
-          <div class="col-4">
-            <%= button_to "Run", run_url(id: @submission.id), method: :post, class: "btn btn-primary ml-auto w-100 btn-run", id: "teacher-run", name: @submission.id %>
-          </div>
+    <pre id="editor" style="margin-bottom: 0px" class="editor-div"><%= raw(@submission.source_code) %></pre>
+    <div class="container" style="background-color: rgb(232, 232, 232); padding: 10px;">
+      <div class="row" style="margin: 0px">
+        <div class="col-8"></div>
+        <div class="col-4">
+          <%= button_to "Run", run_url(id: @submission.id), method: :post, class: "btn btn-primary ml-auto w-100 btn-run", id: "teacher-run", name: @submission.id %>
         </div>
       </div>
-    <% else %>
-      <pre id="editor" style="margin-bottom: 0px" class="submission-div"><%= raw(@submission.source_code) %></pre>
-    <% end %>
+    </div>
   </div>
 </div>
 

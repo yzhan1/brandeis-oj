@@ -4,9 +4,12 @@
 //= require_tree .
 //= require tether
 //= require popper
+//= require bootstrap
 //= require bootstrap-sprockets
 //= require toastr
 //= require assignments
+//= require bootstrap/bootstrap-rails-tooltip
+//= require bootstrap/bootstrap-rails-popover
 
 toastr.options = {
   "closeButton": false,
@@ -25,12 +28,14 @@ toastr.options = {
   "hideMethod": "fadeOut"
 }
 
-document.addEventListener('turbolinks:load', () => {
+$(document).on('turbolinks:load', () => {
   const runField = $('input[id=run]')
   const runButton = $('.btn-run')
   const saveButton = $('.btn-save')
   const buttonList = [runButton, saveButton]
   const stdoutSection = $('.stdout-section')
+
+  $('[data-toggle="popover"]').popover();
 
   runButton.on('click', function(event) {
     console.log('run clicked')

@@ -49,9 +49,13 @@ class UsersController < ApplicationController
   def dashboard
     @enrollment = Enrollment.new
     @course_list = @user.courses
-    @announcement_list = @course_list.map { |course| course.announcements.map { |a| a } }.flatten(2)
-    @assignment_list = @course_list.map { |course| course.assignments.map { |a| a } }.flatten(2)
-    @submission_list = @user.submissions.where(:submitted => true)
+    @announcement_list = @course_list.map { |course| course.announcements }.flatten 2
+    @assignment_list = @course_list.map { |course| course.assignments }.flatten 2
+    if is_student?
+      @submission_list = @user.submissions.where(submitted: true)
+      submitted = @submission_list.map { |submission| submission.assignment.id }
+      @assignment_list = @assignment_list.select { |assignment| !submitted.include?(assignment.id) }
+    end
   end
 
   # DELETE /users/1
@@ -61,6 +65,16 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url, :flash => { :success => 'User was successfully deleted.' } }
       format.json { head :no_content }
     end
+  end
+
+  # GET /announce
+  def create_announcement
+    valid_params = announcent_params
+    announcement = Announcement.new(name: valid_params[:title], announcement_date: DateTime.now, announcement_body: valid_params[:announcement_body], course_id: valid_params[:course])
+    if announcement.valid?
+      announcement.save
+    end
+    redirect_to root_url
   end
 
   private
@@ -78,5 +92,9 @@ class UsersController < ApplicationController
       @user = User.find_by(id: params[:id])
       # cannot edit other user's profile
       redirect_to(dashboard_url, :flash => { :warning => 'Access denied' }) if @user.nil? || @user != current_user
+    end
+
+    def announcent_params
+      params.require(:announcement).permit(:course, :announcement_body, :title)
     end
 end

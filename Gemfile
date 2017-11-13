@@ -34,6 +34,7 @@ gem 'jquery-rails', '4.3.1'
 
 # Adding bootstrap gems
 gem 'bootstrap', '= 4.0.0.alpha6'
+gem 'bootstrap-popover-rails'
 gem 'will_paginate',           '3.1.5'
 gem 'will_paginate-bootstrap4'
 gem 'popper_js'
@@ -54,6 +55,10 @@ gem 'rails_admin', '~> 1.2'
 gem 'sidekiq'
 gem 'sidekiq-status'
 gem 'rubysl-open3'
+gem "nested_form"
+
+gem 'paperclip'
+gem 'aws-sdk', '~> 2.3'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

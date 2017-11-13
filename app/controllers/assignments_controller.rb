@@ -16,28 +16,12 @@ class AssignmentsController < ApplicationController
       @submission ||= Submission.create(
         user_id: current_user.id,
         assignment_id: @assignment.id,
-        source_code: @assignment.template)
+        submitted: false)
+      @code ||= @submission.codes.create(source_code: @assignment.template)
     else
-      @submissions = @assignment.submissions
+      @submissions = @assignment.submissions.where(submitted: true)
       @course = @assignment.course
     end
-  end
-
-  def save
-    submission = Submission.find(submission_params[:id])
-    submission.update(submission_params)
-    if run?[:run] == "0" # params[:commit] == "Submit"
-      redirect_to submission.assignment.course, :flash => { :success => 'Assignment submitted' }
-    else # elsif params[:commit] == "Run"
-      res = run_code(submission.id)
-      respond_to do |format|
-        format.json { render json: res }
-      end
-    end
-  end
-
-  def autosave
-    Submission.find(submission_params[:id]).update(submission_params)
   end
 
   # GET /assignments/new
@@ -56,7 +40,7 @@ class AssignmentsController < ApplicationController
     respond_to do |format|
       if @assignment.save
         Announcement.create(name: "New Assignment: #{params[:assignment][:name]}", course_id: params[:assignment][:course_id], announcement_body: "A new assignment has been created!", announcement_date: DateTime.now) # TODO check if this is workingk
-        format.html { redirect_to @assignment.course, :flash => { :success => 'Assignment was successfully created.' } }
+        format.html { redirect_to @assignment.course, flash: { success: 'Assignment was successfully created.' } }
         format.json { render :show, status: :created, location: @assignment.course }
       else
         format.html { render :new }
@@ -70,8 +54,8 @@ class AssignmentsController < ApplicationController
     respond_to do |format|
       if @assignment.update(assignment_params)
         format.html { redirect_to edit_assignment_path(@assignment, :course_id => @assignment.course.id) }
-        format.js { render :js => "toastr.success('Assignment saved')" }
-      else 
+        format.js
+      else
         format.html { redirect_to edit_assignment_path(@assignment, :course_id => @assignment.course.id) }
         format.js { render :js => "toastr.error('Please enter all fields')" }
       end
@@ -83,9 +67,21 @@ class AssignmentsController < ApplicationController
     course = @assignment.course
     @assignment.destroy
     respond_to do |format|
-      format.html { redirect_to course, :flash => { :success => 'Assignment was successfully deleted.' } }
+      format.html { redirect_to course, flash: { success: 'Assignment was successfully deleted.' } }
       format.json { head :no_content }
     end
+  end
+
+  # GET /run_tests
+  def run_tests
+    puts "The params are ======== #{params.inspect}"
+    # assignment = Assignment.find()
+    # puts assignment.inspect
+    # Up to here we have gotten the right assignment to run tests on
+    res = test_code(test_params[:assignment_id])
+    puts "The res is: #{res}"
+    message = "Automated testing is almost completed... hang in there!"
+    render js: "document.querySelector('#test-results').innerHTML = '#{message}';"
   end
 
   private
@@ -96,15 +92,11 @@ class AssignmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def assignment_params
-      params.require(:assignment).permit(:name, :due_date, :course_id, :instructions, :template, :lang)
+      params.require(:assignment).permit(:name, :due_date, :course_id, :instructions, :template, :lang, :test_code, :pdf_instruction)
     end
 
-    def submission_params
-      params.require(:submission).permit(:source_code, :assignment_id, :id)
-    end
-
-    def run?
-      params.require(:submission).permit(:run)
+    def test_params
+      params.permit(:assignment_id)
     end
 
     def correct_user

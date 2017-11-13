@@ -8,7 +8,15 @@
         <dt class="col-sm-3">Description</dt>
         <dd class="col-sm-9"><%= @assignment.instructions %></dd>
         <dt class="col-sm-3">Due Date</dt>
-        <dd class="col-sm-9"><%= @assignment.due_date.strftime('%a, %b %d %Y, %H:%M') %></dd>
+        <% if @assignment.pass_due? %>
+        <dd class="col-sm-9" style="color: red">
+        <% else %>
+        <dd class="col-sm-9">
+        <% end %>
+          <%= @assignment.due_date.strftime('%a, %b %d %Y, %H:%M') %>
+        </dd>
+        <dt class="col-sm-3">PDF Instructions</dt>
+        <dd class="col-sm-9"><%= link_to 'View', "http:#{@assignment.pdf_instruction}", target: "_blank" %></dd>
       </dl>
       <hr/>
       <%= render 'shared/stdout' %>
@@ -16,7 +24,7 @@
     <br/>
   </div>
   <div class="col-lg-7" style="padding-right: 0">
-    <%= form_for(@submission, url: save_path) do |f| %>
+    <%= nested_form_for @submission, :url => url_for(:controller => 'submissions', :action => 'save_or_run') do |f| %>
     <%= token_tag(nil) %>
     <div class="container">
       <ul class="nav nav-tabs" role="tablist">
@@ -32,14 +40,16 @@
         </div>
       </div>
     </div>
-    <%= f.text_area :source_code, id: :submission_source_code %>
+    <%= f.fields_for @code do |c|%>
+      <%= c.text_area :source_code, id: :code_area%>
+    <%end%>
     <%= f.number_field :assignment_id, id: :submission_assignment_id, style: "display: none", :value => @assignment.id %>
     <%= f.number_field :id, id: :submission_id, style: "display: none", :value => @submission.id %>
     <%= f.number_field :run, id: :run, style: "display: none", :value => 0 %>
     <div class="container" style="background-color: #eaecef; padding: 10px;">
       <div class="row" style="margin: 0px">
-        <div class="col-6">
-        </div>
+        <div class="col-4" id="notification"></div>
+        <div class="col-2"></div>
         <div class="col-3">
           <%= f.submit "Run", class: "btn btn-primary ml-auto w-100 btn-run" %>
         </div>
@@ -58,9 +68,11 @@ editor.getSession().setMode("ace/mode/<%= @submission.assignment.lang %>")
 <% if !is_student? %>
 editor.setReadOnly(true)
 <% end %>
-editor.setValue("<%= raw(@submission.source_code.inspect[1..-2]) %>", 1)
+editor.setValue("<%= raw(@submission.codes.first.source_code.inspect[1..-2]) %>", 1);
 editor.getSession().on('change', () => input.val(editor.getSession().getValue()))
-<%= render 'shared/autosave.js' %>
+<% if !@submission.assignment.pass_due? %>
+  <%= render 'shared/autosave.js' %>
+<% end %>
 </script>
 
 <style>
