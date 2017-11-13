@@ -10,14 +10,14 @@ editor.setOptions({fontSize: "14px"})
 $(".nav-tabs").on("click", "a", function(e) {
   e.preventDefault()
   if (!$(this).hasClass('add-class')) {
-  //$('.tab-content').children('div.tab-pane').removeClass('active')
-    $('.tab-content').children('div.tab-pane').hide()
+    $('.tab-content').children('div.tab-pane').removeClass('active')
     $($(this).attr('href')).addClass('active')
   }
 }).on("click", "span", function() {
   var anchor = $(this).siblings('a')
   $(anchor.attr('href')).remove()
   $(this).parent().remove()
+  console.log()
   $('.nav-tabs li').children('a').first().click()
 })
 
@@ -27,8 +27,7 @@ $('.add-class').click(function(e) {
   var id = $('.nav-tabs').children().length
   var tabId = 'class_' + id
   $(this).closest('li').before(`<li><a href="#${ tabId }">New Tab</a> <span> x </span></li>`)
-  $('.tab-content').append(`<div class="tab-pane active" id="${ tabId }"></div>`)
-  $('.tab-content').append(`<pre id="editor_${ id }"  style="margin-bottom: 0px" class="editor-div"></pre>`)
+  $('.tab-content').append(`<div class="tab-pane active" id="${ tabId }"><pre id="editor_${ id }"  style="margin-bottom: 0px" class="editor-div"></pre></div>`)
   var editor = ace.edit("editor_"+id)
   var input = $('textarea[id="submission_source_code"]').hide()
   editor.$blockScrolling = Infinity
@@ -38,6 +37,5 @@ $('.add-class').click(function(e) {
   editor.setShowPrintMargin(false)
   editor.setOptions({fontSize: "14px"})
   $('.tab-content').append(editor)
-  //$('.tab-content').append(`</div>`)
 //  $(`.nav-tabs li:nth-child(${ id }) a`).click()
 })
