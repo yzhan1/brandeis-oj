@@ -1,8 +1,8 @@
 class CoursesController < ApplicationController
-  before_action :logged_in_user, only: [:show, :edit, :update, :destroy, :index, :new]
-  before_action :correct_user, only: [:show]
+  before_action :logged_in_user, only: [:show, :edit, :update, :destroy, :index, :new, :grades]
+  before_action :correct_user, only: [:show, :grades]
   before_action :can_edit, only: [:edit, :update, :destroy]
-  before_action :set_course, only: [:show, :edit, :update, :destroy]
+  before_action :set_course, only: [:show, :edit, :update, :destroy, :grades]
 
   # GET /courses
   def index
@@ -18,6 +18,12 @@ class CoursesController < ApplicationController
       submitted = @submissions.map { |submission| submission.assignment.id }
       @assignment_list = @course.assignments.where.not(id: submitted)
     end
+  end
+
+  def grades
+  end
+
+  def grades_to_csv
   end
 
   # GET /courses/new

@@ -2,7 +2,7 @@
   <h4 style="display: flex; margin-bottom: 10px" class="justify-content-between">
     <div>Posted Assignments</div>
     <% if !is_student? %>
-      <%= link_to 'New Assignment', new_assignment_path(:course_id => @course.id), class: "btn btn-outline-primary btn-sm" %>
+      <%= link_to 'New Assignment', new_assignment_path(:course_id => @course.id), class: "btn btn-outline-primary btn-sm btn-link" %>
     <% end %>
   </h4>
   <table class="table table-striped table-bordered">
@@ -10,8 +10,8 @@
     <tr>
       <th>Assignment Name</th>
       <th>Due Date</th>
-      <th>Actions</th>
       <% if !is_student? %>
+        <th>Actions</th>
         <th>Submissions</th>
       <% end %>
     </tr>
@@ -20,7 +20,7 @@
     <% if @assignment_list %>
       <% @assignment_list.each do |assignment| %>
         <tr>
-          <td><%= assignment.name %></td>
+          <td><%= link_to assignment.name, assignment %></td>
           <% if assignment.pass_due? && is_student? %>
           <td style="color: red">
           <% else %>
@@ -30,16 +30,16 @@
           </td>
           <% if !is_student? %>
             <td>
-              <%= link_to 'Edit', edit_assignment_path(assignment, course_id: @course.id), class: "btn btn-outline-primary btn-sm" %>
-              <%= link_to 'Delete', assignment, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger btn-sm" %>
+              <div class="btn-group" role="group">
+                <%= link_to 'Edit', edit_assignment_path(assignment, course_id: @course.id), class: "btn btn-outline-primary btn-sm" %>
+                <%= link_to 'Delete', assignment, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger btn-sm" %>
+              </div>
             </td>
             <td>
-              <%= link_to 'Show', assignment, class: "btn btn-outline-success btn-sm" %>
-              <%= link_to 'Run Tests', test_path(assignment_id: assignment.id.to_s), class: "btn btn-outline-info btn-sm", remote: true %>
-            </td>
-          <% else %>
-            <td>
-              <%= link_to 'Show', assignment, class: "btn btn-outline-primary btn-sm" %>
+              <div class="btn-group" role="group">
+                <%= link_to 'Show', assignment, class: "btn btn-outline-success btn-sm" %>
+                <%= link_to 'Run Tests', test_path(assignment_id: assignment.id.to_s), class: "btn btn-outline-info btn-sm", remote: true %>
+              </div>
             </td>
           <% end %>
         </tr>

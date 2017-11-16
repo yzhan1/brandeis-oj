@@ -5,17 +5,15 @@
     <th>Assignment Name</th>
     <th>Date Submitted</th>
     <th>Grade</th>
-    <th>Action</th>
   </tr>
   </thead>
   <tbody>
   <% if @submissions %>
     <% @submissions.each do |submission| %>
       <tr>
-        <td><%= submission.assignment.name %></td>
+        <td><%= link_to submission.assignment.name, submission %></td>
         <td><%= submission.submission_date.strftime('%b %d %Y, %H:%M') %></td>
         <td><%= submission.grade %></td>
-        <td><%= link_to 'Show', submission, class: "btn btn-outline-success btn-sm" %></td>
       </tr>
     <% end %>
   <% else %>

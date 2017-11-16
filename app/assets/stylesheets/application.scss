@@ -6,6 +6,10 @@
 @import "bootstrap";
 @import "toastr";
 
+.btn:focus, .btn:active {
+  box-shadow: none !important;
+}
+
 #editor-card {
   margin: 1.5em auto; /* Added */
   float: none; /* Added */

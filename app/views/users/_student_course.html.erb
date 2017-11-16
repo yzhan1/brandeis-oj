@@ -17,11 +17,9 @@
           <div class="input-group">
             <span class="input-group-addon" id="basic-addon1">Code</span>
             <%= f.text_field :course_id, class: "form-control", placeholder: "Enter permission string..", type: "text" %>
-          </div>
-        </div>
-        <div class="col-md-auto">
-          <div class="input-group">
-            <%= f.submit "Enroll", class: "btn btn-outline-success" %>
+            <span class="input-group-btn">
+              <%= f.submit "Enroll", class: "btn btn-outline-success" %>
+            </span>
           </div>
         </div>
       </div>
@@ -55,7 +53,6 @@
       <th>COURSE</th>
       <th>ASSIGNMENT</th>
       <th>DUE DATE</th>
-      <th>LINK</th>
     </tr>
     </thead>
     <tbody>
@@ -63,7 +60,7 @@
         <% @assignment_list.each do |assignment| %>
           <tr>
             <td><%= assignment.course.course_code %></td>
-            <td><%= assignment.name %></td>
+            <td><%= link_to assignment.name, assignment %></td>
             <% if assignment.pass_due? %>
             <td style="color: red">
             <% else %>
@@ -71,7 +68,6 @@
             <% end %>
               <%= assignment.due_date.strftime('%b %d %Y, %H:%M') %>
             </td>
-            <td><%= link_to 'Show', assignment, class: 'btn btn-outline-primary btn-sm' %></td>
           </tr>
         <% end %>
       <% else %>
