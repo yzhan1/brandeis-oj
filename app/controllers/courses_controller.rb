@@ -2,7 +2,7 @@ class CoursesController < ApplicationController
   before_action :logged_in_user, only: [:show, :edit, :update, :destroy, :index, :new, :grades]
   before_action :correct_user, only: [:show, :grades]
   before_action :can_edit, only: [:edit, :update, :destroy]
-  before_action :set_course, only: [:show, :edit, :update, :destroy, :grades]
+  before_action :set_course, only: [:show, :edit, :update, :destroy, :grades, :get_csv]
 
   # GET /courses
   def index
@@ -23,7 +23,13 @@ class CoursesController < ApplicationController
   def grades
   end
 
-  def grades_to_csv
+  def get_csv
+    csv_str = build_csv @course
+    respond_to do |format|
+      format.csv {
+        return send_data(csv_str, type: "text/plain", filename: "#{@course.course_title}.csv", disposition: 'attachment')
+      }
+    end
   end
 
   # GET /courses/new

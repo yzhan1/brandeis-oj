@@ -11,7 +11,7 @@
           (<%= @course.course_code %>)
         </div>  
       </div>
-      <button class="btn btn-sm btn-primary">Export Grades to CSV</button>
+      <%= link_to 'Export Grades to CSV', get_csv_course_path(format: :csv), class: "btn btn-sm btn-primary" %>
     </div>
   </h3>
   <hr/>
@@ -31,7 +31,7 @@
               <tr>
                 <td><%= user.name %></td>
                 <td><%= /^[^@]*/.match user.email %></td>
-                <td>100</td>
+                <td><%= @course.enrollments.find(user.id).final_grade %></td>
               </tr>
             <% end %>
           <% end %>

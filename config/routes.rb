@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :courses do
     member do
       get 'grades'
+      get 'get_csv'
     end
   end
 
@@ -17,6 +18,7 @@ Rails.application.routes.draw do
   post '/signup',       to: 'users#create'
   get '/dashboard',     to: 'users#dashboard'
   post '/announce',     to: 'users#create_announcement'
+  post '/enroll',       to: 'enrollments#create_enrollment_dashboard'
 
   get '/login',         to: 'sessions#new'
   post '/login',        to: 'sessions#create'
@@ -26,10 +28,7 @@ Rails.application.routes.draw do
   patch '/save',        to: 'submissions#save_or_run'
   patch '/autosave',    to: 'submissions#autosave'
   post '/run',          to: 'submissions#run'
-
   get '/progress/:id',  to: 'application#progress'
-
-  post '/enroll',       to: 'enrollments#create_enrollment_dashboard'
 
   get '/test',          to: 'assignments#run_tests'
 end
