@@ -6,6 +6,7 @@ editor.getSession().setUseSoftTabs(false)
 editor.getSession().setMode("ace/mode/java")
 editor.setShowPrintMargin(false)
 editor.setOptions({fontSize: "14px"})
+var temp_id = 1
 
 $(".nav-tabs").on("click", "a", function(e) {
   e.preventDefault()
@@ -19,15 +20,16 @@ $(".nav-tabs").on("click", "a", function(e) {
   $(this).parent().remove()
   console.log()
   $('.nav-tabs li').children('a').first().click()
+  $(this).addClass('active');
 })
 
 $('.add-class').click(function(e) {
   e.preventDefault()
   $('a').removeClass('active')
   $('div').removeClass('active')
-  var id = $('.nav-tabs').children().length
+  var id = temp_id++
   var tabId = 'class_' + id
-  $(this).closest('li').before(`<li class="nav-item active"><a class="nav-link active" href="#${ tabId }" data-toggle="tab">New Tab</a> <span> x </span></li>`)
+  $(this).closest('li').before(`<li class="nav-item"><a id="tab_${ tabId }" class="nav-link active" href="#${ tabId }" data-toggle="tab">New Tab</a> <span> x </span></li>`)
   $('.tab-content').append(`<div class="tab-pane active" id="${ tabId }"><pre id="editor_${ id }"  style="margin-bottom: 0px" class="editor-div"></pre></div>`)
   var editor = ace.edit("editor_"+id)
   var input = $('textarea[id="submission_source_code"]').hide()
@@ -38,4 +40,5 @@ $('.add-class').click(function(e) {
   editor.setShowPrintMargin(false)
   editor.setOptions({fontSize: "14px"})
   $('.tab-content').append(editor)
+  document.getElementById("tab_"+tabId).click();
 })
