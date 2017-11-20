@@ -8,6 +8,7 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }
+  validates :role, presence: true
   has_many :submissions
   has_many :enrollments
   has_many :courses, through: :enrollments
