@@ -29,16 +29,14 @@
             <%= assignment.due_date.strftime('%b %d %Y, %H:%M') %>
           </td>
           <% if !is_student? %>
-            <td>
-              <div class="btn-group" role="group">
-                <%= link_to 'Edit', edit_assignment_path(assignment, course_id: @course.id), class: "btn btn-outline-primary btn-sm" %>
-                <%= link_to 'Delete', assignment, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger btn-sm" %>
-              </div>
-            </td>
-            <td>
-              <%= link_to 'Show', assignment, class: "btn btn-outline-success btn-sm" %>
-              <button id="<%= assignment.id %>" data-remote="true" class="btn btn-outline-info btn-sm run-tests">Run Tests</button>
-            </td>
+          <td>
+            <%= link_to 'Edit', edit_assignment_path(assignment, course_id: @course.id), class: "btn btn-outline-primary btn-sm", style: "margin: 5px" %>
+            <%= link_to 'Delete', assignment, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger btn-sm", style: "margin: 5px" %>
+          </td>
+          <td>
+            <%= link_to 'Show', assignment, class: "btn btn-outline-success btn-sm", style: "margin: 5px"  %>
+            <button id="<%= assignment.id %>" data-remote="true" class="btn btn-outline-info btn-sm run-tests" style="margin: 5px">Run Tests</button>
+          </td>
           <% else %>
             <td>
               <%= link_to 'Show', assignment, class: "btn btn-outline-primary btn-sm" %>
