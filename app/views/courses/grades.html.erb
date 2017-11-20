@@ -1,0 +1,42 @@
+<% provide(:title, "All Grades") %>
+<% breadcrumb :course_grades, @course %>
+<br>
+
+<div class="container">
+  <h3>
+    <div class="justify-content-between" style="display: flex">
+      <div class="row">
+        <div class="col">
+          <%= @course.course_title %>
+          (<%= @course.course_code %>)
+        </div>  
+      </div>
+      <%= link_to 'Export Grades to CSV', get_csv_course_path(format: :csv), class: "btn btn-sm btn-primary" %>
+    </div>
+  </h3>
+  <hr/>
+  <div class="row">
+    <div class="col">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Student Name</th>
+            <th>Brandeis ID</th>
+            <th>Grade</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @course.users.each do |user| %>
+            <% if user != current_user %>
+              <tr>
+                <td><%= user.name %></td>
+                <td><%= /^[^@]*/.match user.email %></td>
+                <td><%= @course.enrollments.find(user.id).final_grade %></td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

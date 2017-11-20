@@ -70,7 +70,13 @@ class SubmissionsController < ApplicationController
   # PATCH/PUT /submissions/1
   def update
     respond_to do |format|
+      count = @submission.grade == nil ? 1 : 0
+      puts "submission grade is #{@submission.grade}, count is #{count}"
       if @submission.update(submission_params)
+        enrollment = @submission.assignment.course.enrollments.find @submission.user.id
+        enrollment.update(total: enrollment.total + @submission.grade, count: enrollment.count + count)
+        enrollment.update(final_grade: enrollment.total / enrollment.count)
+        
         format.html { redirect_to @submission }
         format.js { render :js => "toastr.success('Submission updated')" }
       else

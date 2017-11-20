@@ -23,6 +23,7 @@
           <th>Student Name</th>
           <th>Submitted Date</th>
           <th>Actions</th>
+          <th>Grade</th>
         </tr>
       </thead>
       <tbody>
@@ -34,6 +35,7 @@
               <td>
                 <%= link_to 'Show', submission_url(submission), class: "btn btn-outline-success btn-sm" %>
               </td>
+              <td><%= submission.grade %></td>
             </tr>
           <% end %>
         <% else %>
