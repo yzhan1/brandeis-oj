@@ -35,7 +35,7 @@
             </td>
             <td>
               <%= link_to 'Show', assignment, class: "btn btn-outline-success btn-sm" %>
-              <%= link_to 'Run Tests', test_path(assignment_id: assignment.id.to_s), class: "btn btn-outline-info btn-sm", remote: true %>
+              <button id="<%= assignment.id %>" data-remote="true" class="btn btn-outline-info btn-sm run-tests">Run Tests</button>
             </td>
           <% else %>
             <td>

@@ -78,10 +78,14 @@ class AssignmentsController < ApplicationController
     # assignment = Assignment.find()
     # puts assignment.inspect
     # Up to here we have gotten the right assignment to run tests on
-    res = test_code(test_params[:assignment_id])
-    puts "The res is: #{res}"
+    puts "#{test_params[:id]} jjjjjjjjjjjjjjjj"
+    res = test_code(test_params[:id])
+    puts "XXXXXX: currently here => The res is: #{res}"
     message = "Automated testing is almost completed... hang in there!"
-    render js: "document.querySelector('#test-results').innerHTML = '#{message}';"
+    respond_to do |format|
+      format.json { render json: res }
+    end
+    # render js: "document.querySelector('#test-results').innerHTML = '#{message} The list of job ids: #{res}';"
   end
 
   private
@@ -97,7 +101,7 @@ class AssignmentsController < ApplicationController
     end
 
     def test_params
-      params.permit(:assignment_id)
+      params.permit(:id)
     end
 
     def correct_user

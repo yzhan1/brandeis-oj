@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   post '/run',          to: 'submissions#run'
 
   get '/progress/:id',  to: 'application#progress'
+  get '/test_progress/:id', to: 'application#test_progress'
 
   post '/announce',     to: 'users#create_announcement'
 
