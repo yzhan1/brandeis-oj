@@ -17,11 +17,15 @@ class Assignment < ApplicationRecord
 
   # This is currently not finished
   # Ruby and Python have not been implemented
-  def test_submission lang
-    dir_name = user.id
+  def test_submission(lang, submission_id)
+    # dir_name = user.id
+    dir_name = "random-#{DateTime.now}-#{rand(10000)}"
+    # puts "The dir name is #{dir_name}"
+    submission = Submission.find(submission_id)
     mkdir = `cd tmp\nmkdir #{dir_name}`
+    File.write("tmp/#{dir_name}/Solution.java", submission.source_code)
     if lang == 'java'
-      `cp ./lib/assets/junit/junit-4.12.jar .tmp/#{dir_name}\ncp ./lib/assets/junit/hamcrest-core-1.3.jar .tmp/#{dir_name}\ncp ./lib/assets/junit/TestRunner.java .tmp/#{dir_name}`
+      `cp lib/assets/junit/junit-4.12.jar tmp/#{dir_name}\ncp lib/assets/junit/hamcrest-core-1.3.jar tmp/#{dir_name}\ncp lib/assets/junit/TestRunner.java tmp/#{dir_name}`
       File.write("tmp/#{dir_name}/JunitTests.java", test_code)
       stdout_err, status = Open3.capture2e("cd tmp\ncd #{dir_name}\njavac -cp .:junit-4.12.jar TestRunner.java\njavac -cp .:junit-4.12.jar JunitTests.java\njava -cp .:junit-4.12.jar:hamcrest-core-1.3.jar TestRunner")
     elsif lang == 'python'

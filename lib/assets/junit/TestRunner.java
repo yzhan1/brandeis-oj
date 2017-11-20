@@ -8,7 +8,7 @@ public class TestRunner {
       if(result.wasSuccessful()) {
         System.out.println("All tests passed\n");
       } else {
-        System.out.prinln("Some tests failed\n");
+        System.out.println("Some tests failed\n");
         System.out.println("Number of failures: " + result.getFailureCount());
         for (Failure failure : result.getFailures()) {
            System.out.println(failure.toString());

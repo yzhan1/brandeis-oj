@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   patch '/autosave',    to: 'submissions#autosave'
   post '/run',          to: 'submissions#run'
   get '/progress/:id',  to: 'application#progress'
+  get '/test_progress/:id', to: 'application#test_progress'
 
   get '/test',          to: 'assignments#run_tests'
 end

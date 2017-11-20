@@ -7,7 +7,7 @@ module SubmissionsHelper
 
   def completed?(job_id)
     if Sidekiq::Status::complete? job_id
-      data = {"output" => Sidekiq::Status::get_all(job_id)["stdout"].split("\n")}
+      data = {"output" => Sidekiq::Status::get_all(job_id)["stdout"]}#.split("\n")}
     else
       data = {"message" => "Processing"}
     end
