@@ -29,6 +29,7 @@ class UsersController < ApplicationController
       flash[:success] = "Welcome to AspirinX!"
       redirect_to dashboard_url
     else
+      flash[:error] = "Please complete all fields"
       render 'new'
     end
   end
