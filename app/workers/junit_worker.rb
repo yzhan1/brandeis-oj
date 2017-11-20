@@ -2,10 +2,11 @@ class JunitWorker
   include Sidekiq::Worker
   include Sidekiq::Status::Worker
 
-  def perform(assignment_id)
+  def perform(assignment_id, submission_id)
     assignment = Assignment.find(assignment_id)
-    # Added a parameter to detect the language of the submission
-    result = assignment.test_submission(assignment.lang)
+    result = assignment.test_submission(assignment.lang, submission_id)
+    puts "\n\n======================================\n\n#{result}\n\n"
+    store sbm_id: submission_id
     store stdout: result
   end
 
