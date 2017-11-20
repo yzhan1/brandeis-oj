@@ -4,4 +4,4 @@ A web application to seamlessly connect professors, teaching assistants, and stu
 
 Live at: https://aspirinx.herokuapp.com/
 
-Deployed with: CodeShip
+Deployed with: CodeShip.
