@@ -13,7 +13,7 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    return redirect_to dashboard_url, :flash => { :warning => 'You logged in already' } unless !logged_in?
+    return redirect_to dashboard_url, :flash => { :warning => 'You logged in already' } if logged_in?
     @user = User.new
   end
 
@@ -70,11 +70,8 @@ class UsersController < ApplicationController
 
   # GET /announce
   def create_announcement
-    valid_params = announcent_params
-    announcement = Announcement.new(name: valid_params[:title], announcement_date: DateTime.now, announcement_body: valid_params[:announcement_body], course_id: valid_params[:course])
-    if announcement.valid?
-      announcement.save
-    end
+    announcement = Announcement.new(name: announcent_params[:title], announcement_date: DateTime.now, announcement_body: announcent_params[:announcement_body], course_id: announcent_params[:course])
+    announcement.save if announcement.valid?
     redirect_to root_url
   end
 

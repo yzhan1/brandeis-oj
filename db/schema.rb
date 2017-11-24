@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171118031832) do
+ActiveRecord::Schema.define(version: 20171124032101) do
 
   create_table "announcements", force: :cascade do |t|
     t.string "name"
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 20171118031832) do
   end
 
   create_table "enrollments", force: :cascade do |t|
-    t.float "final_grade"
+    t.float "grade"
     t.integer "course_id"
     t.integer "user_id"
     t.datetime "created_at", null: false
@@ -92,6 +92,11 @@ ActiveRecord::Schema.define(version: 20171118031832) do
     t.string "role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "oauth_provider"
+    t.string "oauth_uid"
+    t.string "oauth_name"
+    t.string "oauth_token"
+    t.datetime "oauth_expires_at"
   end
 
 end

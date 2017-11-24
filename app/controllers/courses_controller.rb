@@ -12,11 +12,11 @@ class CoursesController < ApplicationController
   # GET /courses/1
   def show
     @assignment_list = @course.assignments
-    @enrollment_id = Enrollment.find_by(user_id: current_user.id, course_id: @course.id)
+    @enrollment_id = Enrollment.find_by user_id: current_user.id, course_id: @course.id
     if is_student?
-      @submissions = current_user.submissions_for(@assignment_list)
+      @submissions = current_user.submissions_for @assignment_list
       submitted = @submissions.map { |submission| submission.assignment.id }
-      @assignment_list = @course.assignments.where.not(id: submitted)
+      @assignment_list = @course.assignments.where.not id: submitted
     end
   end
 
@@ -24,10 +24,10 @@ class CoursesController < ApplicationController
   end
 
   def get_csv
-    csv_str = build_csv @course
+    csv_str = build_csv @course.enrollments
     respond_to do |format|
       format.csv {
-        return send_data(csv_str, type: "text/plain", filename: "#{@course.course_title}.csv", disposition: 'attachment')
+        return send_data(csv_str, type: 'text/plain', filename: "#{@course.course_title}.csv", disposition: 'attachment')
       }
     end
   end

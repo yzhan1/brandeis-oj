@@ -1,14 +1,14 @@
 require 'csv'
 
 module CoursesHelper
-  def build_csv course
-    csv_string = CSV.generate do |csv|
+  def build_csv entries
+    CSV.generate do |csv|
       csv << ['Brandeis ID', 'Student Name', 'Grade']
-      course.enrollments.each do |enrollment|
-        u = enrollment.user
+      entries.each do |entry|
+        u = entry.user
         next if u == current_user
         brandeis_id = /^[^@]*/.match u.email
-        csv << [brandeis_id, u.name, enrollment.final_grade]
+        csv << [brandeis_id, u.name, entry.grade]
       end
     end
   end
