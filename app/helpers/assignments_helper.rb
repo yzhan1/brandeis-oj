@@ -26,5 +26,5 @@ module AssignmentsHelper
       data = {"message" => "Processing"}
     end
   end
-
+  
 end

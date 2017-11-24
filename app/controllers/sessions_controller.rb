@@ -16,8 +16,18 @@ class SessionsController < ApplicationController
     end
   end
 
+  def oauth_login
+    @user = User.from_omniauth request.env['omniauth.auth']
+    if @user.id
+      log_in @user
+      redirect_back_or dashboard_url
+    else
+      redirect_to root_path, flash: { error: 'Please log in with Brandeis Email' }
+    end
+  end
+
   def destroy
-    log_out
+    log_out if logged_in?
     redirect_to root_url
   end
 end

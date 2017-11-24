@@ -49,4 +49,16 @@ class User < ApplicationRecord
   def submissions_for assignments
     submissions.where(submitted: true, assignment_id: assignments.ids)
   end
+
+  def self.from_omniauth auth
+    where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |user|
+      user.email = auth.info.email
+      user.oauth_provider = auth.provider
+      user.oauth_uid = auth.uid
+      user.oauth_name = auth.info.name
+      user.oauth_token = auth.credentials.token
+      user.oauth_expires_at = Time.at auth.credentials.expires_at
+      user.save! if auth.extra.raw_info.hd == 'brandeis.edu'
+    end
+  end
 end
