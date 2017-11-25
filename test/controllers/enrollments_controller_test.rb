@@ -17,7 +17,7 @@
 
 #   test "should create enrollment" do
 #     assert_difference('Enrollment.count') do
-#       post enrollments_url, params: { enrollment: { course_id: @enrollment.course_id, final_grade: @enrollment.final_grade, student_id: @enrollment.student_id } }
+#       post enrollments_url, params: { enrollment: { course_id: @enrollment.course_id, grade: @enrollment.grade, student_id: @enrollment.student_id } }
 #     end
 
 #     assert_redirected_to enrollment_url(Enrollment.last)
@@ -34,7 +34,7 @@
 #   end
 
 #   test "should update enrollment" do
-#     patch enrollment_url(@enrollment), params: { enrollment: { course_id: @enrollment.course_id, final_grade: @enrollment.final_grade, student_id: @enrollment.student_id } }
+#     patch enrollment_url(@enrollment), params: { enrollment: { course_id: @enrollment.course_id, grade: @enrollment.grade, student_id: @enrollment.student_id } }
 #     assert_redirected_to enrollment_url(@enrollment)
 #   end
 
