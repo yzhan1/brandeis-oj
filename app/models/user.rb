@@ -51,13 +51,16 @@ class User < ApplicationRecord
   end
 
   def self.from_omniauth auth
-    where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |user|
+    where(oauth_provider: auth.provider, oauth_uid: auth.uid).first_or_initialize.tap do |user|
       user.email = auth.info.email
+      user.name = auth.info.name
       user.oauth_provider = auth.provider
       user.oauth_uid = auth.uid
-      user.oauth_name = auth.info.name
       user.oauth_token = auth.credentials.token
       user.oauth_expires_at = Time.at auth.credentials.expires_at
+      user.role = 'student'
+      user.password = user.password_confirmation = User.new_token
+      user.password_digest = User.new_token
       user.save! if auth.extra.raw_info.hd == 'brandeis.edu'
     end
   end

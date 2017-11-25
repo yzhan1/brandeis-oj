@@ -59,6 +59,7 @@ gem 'sidekiq'
 gem 'sidekiq-status'
 gem 'rubysl-open3'
 gem "nested_form"
+gem 'figaro'
 
 gem 'paperclip'
 gem 'aws-sdk', '~> 2.3'
