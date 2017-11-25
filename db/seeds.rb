@@ -18,7 +18,7 @@ User.create(name: 'Bar Foo', email: 'barfoo@brandeis.edu', password: '123456', p
 User.create(name: 'No One', email: 'noone@brandeis.edu', password: '123456', password_confirmation: '123456', role: 'student')
 User.create(name: 'Pito Salas', email: 'rpsalas@brandeis.edu', password: '123456', password_confirmation: '123456', role: 'teacher')
 User.create(name: 'Antonella', email: 'antonella@brandeis.edu', password: '123456', password_confirmation: '123456', role: 'teacher')
-User.create(name: 'Tim Hickey', email: 'tjhickey@brandeis.edu', password: '123456', password_confirmation: '123456', role: 'teacher')
+User.create(name: 'Tim Hickey', email: 'timhickey@brandeis.edu', password: '123456', password_confirmation: '123456', role: 'teacher')
 
 Course.create(course_code:"11a", course_title:"Intro to Programming", permission: SecureRandom.hex(10))
 Course.create(course_code:"12b", course_title:"Advanced Programming Techniques", permission: SecureRandom.hex(10))
