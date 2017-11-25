@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  include SessionsHelper, SubmissionsHelper, AssignmentsHelper, CoursesHelper, UserHelper
+  include SessionsHelper, SubmissionsHelper, AssignmentsHelper, CoursesHelper
 
   def progress
     job_id = job_id_param[:id]
