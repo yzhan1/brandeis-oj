@@ -1,6 +1,7 @@
 class JunitWorker
   include Sidekiq::Worker
   include Sidekiq::Status::Worker
+  sidekiq_options :retry => false
 
   def perform(assignment_id, submission_id)
     assignment = Assignment.find(assignment_id)
