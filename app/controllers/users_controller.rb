@@ -48,6 +48,7 @@ class UsersController < ApplicationController
   end
 
   def dashboard
+    return redirect_to root_url, flash: { error: 'Pleas log in first' } if @user.nil?
     @enrollment = Enrollment.new
     @course_list = @user.courses
     @announcement_list = @course_list.map { |course| course.announcements }.flatten 2
@@ -78,7 +79,8 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = current_user || User.find(params[:id])
+      return @user = current_user || User.find(params[:id]) if logged_in?
+      @user = nil
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
