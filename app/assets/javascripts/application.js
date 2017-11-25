@@ -20,7 +20,7 @@ toastr.options = {
   "onclick": null,
   "showDuration": "100",
   "hideDuration": "100",
-  "timeOut": "500",
+  "timeOut": "1500",
   "extendedTimeOut": "1000",
   "showEasing": "swing",
   "hideEasing": "linear",
@@ -38,12 +38,20 @@ $(document).on('turbolinks:load', () => {
   const runTestsButton = $('.run-tests')
   const testsResultSection = $('#test-results')
   const testsResultUpdateSection = $('#test-results-update')
+  const hideReportSection = $('.hide-report')
+
+  hideReportSection.on('click', function(event) {
+    console.log('hidding report section')
+    // document.getElementById('report-'+this.name).style.display = 'none';
+    // document.getElementById('report-'+this.name).slideUp()
+    $('#report-'+this.name).slideUp();
+  })
 
   runTestsButton.on('click', function(event) {
     console.log('run tests clicked')
     event.preventDefault()
     //runField.val(1)
-    updateTestResultsSection()
+    updateTestResultsSection(this.id)
     console.log(event)
     console.log('ok...')
     console.log(this)
@@ -51,7 +59,10 @@ $(document).on('turbolinks:load', () => {
     // Then here we need to run an ajax action
     console.log('the assignment_id')
     console.log(this.href)
-    runAllTests({ id: this.id }, 'GET', '/test')
+    // need to show the hidden td
+    console.log('Trying to change style: report-' + this.id)
+
+    runAllTests(this.id, { id: this.id }, 'GET', '/test')
   })
 
   $('[data-toggle="popover"]').popover();
@@ -83,7 +94,7 @@ $(document).on('turbolinks:load', () => {
     buttonList.forEach(button => button.prop('disabled', bool))
   }
 
-  const runAllTests = (data, type, url) => {
+  const runAllTests = (id, data, type, url) => {
     console.log('Hello there... The json is ')
     $.ajax({
       beforeSend: (xhr) => {
@@ -93,7 +104,7 @@ $(document).on('turbolinks:load', () => {
       url,
       data,
       dataType: 'json',
-      success: json => getResults(json.id)
+      success: json => getResults(id, json.id)
     })
   }
 
@@ -129,7 +140,7 @@ $(document).on('turbolinks:load', () => {
     poller()
   }
 
-  const getResults = (jobID) => {
+  const getResults = (id, jobID) => {
     const poller = () => {
       $.ajax({
         type: 'GET',
@@ -140,7 +151,7 @@ $(document).on('turbolinks:load', () => {
           } else {
             console.log(data.output)
             clearInterval(pollInterval)
-            updateTestResult(data.output)
+            updateTestResult(id, data.output)
             return false
           }
         }
@@ -163,21 +174,39 @@ $(document).on('turbolinks:load', () => {
     )
   }
 
-  const updateTestResultsSection = () => {
+  const updateTestResultsSection = (id) => {
+    // var section = document.getElementById('report-'+id);
+    // document.getElementById('report-'+id).style.display = '';
+    // section.style.display = '';
+    $('#report-'+id).slideDown();
     // TODO need to make sure that the code works if button is clicked again
-    testsResultSection.append(`
+    document.getElementById('report-'+id+'-body').innerHTML = `
       <div class="progress-msg">
         <p>Running...</>
         <div class="progress">
           <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
         </div>
-      </div>`
-    )
+      </div>
+      `
+    // testsResultSection.append(`
+    //   <div class="progress-msg">
+    //     <p>Running...</>
+    //     <div class="progress">
+    //       <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+    //     </div>
+    //   </div>`
+    // )
 
   }
 
-  const updateTestResult = (output) => {
-    testsResultSection.hide()
+  const updateTestResult = (id, output) => {
+
+    document.getElementById('report-'+id+'-body').innerHTML = `
+      <br>
+      <div class="row" style="overflow-x: auto; white-space: nowrap">
+        <div class="col" style="display: inline-block; float: none">${output}</div>
+      </div>`
+    // testsResultSection.hide()
     // i = 0
     // while (i < output.length) {
     //   // line = output[i].trim() == '::' ? '<br/>' : output[i]
@@ -200,11 +229,13 @@ $(document).on('turbolinks:load', () => {
     //       i++
     //     }
     //   }
-      testsResultUpdateSection.append(`
-        <div class="row" style="overflow-x: auto; white-space: nowrap">
-          <div class="col" style="display: inline-block; float: none">${output}</div>
-        </div>`
-      )
+      // testsResultUpdateSection.append(`
+      //   <div class="row" style="overflow-x: auto; white-space: nowrap">
+      //     <div class="col" style="display: inline-block; float: none">${output}</div>
+      //   </div>`
+      // )
+
+
     // }
     // testsResultUpdateSection.append(`
     //   <p>${output}</p>

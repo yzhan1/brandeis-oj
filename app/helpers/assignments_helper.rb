@@ -22,9 +22,11 @@ module AssignmentsHelper
         temp = "#{temp} :::: #{Sidekiq::Status::get_all(sub_id)["stdout"]}"
       end
       data = {"output" => "#{temp}"}
-    else
+    elsif !Sidekiq::Status::failed? job_id
       data = {"message" => "Processing"}
+    else
+      data = {"output" => "At least one test has failed."}
     end
   end
-  
+
 end
