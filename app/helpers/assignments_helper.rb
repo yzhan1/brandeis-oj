@@ -10,6 +10,10 @@ module AssignmentsHelper
       sub_list = Sidekiq::Status::get_all(job_id)["all_jobs"]
       sub_list = sub_list.split(',')
       puts "The parsed array is: #{sub_list.inspect}"
+      if sub_list.empty?
+        data = {"output" => "No submissions to test"}
+        return data
+      end
       sub_list.each do |sub_id|
         puts "sub_id is: #{sub_id}"
         if !Sidekiq::Status::complete? sub_id
