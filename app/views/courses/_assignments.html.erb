@@ -167,7 +167,7 @@
               <div class="col">
                 <div class="row">
                   <div class="col-10">
-                    Here we should have a report!
+                    <h4>REPORT: <%= assignment.name %>.</h4>
                   </div>
                   <div class="col-2">
                     <button id="hide-report-<%= assignment.id %>" name="<%= assignment.id %>" data-remote="true" class="btn btn-outline-light btn-sm btn-block hide-report">Hide</button>
@@ -176,6 +176,14 @@
                 <div class="row">
                   <div class="col-12" id="report-<%= assignment.id %>-body">
 
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+
+                  </div>
+                  <div class="col-md-auto">
+                    <button id="download-report-<%= assignment.id %>" name="<%= assignment.id %>" data-remote="true" class="btn btn-outline-light btn-sm btn-block download-report">Download CSV</button>
                   </div>
                 </div>
               </div>

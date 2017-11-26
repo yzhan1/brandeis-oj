@@ -18,9 +18,12 @@ module AssignmentsHelper
         end
       end
       temp = ""
+      count = 0
       sub_list.each do |sub_id|
-        temp = "#{temp} :::: #{Sidekiq::Status::get_all(sub_id)["stdout"]}"
+        count = count + 1
+        temp = "#{temp}<br/>#{count}. #{Sidekiq::Status::get_all(sub_id)["stdout"]}"
       end
+      temp = "#{temp}<br/>"
       data = {"output" => "#{temp}"}
     elsif !Sidekiq::Status::failed? job_id
       data = {"message" => "Processing"}

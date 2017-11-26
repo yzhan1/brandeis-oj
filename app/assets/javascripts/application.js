@@ -39,9 +39,20 @@ $(document).on('turbolinks:load', () => {
   const testsResultSection = $('#test-results')
   const testsResultUpdateSection = $('#test-results-update')
   const hideReportSection = $('.hide-report')
+  const exportSubmissionGrades = $('.download-report')
+
+  exportSubmissionGrades.on('click', function(event) {
+    console.log('exporting graded submissions');
+
+    var text = document.getElementById('report-'+this.name+'-body').innerHTML;
+    console.log('Text to import: ' + text);
+    console.log('The length is: ' + text.length);
+    var splittedText = text.split("<br>");
+    console.log('array: '+splittedText);
+  })
 
   hideReportSection.on('click', function(event) {
-    console.log('hidding report section')
+    console.log('hidding report section');
     // document.getElementById('report-'+this.name).style.display = 'none';
     // document.getElementById('report-'+this.name).slideUp()
     $('#report-'+this.name).slideUp();
@@ -181,12 +192,14 @@ $(document).on('turbolinks:load', () => {
     $('#report-'+id).slideDown();
     // TODO need to make sure that the code works if button is clicked again
     document.getElementById('report-'+id+'-body').innerHTML = `
+      <br/>
       <div class="progress-msg">
         <p>Running...</>
         <div class="progress">
           <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
         </div>
       </div>
+      <br/>
       `
     // testsResultSection.append(`
     //   <div class="progress-msg">
@@ -200,12 +213,20 @@ $(document).on('turbolinks:load', () => {
   }
 
   const updateTestResult = (id, output) => {
-
+    // const resultArea = document.getElementById('report-'+id+'-body');
+    // resultArea.innerHTML = ``;
+    // for (let i = 0; i < output.length; i++) {
+    //   console.log('line: ' + output[i]);
+    //   line = output[i].trim() == '\n' ? '<br/>' : output[i];
+    //   resultArea.append(`<p>${line}</p>`);
+    // }
     document.getElementById('report-'+id+'-body').innerHTML = `
       <br>
       <div class="row" style="overflow-x: auto; white-space: nowrap">
         <div class="col" style="display: inline-block; float: none">${output}</div>
       </div>`
+
+
     // testsResultSection.hide()
     // i = 0
     // while (i < output.length) {
