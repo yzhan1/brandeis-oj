@@ -20,6 +20,19 @@
       </dl>
       <hr/>
       <%= render 'shared/stdout' %>
+      <hr/>
+      <dl class="row">
+        <dt class="col-sm-3">New File Name</dt>
+        <dd class="col-sm-9">
+          <input type="text" id="file_name_input" >
+          <input type="submit" id="create_tab_button" value="Add File" onclick="clickAddFileTab()">
+        </dd>
+        <dt class="col-sm-3">File Directory</dt>
+        <dd class="col-sm-9">
+
+        </dd>
+      </dl>
+
     </div>
     <br/>
   </div>
@@ -29,13 +42,13 @@
     <div class="container">
       <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item">
-          <a class="nav-link active" href="#class_01" data-toggle="tab" aria-expanded="true"> Solution.java </a><span> x </span>
+          <a class="nav-link active" href="#class_0" data-toggle="tab" aria-expanded="true"> Solution.java </a><span> x </span>
         </li>
-        <li class="nav-item"><a href="#" class="add-class nav-link"> + Add File </a>
+        <li style="display:none" class="nav-item"><a href="#" class="add-class nav-link" id="add-tab"> + Add File </a>
         </li>
       </ul>
       <div class="tab-content">
-        <div class="tab-pane active" id="class_01">
+        <div class="tab-pane active" id="class_0">
           <pre id="editor"  style="margin-bottom: 0px" class="editor-div"></pre>
         </div>
       </div>
@@ -63,20 +76,34 @@
 </div>
 
 <script>
-<%= render 'shared/editor.js' %>
-editor.getSession().setMode("ace/mode/<%= @submission.assignment.lang %>")
-<% if !is_student? %>
-editor.setReadOnly(true)
-<% end %>
-editor.setValue("<%= raw(@submission.codes.first.source_code.inspect[1..-2]) %>", 1);
-editor.getSession().on('change', () => input.val(editor.getSession().getValue()))
-<% if !@submission.assignment.pass_due? %>
-  <%= render 'shared/autosave.js' %>
-<% end %>
+
+  function clickAddFileTab() {
+    document.getElementById("add-tab").click();
+  }
+
+  $(document).ready(function(){
+    $('#create_tab_button').attr('disabled',true);
+    $('#file_name_input').keyup(function(){
+      if($(this).val().length !=0)
+        $('#create_tab_button').attr('disabled', false);
+      else
+        $('#create_tab_button').attr('disabled',true);
+    })
+  });
+
+  <%= render 'shared/editor.js' %>
+  editor.getSession().setMode("ace/mode/<%= @submission.assignment.lang %>")
+  <% if !is_student? %>
+  editor.setReadOnly(true)
+  <% end %>
+  editor.setValue("<%= raw(@submission.codes.first.source_code.inspect[1..-2]) %>", 1);
+  editor.getSession().on('change', () => input.val(editor.getSession().getValue()))
+  <% if !@submission.assignment.pass_due? %>
+    <%= render 'shared/autosave.js' %>
+  <% end %>
 </script>
 
 <style>
-
   .container {
     margin-top: 10px;
   }
