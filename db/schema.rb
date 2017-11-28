@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171124032101) do
+ActiveRecord::Schema.define(version: 20171128002115) do
 
   create_table "announcements", force: :cascade do |t|
     t.string "name"
@@ -41,7 +41,6 @@ ActiveRecord::Schema.define(version: 20171124032101) do
     t.string "source_code"
     t.string "directory"
     t.string "filename"
-    t.integer "test_id"
     t.integer "submission_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

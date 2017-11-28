@@ -50,6 +50,8 @@ class SubmissionsController < ApplicationController
   end
 
   def autosave
+    @code = Code.where(submission_id: params[:submission][:id]).where(filename: "Solution.java")
+    @code.update(source_code: params[:submission][:code][:source_code])
     Submission.find(submission_params[:id]).update(submission_params.merge submission_date: Time.now)
   end
 
@@ -76,7 +78,7 @@ class SubmissionsController < ApplicationController
         enrollment = @submission.assignment.course.enrollments.find @submission.user.id
         enrollment.update(total: enrollment.total + @submission.grade, count: enrollment.count + count)
         enrollment.update(grade: enrollment.total / enrollment.count)
-        
+
         format.html { redirect_to @submission }
         format.js { render :js => "toastr.success('Submission updated')" }
       else
