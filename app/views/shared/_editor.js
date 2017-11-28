@@ -29,7 +29,8 @@ $('.add-class').click(function(e) {
   $('div').removeClass('active')
   var id = temp_id++
   var tabId = 'class_' + id
-  $(this).closest('li').before(`<li class="nav-item"><a id="tab_${ tabId }" class="nav-link active" href="#${ tabId }" data-toggle="tab">New Tab</a> <span> x </span></li>`)
+  var tabName = document.getElementById('file_name_input').value
+  $(this).closest('li').before(`<li class="nav-item"><a id="tab_${ tabId }" class="nav-link active" href="#${ tabId }" data-toggle="tab">${tabName}</a> <span> x </span></li>`)
   $('.tab-content').append(`<div class="tab-pane active" id="${ tabId }"><pre id="editor_${ id }"  style="margin-bottom: 0px" class="editor-div"></pre></div>`)
   var editor = ace.edit("editor_"+id)
   var input = $('textarea[id="submission_source_code"]').hide()
@@ -40,5 +41,7 @@ $('.add-class').click(function(e) {
   editor.setShowPrintMargin(false)
   editor.setOptions({fontSize: "14px"})
   $('.tab-content').append(editor)
-  document.getElementById("tab_"+tabId).click();
+  document.getElementById("tab_"+tabId).click()
+  document.getElementById('file_name_input').value=''
+  $('#create_tab_button').attr('disabled',true);
 })
