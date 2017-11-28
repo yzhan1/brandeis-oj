@@ -28,6 +28,32 @@ toastr.options = {
   "hideMethod": "fadeOut"
 }
 
+function getStatistics(output) {
+  var splitted = output.split("<br/>");
+  var result = "l1: " + splitted.length;
+  var numSubmissions = null;
+  var correctSubmissions = 0;
+  console.log('arr: ' + splitted + '\n' + 'res: ' + result);
+  if (splitted.length <= 2) {
+    numSubmissions = 0;
+    return [0, 0];
+  } else {
+    splitted = splitted.slice(1,splitted.length-1);
+    numSubmissions = splitted.length;
+    var curr = null;
+    for(let i = 0; i < splitted.length; i++) {
+      curr = splitted[i].split(": ");
+      console.log(curr);
+      console.log('XXX: '+curr[1].slice(length-(""+numSubmissions).length - 2));
+      console.log('YYY: '+("/"+numSubmissions));
+      if (curr.length >= 2 && curr[1].length > (""+numSubmissions).length + 1 && (curr[1].slice(curr[1].length-(""+numSubmissions).length - 2)+'') == ("/"+numSubmissions)) {
+        correctSubmissions++;
+      }
+    }
+    return [numSubmissions, correctSubmissions];
+  }
+}
+
 $(document).on('turbolinks:load', () => {
   const runField = $('input[id=run]')
   // const testField = $('input[id=assignment_id]')
@@ -48,7 +74,18 @@ $(document).on('turbolinks:load', () => {
     console.log('Text to import: ' + text);
     console.log('The length is: ' + text.length);
     var splittedText = text.split("<br>");
-    console.log('array: '+splittedText);
+    console.log('array: ' + splittedText);
+    console.log('1: ' + splittedText[0]);
+    console.log('2: ' + splittedText[1]);
+    console.log('3: ' + splittedText[2]);
+    console.log('4: ' + splittedText[3]);
+    console.log('5: ' + splittedText[4]);
+    if (splittedText.length > 2) {
+      console.log('Exporting submissions as CSV file...');
+
+    } else {
+      console.log('There are no submissions to export...');
+    }
   })
 
   hideReportSection.on('click', function(event) {
@@ -220,7 +257,13 @@ $(document).on('turbolinks:load', () => {
     //   line = output[i].trim() == '\n' ? '<br/>' : output[i];
     //   resultArea.append(`<p>${line}</p>`);
     // }
+    // TODO here we will extract statistics from resultArea
+    var result = getStatistics(output);
+    var numSubmissions = result[0];
+    var correctSubmissions = result[1];
+    console.log('getStatistics() result: ' + numSubmissions + ', ' + correctSubmissions);
     document.getElementById('report-'+id+'-body').innerHTML = `
+      <p>Number of submissions: ${numSubmissions}. Correct Submissions: ${correctSubmissions}.</p>
       <br>
       <div class="row" style="overflow-x: auto; white-space: nowrap">
         <div class="col" style="display: inline-block; float: none">${output}</div>
