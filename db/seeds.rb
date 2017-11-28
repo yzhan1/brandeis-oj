@@ -10,6 +10,8 @@ Enrollment.delete_all
 Enrollment.reset_pk_sequence
 Announcement.delete_all
 Announcement.reset_pk_sequence
+Code.delete_all
+Code.reset_pk_sequence
 
 User.create(name: 'John Doe', email: 'johndoe1@brandeis.edu', password: '123456', password_confirmation: '123456', role: 'student')
 User.create(name: 'Jane Doe', email: 'janedoe@brandeis.edu', password: '123456', password_confirmation: '123456', role: 'student')

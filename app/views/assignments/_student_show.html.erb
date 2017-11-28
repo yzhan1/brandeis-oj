@@ -68,7 +68,7 @@ editor.getSession().setMode("ace/mode/<%= @submission.assignment.lang %>")
 <% if !is_student? %>
 editor.setReadOnly(true)
 <% end %>
-editor.setValue("<%= raw(@submission.codes.first.source_code.inspect[1..-2]) %>", 1);
+editor.setValue("<%= raw(@submission.codes.where(filename: "Solution.java").first.source_code.inspect[1..-2]) %>", 1);
 editor.getSession().on('change', () => input.val(editor.getSession().getValue()))
 <% if !@submission.assignment.pass_due? %>
   <%= render 'shared/autosave.js' %>
