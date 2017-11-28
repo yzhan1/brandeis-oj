@@ -2,7 +2,7 @@ class AssignmentsController < ApplicationController
   before_action :logged_in_user
   before_action :correct_user, only: [:show, :edit, :update, :destroy]
   before_action :can_edit, only: [:edit, :update, :destroy]
-  before_action :set_assignment, only: [:show, :edit, :update, :destroy, :run]
+  before_action :set_assignment, only: [:show, :edit, :update, :destroy, :run, :get_assignment_csv]
 
   # GET /assignments
   def index
@@ -17,7 +17,8 @@ class AssignmentsController < ApplicationController
         user_id: current_user.id,
         assignment_id: @assignment.id,
         submitted: false)
-      @code ||= @submission.codes.create(source_code: @assignment.template)
+      @code = @submission.codes.where(filename: "Solution.java").first
+      @code ||= @submission.codes.create(source_code: @assignment.template, directory: "temp", filename: "Solution.java")
     else
       @submissions = @assignment.submissions.where(submitted: true)
       @course = @assignment.course
@@ -86,6 +87,15 @@ class AssignmentsController < ApplicationController
       format.json { render json: res }
     end
     # render js: "document.querySelector('#test-results').innerHTML = '#{message} The list of job ids: #{res}';"
+  end
+
+  def get_assignment_csv
+    csv_str = build_csv @assignment.submissions
+    respond_to do |format|
+      format.csv {
+        return send_data(csv_str, type: 'text/plain', filename: "#{@assignment.name}.csv", disposition: 'attachment')
+      }
+    end
   end
 
   private

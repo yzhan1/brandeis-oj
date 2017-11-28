@@ -11,6 +11,7 @@
           <%= @assignment.name %>
           (<%= @course.course_code %>)
         </div>
+        <%= link_to 'Export Grades to CSV', get_assignment_csv_assignment_path(format: :csv), class: "btn btn-sm btn-primary" %>
       </div>
     </h3>
     <hr/>

@@ -47,6 +47,7 @@ end
 gem 'toastr-rails'
 gem "gretel"
 gem 'activerecord-reset-pk-sequence'
+gem "omniauth-google-oauth2", '~> 0.2.1'
 
 #to generate course permission strings
 gem 'rubysl-securerandom'
@@ -58,6 +59,7 @@ gem 'sidekiq'
 gem 'sidekiq-status'
 gem 'rubysl-open3'
 gem "nested_form"
+gem 'figaro'
 
 gem 'paperclip'
 gem 'aws-sdk', '~> 2.3'

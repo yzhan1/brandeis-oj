@@ -10,6 +10,8 @@ Enrollment.delete_all
 Enrollment.reset_pk_sequence
 Announcement.delete_all
 Announcement.reset_pk_sequence
+Code.delete_all
+Code.reset_pk_sequence
 
 User.create(name: 'John Doe', email: 'johndoe1@brandeis.edu', password: '123456', password_confirmation: '123456', role: 'student')
 User.create(name: 'Jane Doe', email: 'janedoe@brandeis.edu', password: '123456', password_confirmation: '123456', role: 'student')
@@ -18,7 +20,7 @@ User.create(name: 'Bar Foo', email: 'barfoo@brandeis.edu', password: '123456', p
 User.create(name: 'No One', email: 'noone@brandeis.edu', password: '123456', password_confirmation: '123456', role: 'student')
 User.create(name: 'Pito Salas', email: 'rpsalas@brandeis.edu', password: '123456', password_confirmation: '123456', role: 'teacher')
 User.create(name: 'Antonella', email: 'antonella@brandeis.edu', password: '123456', password_confirmation: '123456', role: 'teacher')
-User.create(name: 'Tim Hickey', email: 'tjhickey@brandeis.edu', password: '123456', password_confirmation: '123456', role: 'teacher')
+User.create(name: 'Tim Hickey', email: 'timhickey@brandeis.edu', password: '123456', password_confirmation: '123456', role: 'teacher')
 
 Course.create(course_code:"11a", course_title:"Intro to Programming", permission: SecureRandom.hex(10))
 Course.create(course_code:"12b", course_title:"Advanced Programming Techniques", permission: SecureRandom.hex(10))
@@ -39,15 +41,15 @@ Submission.create(user_id: 4, assignment_id: 3, source_code: "public class Solut
 Submission.create(user_id: 2, assignment_id: 1, source_code: "public class Solution {\n\treturn null;\n}", submission_date: Time.now.strftime("%d/%m/%Y %H:%M"), grade: 90)
 Submission.create(user_id: 1, assignment_id: 1, source_code: "public class Solution {\n\treturn null;\n}", submission_date: Time.now.strftime("%d/%m/%Y %H:%M"), grade: 90)
 
-Enrollment.create(user_id:1, course_id:1, final_grade: 0.0, total: 0.0, count: 0.0)
-Enrollment.create(user_id:2, course_id:1, final_grade: 0.0, total: 0.0, count: 0.0)
-Enrollment.create(user_id:3, course_id:1, final_grade: 0.0, total: 0.0, count: 0.0)
-Enrollment.create(user_id:4, course_id:2, final_grade: 0.0, total: 0.0, count: 0.0)
-Enrollment.create(user_id:4, course_id:4, final_grade: 0.0, total: 0.0, count: 0.0)
-Enrollment.create(user_id:6, course_id:1, final_grade: 0.0, total: 0.0, count: 0.0)
-Enrollment.create(user_id:6, course_id:2, final_grade: 0.0, total: 0.0, count: 0.0)
-Enrollment.create(user_id:7, course_id:3, final_grade: 0.0, total: 0.0, count: 0.0)
-Enrollment.create(user_id:8, course_id:4, final_grade: 0.0, total: 0.0, count: 0.0)
+Enrollment.create(user_id:1, course_id:1, grade: 0.0, total: 0.0, count: 0.0)
+Enrollment.create(user_id:2, course_id:1, grade: 0.0, total: 0.0, count: 0.0)
+Enrollment.create(user_id:3, course_id:1, grade: 0.0, total: 0.0, count: 0.0)
+Enrollment.create(user_id:4, course_id:2, grade: 0.0, total: 0.0, count: 0.0)
+Enrollment.create(user_id:4, course_id:4, grade: 0.0, total: 0.0, count: 0.0)
+Enrollment.create(user_id:6, course_id:1, grade: 0.0, total: 0.0, count: 0.0)
+Enrollment.create(user_id:6, course_id:2, grade: 0.0, total: 0.0, count: 0.0)
+Enrollment.create(user_id:7, course_id:3, grade: 0.0, total: 0.0, count: 0.0)
+Enrollment.create(user_id:8, course_id:4, grade: 0.0, total: 0.0, count: 0.0)
 
 Announcement.create(course_id:1, name: "first", announcement_date: DateTime.new(2017, 10, 11, 20, 10, 0), announcement_body:"Checking if everyone can see announcements.")
 Announcement.create(course_id:2, name: "second", announcement_date: DateTime.new(2017, 10, 11, 20, 10, 0), announcement_body:"The new programming assignment has been released.")
