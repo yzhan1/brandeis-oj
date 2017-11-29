@@ -95,13 +95,13 @@ class CoursesController < ApplicationController
 
     def correct_user
       @course = current_user.courses.find_by(id: params[:id])
-      redirect_to(dashboard_url, :flash => { :warning => 'Access denied' }) if @course.nil?
+      redirect_to(error_url, :flash => { :warning => 'Access denied' }) if @course.nil?
     end
 
     def can_edit
       @course = current_user.courses.find_by(id: params[:id])
       authorized = @course.enrolled_user?(current_user) && !is_student?
       # cannot edit a course if current_user is not the teacher who's teaching this course
-      redirect_to(dashboard_url, :flash => { :warning => 'Access denied' }) if @course.nil? || !authorized
+      redirect_to(error_url, :flash => { :warning => 'Access denied' }) if @course.nil? || !authorized
     end
 end

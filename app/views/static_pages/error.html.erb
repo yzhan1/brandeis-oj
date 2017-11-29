@@ -1,0 +1,14 @@
+<% provide(:title, "Error occurred") %>
+<% breadcrumb :error %>
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <center>
+      <h1>You are not authorized to visit this page</h1>
+      <hr/>
+      <div style="margin-top: 50px">
+        <%= link_to 'Go back to dashboard', dashboard_url, class: 'btn btn-warning' %>
+      </div>
+    </center>
+  </div>
+</div>
