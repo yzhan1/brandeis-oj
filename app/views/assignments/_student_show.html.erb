@@ -22,10 +22,14 @@
       <%= render 'shared/stdout' %>
       <hr/>
       <dl class="row">
-        <dt class="col-sm-3">New File Name</dt>
+        <dt class="col-sm-3">New File</dt>
         <dd class="col-sm-9">
-          <input type="text" id="file_name_input" >
-          <input type="submit" id="create_tab_button" value="Add File" onclick="clickAddFileTab()">
+          <div class="input-group">
+            <input type="text" id="file_name_input" class="form-control" placeholder="New File's Name">
+            <span class="input-group-btn">
+              <input type="submit" id="create_tab_button" value="Add File" onclick="clickAddFileTab()" class="btn btn-sm btn-primary">
+            </span>
+          </div>
         </dd>
         <dt class="col-sm-3">File Directory</dt>
         <dd class="col-sm-9">
@@ -33,14 +37,13 @@
 
         </dd>
       </dl>
-
     </div>
     <br/>
   </div>
   <div class="col-lg-7" style="padding-right: 0">
     <%= nested_form_for @submission, :url => url_for(:controller => 'submissions', :action => 'save_or_run') do |f| %>
     <%= token_tag(nil) %>
-    <ul class="nav nav-tabs" role="tablist">
+    <ul class="nav nav-tabs" role="tablist" style="margin-top: 5px">
       <li class="nav-item">
         <a class="nav-link active" href="#class_0" data-toggle="tab" aria-expanded="true"> Solution.java </a><span> x </span>
       </li>
