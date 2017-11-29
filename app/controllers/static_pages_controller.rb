@@ -4,4 +4,7 @@ class StaticPagesController < ApplicationController
       redirect_to dashboard_url
     end
   end
+
+  def error
+  end
 end

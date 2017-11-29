@@ -60,3 +60,7 @@ crumb :edit_user do |user|
   link "Edit My Profile", user
   parent :user, user
 end
+
+crumb :error do
+  link 'Error', error_path
+end

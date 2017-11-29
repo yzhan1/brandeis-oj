@@ -115,13 +115,13 @@ class AssignmentsController < ApplicationController
 
     def correct_user
       @assignment = Assignment.find_by(id: params[:id])
-      redirect_back(fallback_location: dashboard_url, :flash => { :warning => 'Access denied' }) unless @assignment.course.enrolled_user?(current_user)
+      redirect_back(fallback_location: error_url, :flash => { :warning => 'Access denied' }) unless @assignment.course.enrolled_user?(current_user)
     end
 
     def can_edit
       @assignment = Assignment.find_by(id: params[:id])
       authorized = @assignment.course.enrolled_user?(current_user) && !is_student?
       # cannot edit assignment if user is not teacher who's teaching this course
-      redirect_back(fallback_location: dashboard_url, :flash => { :warning => 'Access denied' }) unless authorized
+      redirect_back(fallback_location: error_url, :flash => { :warning => 'Access denied' }) unless authorized
     end
 end

@@ -5,8 +5,9 @@ class Submission < ApplicationRecord
   belongs_to :user
   has_many :codes
 
-  def run lang
+  def run
     dir_name = user.id
+    lang = self.assignment.lang
     mkdir = `cd tmp\nmkdir #{dir_name}`
     if lang == 'java'
       File.write("tmp/#{dir_name}/Solution.java", source_code)

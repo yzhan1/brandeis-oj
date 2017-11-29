@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   end
 
   root 'sessions#new'
+  get '/error',                  to: 'static_pages#error'
 
   get '/signup',                 to: 'users#new'
   post '/signup',                to: 'users#create'

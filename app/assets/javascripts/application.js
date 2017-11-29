@@ -268,6 +268,7 @@ $(document).on('turbolinks:load', () => {
     $('.stdout').show()
     $('.row-num-col').empty()
     $('.line-col').empty()
+    console.log(output)
     for (let i = 0; i < output.length; i++) {
       line = output[i].trim() == '' ? '<br/>' : output[i]
       $('.row-num-col').append(`

@@ -91,7 +91,7 @@ class UsersController < ApplicationController
     def correct_user
       @user = User.find_by(id: params[:id])
       # cannot edit other user's profile
-      redirect_to(dashboard_url, :flash => { :warning => 'Access denied' }) if @user.nil? || @user != current_user
+      redirect_to(error_url, :flash => { :warning => 'Access denied' }) if @user.nil? || @user != current_user
     end
 
     def announcent_params

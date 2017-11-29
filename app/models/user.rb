@@ -60,17 +60,17 @@ class User < ApplicationRecord
       user.oauth_expires_at = Time.at auth.credentials.expires_at
       user.password = user.password_confirmation = User.new_token
       user.password_digest = User.new_token
-      instructor?(user.email) ? user.role = 'teacher' : user.role = 'student'
+      user.role = set_role user.email
       user.save! if auth.extra.raw_info.hd == 'brandeis.edu'
     end
   end
 
   private 
 
-  def self.instructor? email
+  def self.set_role email
     File.readlines('db/instructor_email.csv').each do |line|
-      return true if email == line
+      return 'teacher' if email == line
     end
-    false
+    'student'
   end
 end

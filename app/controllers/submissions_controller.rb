@@ -112,7 +112,7 @@ class SubmissionsController < ApplicationController
       @submission = Submission.find_by(id: params[:id])
       instructor_access = !is_student? && @submission.assignment.course.enrolled_user?(current_user)
       # cannot view or edit a submission if user is not the teacher teaching this course or not the student who owns this submission
-      redirect_to(dashboard_url, :flash => { :warning => 'Access denied'} ) unless @submission.user == current_user || instructor_access
+      redirect_to(error_url, :flash => { :warning => 'Access denied'} ) unless @submission.user == current_user || instructor_access
     end
 
     def run?

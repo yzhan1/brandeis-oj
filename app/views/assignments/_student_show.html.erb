@@ -26,18 +26,16 @@
   <div class="col-lg-7" style="padding-right: 0">
     <%= nested_form_for @submission, :url => url_for(:controller => 'submissions', :action => 'save_or_run') do |f| %>
     <%= token_tag(nil) %>
-    <div class="container">
-      <ul class="nav nav-tabs" role="tablist">
-        <li class="nav-item">
-          <a class="nav-link active" href="#class_01" data-toggle="tab" aria-expanded="true"> Solution.java </a><span> x </span>
-        </li>
-        <li class="nav-item"><a href="#" class="add-class nav-link"> + Add File </a>
-        </li>
-      </ul>
-      <div class="tab-content">
-        <div class="tab-pane active" id="class_01">
-          <pre id="editor"  style="margin-bottom: 0px" class="editor-div"></pre>
-        </div>
+    <ul class="nav nav-tabs" role="tablist" style="margin-top:5px">
+      <li class="nav-item">
+        <a class="nav-link active" href="#class_01" data-toggle="tab" aria-expanded="true"> Solution.java </a><span> x </span>
+      </li>
+      <li class="nav-item"><a href="#" class="add-class nav-link"> + Add File </a>
+      </li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active" id="class_01">
+        <pre id="editor"  style="margin-bottom: 0px" class="editor-div"></pre>
       </div>
     </div>
     <%= f.fields_for @code do |c|%>
@@ -46,7 +44,7 @@
     <%= f.number_field :assignment_id, id: :submission_assignment_id, style: "display: none", :value => @assignment.id %>
     <%= f.number_field :id, id: :submission_id, style: "display: none", :value => @submission.id %>
     <%= f.number_field :run, id: :run, style: "display: none", :value => 0 %>
-    <div class="container" style="background-color: #eaecef; padding: 10px;">
+    <div class="container" style="background-color: #eaecef; padding: 10px; margin-top: 0">
       <div class="row" style="margin: 0px">
         <div class="col-4" id="notification"></div>
         <div class="col-2"></div>
