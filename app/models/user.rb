@@ -52,6 +52,7 @@ class User < ApplicationRecord
 
   def self.from_omniauth auth
     where(oauth_provider: auth.provider, oauth_uid: auth.uid).first_or_initialize.tap do |user|
+      return nil if auth.extra.raw_info.hd != 'brandeis.edu'
       user.email = auth.info.email
       user.name = auth.info.name
       user.profile_pic = auth.info.image
@@ -62,8 +63,12 @@ class User < ApplicationRecord
       user.password = user.password_confirmation = User.new_token
       user.password_digest = User.new_token
       user.role = set_role user.email
-      user.save! if auth.extra.raw_info.hd == 'brandeis.edu'
+      return user
     end
+  end
+
+  def send_welcome_email
+    UserMailer.welcome_email(self).deliver_now
   end
 
   private 

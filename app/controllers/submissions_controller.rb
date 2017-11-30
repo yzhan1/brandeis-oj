@@ -78,7 +78,8 @@ class SubmissionsController < ApplicationController
         enrollment = @submission.assignment.course.enrollments.find @submission.user.id
         enrollment.update(total: enrollment.total + @submission.grade, count: enrollment.count + count)
         enrollment.update(grade: enrollment.total / enrollment.count)
-
+        @submission.send_notification
+        
         format.html { redirect_to @submission }
         format.js { render :js => "toastr.success('Submission updated')" }
       else

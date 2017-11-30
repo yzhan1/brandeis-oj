@@ -5,33 +5,38 @@
   <br><br>
   <div class="card">
     <div class="card-body">
-      <div style="display:flex; justify-content: center; align-items: center;">
+      <div style="display:flex; justify-content: center; align-items: center">
         <h1>Hey, <%= @user.name %>!</h1>
       </div>
       <hr>
       <br>
       <div class="row">
-        <div class="col">
-
-        </div>
-        <div class="col-md-auto">
-          <!-- Avatar Image -->
+        <div class="col-2"></div>
+        <div class="col-4">
           <%= gravatar_for @user %>
         </div>
-        <div class="col">
-            <br>
-            <strong>Name:</strong>
-            <%= @user.name %> <br>
-            <strong>Email:</strong>
-            <%= @user.email %> <br>
-            <strong>Role:</strong>
-            <%= @user.role %> <br>
-            <br>
-            <%= link_to 'Edit', edit_user_path(@user), class: "btn btn-outline-primary" %>
+        <div class="col-4">
+          <dl class="row">
+            <dt class="col-sm-4">Name</dt>
+            <dd class="col-sm-8">
+              <%= @user.name %>
+            </dd>
+            <dt class="col-sm-4">Email</dt>
+            <dd class="col-sm-8">
+              <%= @user.email %>
+            </dd>
+            <dt class="col-sm-4">Role</dt>
+            <dd class="col-sm-8">
+              <%= @user.role %>
+            </dd>
+            <dt class="col-sm-4">Phone Number</dt>
+            <dd class="col-sm-8">
+              <%= @user.phone %>
+            </dd>
+          </dl>
+          <%= link_to 'Edit', edit_user_path(@user), class: "btn btn-info btn-block" %>
         </div>
-        <div class="col">
-
-        </div>
+        <div class="col-2"></div>
       </div>
     </div>
   </div>

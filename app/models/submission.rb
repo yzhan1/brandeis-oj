@@ -22,4 +22,8 @@ class Submission < ApplicationRecord
     `rm -rf tmp/#{dir_name}` # remove directory
     return stdout_err
   end
+
+  def send_notification
+    SubmissionMailer.grade_notification(self).deliver_now
+  end
 end

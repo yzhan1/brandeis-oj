@@ -57,9 +57,9 @@
         <pre id="editor" style="margin-bottom: 0px" class="editor-div"></pre>
       </div>
     </div>
-    <%= f.fields_for @code do |c|%>
-      <%= c.text_area :source_code, id: :code_area%>
-    <%end%>
+    <%= f.fields_for @code do |c| %>
+      <%= c.text_area :source_code, id: :code_area %>
+    <% end %>
     <%= f.number_field :assignment_id, id: :submission_assignment_id, style: "display: none", :value => @assignment.id %>
     <%= f.number_field :id, id: :submission_id, style: "display: none", :value => @submission.id %>
     <%= f.number_field :run, id: :run, style: "display: none", :value => 0 %>
