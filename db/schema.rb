@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171128002115) do
+ActiveRecord::Schema.define(version: 20171130041330) do
 
   create_table "announcements", force: :cascade do |t|
     t.string "name"
@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(version: 20171128002115) do
     t.string "oauth_name"
     t.string "oauth_token"
     t.datetime "oauth_expires_at"
+    t.string "profile_pic"
   end
 
 end

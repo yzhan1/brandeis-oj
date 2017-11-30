@@ -19,7 +19,7 @@
 
           <div class="col-md-auto">
             <!-- Avatar Image -->
-            <%= image_tag('/man.png', size: "200") %>
+            <%= gravatar_for @user %>
           </div>
           <div class="col">
             <%= render 'form-update', user: @user %>

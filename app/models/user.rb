@@ -54,6 +54,7 @@ class User < ApplicationRecord
     where(oauth_provider: auth.provider, oauth_uid: auth.uid).first_or_initialize.tap do |user|
       user.email = auth.info.email
       user.name = auth.info.name
+      user.profile_pic = auth.info.image
       user.oauth_provider = auth.provider
       user.oauth_uid = auth.uid
       user.oauth_token = auth.credentials.token
