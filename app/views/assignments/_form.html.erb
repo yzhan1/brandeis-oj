@@ -101,9 +101,7 @@
     editor.setValue("<%= raw(@assignment.template.inspect[1..-2]) %>", 1)
   <% end %>
   editor.getSession().on('change', () => input.val(editor.getSession().getValue()))
-</script>
 
-<script>
   <%= render 'shared/tests_editor.js' %>
   tests_editor.getSession().setMode("ace/mode/<%= @assignment.lang %>")
   var input2 = $('textarea[id="test_code_editor"]').hide()
@@ -114,5 +112,4 @@
   <% end %>
   tests_editor.getSession().on('change', () => input2.val(tests_editor.getSession().getValue()))
 </script>
-
 <% end %>

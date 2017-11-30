@@ -8,7 +8,7 @@ class Submission < ApplicationRecord
   def run
     dir_name = user.id
     lang = self.assignment.lang
-    mkdir = `cd tmp\nmkdir #{dir_name}`
+    `cd tmp\nmkdir #{dir_name}` # mkdir
     if lang == 'java'
       File.write("tmp/#{dir_name}/Solution.java", source_code)
       stdout_err, status = Open3.capture2e("cd tmp\ncd #{dir_name}\njavac Solution.java\njava Solution")
@@ -19,7 +19,7 @@ class Submission < ApplicationRecord
       File.write("tmp/#{dir_name}/solution.rb", source_code)
       stdout_err, status = Open3.capture2e("cd tmp\ncd #{dir_name}\nruby solution.rb")
     end
-    remove = `rm -rf tmp/#{dir_name}`
+    `rm -rf tmp/#{dir_name}` # remove directory
     return stdout_err
   end
 end

@@ -21,7 +21,6 @@ class ApplicationController < ActionController::Base
     respond_to do |format|
       format.json { render json: data }
     end
-
   end
 
   private

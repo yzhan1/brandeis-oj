@@ -109,13 +109,14 @@ class SubmissionsController < ApplicationController
     end
 
     def correct_user
-      @submission = Submission.find_by(id: params[:id])
+      set_submission
       instructor_access = !is_student? && @submission.assignment.course.enrolled_user?(current_user)
+      authorized = @submission.user == current_user || instructor_access
       # cannot view or edit a submission if user is not the teacher teaching this course or not the student who owns this submission
-      redirect_to(error_url, :flash => { :warning => 'Access denied'} ) unless @submission.user == current_user || instructor_access
+      redirect_to(error_url, :flash => { :warning => 'Access denied'} ) unless authorized
     end
 
     def run?
-      params.require(:submission).permit(:run)[:run] == '1' ? true : false
+      params.require(:submission).permit(:run)[:run] == '1'
     end
 end

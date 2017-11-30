@@ -16,7 +16,8 @@ class AssignmentsController < ApplicationController
       @submission ||= Submission.create(
         user_id: current_user.id,
         assignment_id: @assignment.id,
-        submitted: false)
+        submitted: false
+      )
       @code = @submission.codes.where(filename: "Solution.java").first
       @code ||= @submission.codes.create(source_code: @assignment.template, directory: "temp", filename: "Solution.java")
     else
@@ -114,14 +115,15 @@ class AssignmentsController < ApplicationController
     end
 
     def correct_user
-      @assignment = Assignment.find_by(id: params[:id])
-      redirect_back(fallback_location: error_url, :flash => { :warning => 'Access denied' }) unless @assignment.course.enrolled_user?(current_user)
+      set_assignment
+      authorized = @assignment.course.enrolled_user? current_user
+      redirect_to(error_url, :flash => { :warning => 'Access denied' }) unless authorized
     end
 
     def can_edit
-      @assignment = Assignment.find_by(id: params[:id])
+      set_assignment
       authorized = @assignment.course.enrolled_user?(current_user) && !is_student?
       # cannot edit assignment if user is not teacher who's teaching this course
-      redirect_back(fallback_location: error_url, :flash => { :warning => 'Access denied' }) unless authorized
+      redirect_to(error_url, :flash => { :warning => 'Access denied' }) unless authorized
     end
 end

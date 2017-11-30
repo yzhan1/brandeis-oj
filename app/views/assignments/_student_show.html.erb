@@ -15,11 +15,11 @@
         <% end %>
           <%= @assignment.due_date.strftime('%a, %b %d %Y, %H:%M') %>
         </dd>
-        <dt class="col-sm-3">PDF Instructions</dt>
-        <dd class="col-sm-9"><%= link_to 'View', "http:#{@assignment.pdf_instruction}", target: "_blank" %></dd>
+        <% if @assignment.pdf_instruction.to_s != '/pdf_instructions/original/missing.png' %>
+          <dt class="col-sm-3">PDF Instructions</dt>
+          <dd class="col-sm-9"><%= link_to 'View', "http:#{@assignment.pdf_instruction}", target: "_blank" %></dd>
+        <% end %>
       </dl>
-      <hr/>
-      <%= render 'shared/stdout' %>
       <hr/>
       <dl class="row">
         <dt class="col-sm-3">New File</dt>
@@ -37,6 +37,8 @@
 
         </dd>
       </dl>
+      <hr/>
+      <%= render 'shared/stdout' %>
     </div>
     <br/>
   </div>
@@ -82,23 +84,23 @@
     document.getElementById("add-tab").click();
   }
 
-  $(document).ready(function(){
-    $('#create_tab_button').attr('disabled',true);
-    $('#file_name_input').keyup(function(){
-      if($(this).val().length !=0)
+  $(document).ready(function() {
+    $('#create_tab_button').attr('disabled', true);
+    $('#file_name_input').keyup(function() {
+      if ($(this).val().length != 0)
         $('#create_tab_button').attr('disabled', false);
       else
-        $('#create_tab_button').attr('disabled',true);
-    })
+        $('#create_tab_button').attr('disabled', true);
+    });
   });
 
   <%= render 'shared/editor.js' %>
-  editor.getSession().setMode("ace/mode/<%= @submission.assignment.lang %>")
+  editor.getSession().setMode("ace/mode/<%= @submission.assignment.lang %>");
   <% if !is_student? %>
-  editor.setReadOnly(true)
+  editor.setReadOnly(true);
   <% end %>
   editor.setValue("<%= raw(@submission.codes.first.source_code.inspect[1..-2]) %>", 1);
-  editor.getSession().on('change', () => input.val(editor.getSession().getValue()))
+  editor.getSession().on('change', () => input.val(editor.getSession().getValue()));
   <% if !@submission.assignment.pass_due? %>
     <%= render 'shared/autosave.js' %>
   <% end %>
