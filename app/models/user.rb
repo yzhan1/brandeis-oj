@@ -40,7 +40,7 @@ class User < ApplicationRecord
     course_list = Course.where(permission: permission)
     if !course_list.nil? && !course_list.first.nil?
       course = course_list.first
-      enrollments << Enrollment.new(course_id: course.id)
+      enrollments << Enrollment.new(course_id: course.id, grade: 0.0)
     else
       false
     end

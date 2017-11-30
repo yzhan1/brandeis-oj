@@ -31,7 +31,7 @@
               <tr>
                 <td><%= user.name %></td>
                 <td><%= /^[^@]*/.match user.email %></td>
-                <td><%= @course.enrollments.find(user.id).grade %></td>
+                <td><%= @course.enrollments.find_by(user_id: user.id).grade %></td>
               </tr>
             <% end %>
           <% end %>
