@@ -26,6 +26,7 @@
         <dd class="col-sm-9">
           <div class="input-group">
             <input type="text" id="file_name_input" class="form-control" placeholder="New File's Name">
+            <input type="hidden" name="submission_id" value="<%@submission.id%>">
             <span class="input-group-btn">
               <input type="submit" id="create_tab_button" value="Add File" onclick="clickAddFileTab()" class="btn btn-sm btn-primary">
             </span>

@@ -55,6 +55,12 @@ class SubmissionsController < ApplicationController
     Submission.find(submission_params[:id]).update(submission_params.merge submission_date: Time.now)
   end
 
+  def new_code
+    @submission = Submission.where(id: params[:submission_id]).first
+    @code = @submission.codes.create(source_code: @submission.assignment.template, directory: "temp", filename: params[:filename])
+
+  end
+
   # POST /submissions
   def create
     @submission = Submission.new(submission_params)
@@ -79,7 +85,7 @@ class SubmissionsController < ApplicationController
         enrollment.update(total: enrollment.total + @submission.grade, count: enrollment.count + count)
         enrollment.update(grade: enrollment.total / enrollment.count)
         @submission.send_notification
-        
+
         format.html { redirect_to @submission }
         format.js { render :js => "toastr.success('Submission updated')" }
       else

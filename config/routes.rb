@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   delete '/logout',              to: 'sessions#destroy'
 
   post '/save',                  to: 'submissions#save_or_run'
+  post '/code',                  to: 'submissions#new_code'
   patch '/save',                 to: 'submissions#save_or_run'
   patch '/autosave',             to: 'submissions#autosave'
   post '/run',                   to: 'submissions#run'
