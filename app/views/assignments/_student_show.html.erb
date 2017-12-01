@@ -43,9 +43,12 @@
     </div>
     <br/>
   </div>
+
   <div class="col-lg-7" style="padding-right: 0">
     <%= nested_form_for @submission, :url => url_for(:controller => 'submissions', :action => 'save_or_run') do |f| %>
     <%= token_tag(nil) %>
+
+
     <ul class="nav nav-tabs" role="tablist" style="margin-top: 5px">
       <li class="nav-item">
         <a class="nav-link active" href="#class_0" data-toggle="tab" aria-expanded="true"> Solution.java </a><span> x </span>
@@ -53,17 +56,21 @@
       <li style="display:none" class="nav-item"><a href="#" class="add-class nav-link" id="add-tab"> + Add File </a>
       </li>
     </ul>
+
+
     <div class="tab-content">
       <div class="tab-pane active" id="class_0">
         <pre id="editor" style="margin-bottom: 0px" class="editor-div"></pre>
       </div>
     </div>
     <%= f.fields_for @code do |c| %>
-      <%= c.text_area :source_code, id: :code_area %>
+      <%= c.text_area :source_code, id: "code_area" %>
     <% end %>
     <%= f.number_field :assignment_id, id: :submission_assignment_id, style: "display: none", :value => @assignment.id %>
     <%= f.number_field :id, id: :submission_id, style: "display: none", :value => @submission.id %>
     <%= f.number_field :run, id: :run, style: "display: none", :value => 0 %>
+
+
     <div class="container" style="background-color: #eaecef; padding: 10px; margin-top: 0">
       <div class="row" style="margin: 0px">
         <div class="col-4" id="notification"></div>
@@ -85,6 +92,7 @@
     document.getElementById("add-tab").click();
   }
 
+  //disables add new file button when field is empty
   $(document).ready(function() {
     $('#create_tab_button').attr('disabled', true);
     $('#file_name_input').keyup(function() {
@@ -96,6 +104,7 @@
   });
 
   <%= render 'shared/editor.js' %>
+  var input = $('textarea[id="code_area"]').hide()
   editor.getSession().setMode("ace/mode/<%= @submission.assignment.lang %>");
   <% if !is_student? %>
   editor.setReadOnly(true);
