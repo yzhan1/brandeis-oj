@@ -35,7 +35,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'jquery-rails', '4.3.1'
 
 # Adding bootstrap gems
-gem 'bootstrap', '= 4.0.0.alpha6'
+gem 'bootstrap', '~> 4.0.0.beta'
 gem 'bootstrap-popover-rails'
 gem 'will_paginate',           '3.1.5'
 gem 'will_paginate-bootstrap4'
@@ -59,8 +59,8 @@ gem 'sidekiq'
 gem 'sidekiq-status'
 gem 'rubysl-open3'
 gem "nested_form"
-gem 'figaro'
 
+gem 'figaro'
 gem 'paperclip'
 gem 'aws-sdk', '~> 2.3'
 

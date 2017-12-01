@@ -43,6 +43,13 @@ class AssignmentsController < ApplicationController
       if @assignment.save
         Announcement.create(name: "New Assignment: #{params[:assignment][:name]}", course_id: params[:assignment][:course_id], announcement_body: "A new assignment has been created!", announcement_date: DateTime.now) # TODO check if this is workingk
         send_msg_notification @assignment
+        # broadcast thru assignments channel
+        ActionCable.server.broadcast('assignments',
+          name: @assignment.name,
+          link: "/assignments/#{@assignment.id}",
+          due_date: @assignment.due_date.strftime('%a, %b %d %Y, %H:%M')
+        )
+
         format.html { redirect_to @assignment.course, flash: { success: 'Assignment was successfully created.' } }
         format.json { render :show, status: :created, location: @assignment.course }
       else

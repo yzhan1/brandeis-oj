@@ -34,6 +34,12 @@ class SubmissionsController < ApplicationController
       redirect_to submission.assignment.course, :flash => { :error => 'You cannot submit after due date has passed' }
     else
       submission.update submitted: true
+      ActionCable.server.broadcast('submissions', 
+        from: submission.user.name, 
+        link: "/submissions/#{submission.id}",
+        date: submission.submission_date.strftime('%a, %b %d %Y, %H:%M'),
+        grade: submission.grade
+      )
       redirect_to submission.assignment.course, :flash => { :success => 'Assignment submitted' }
     end
   end
