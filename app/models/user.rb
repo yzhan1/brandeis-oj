@@ -6,8 +6,8 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
-  has_secure_password
-  validates :password, presence: true, length: { minimum: 6 }
+  has_secure_password validations: false
+  validates :password, presence: true, length: { minimum: 6 }, on: :create
   validates :role, presence: true
   has_many :submissions
   has_many :enrollments
@@ -40,7 +40,7 @@ class User < ApplicationRecord
     course_list = Course.where(permission: permission)
     if !course_list.nil? && !course_list.first.nil?
       course = course_list.first
-      enrollments << Enrollment.new(course_id: course.id)
+      enrollments << Enrollment.new(course_id: course.id, grade: 0.0)
     else
       false
     end
@@ -52,6 +52,7 @@ class User < ApplicationRecord
 
   def self.from_omniauth auth
     where(oauth_provider: auth.provider, oauth_uid: auth.uid).first_or_initialize.tap do |user|
+      return nil if auth.extra.raw_info.hd != 'brandeis.edu'
       user.email = auth.info.email
       user.name = auth.info.name
       user.profile_pic = auth.info.image
@@ -62,8 +63,12 @@ class User < ApplicationRecord
       user.password = user.password_confirmation = User.new_token
       user.password_digest = User.new_token
       user.role = set_role user.email
-      user.save! if auth.extra.raw_info.hd == 'brandeis.edu'
+      return user
     end
+  end
+
+  def send_welcome_email
+    UserMailer.welcome_email(self).deliver_now
   end
 
   private 

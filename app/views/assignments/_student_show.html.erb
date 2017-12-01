@@ -26,6 +26,7 @@
         <dd class="col-sm-9">
           <div class="input-group">
             <input type="text" id="file_name_input" class="form-control" placeholder="New File's Name">
+            <input type="hidden" name="submission_id" value="<%@submission.id%>">
             <span class="input-group-btn">
               <input type="submit" id="create_tab_button" value="Add File" onclick="clickAddFileTab()" class="btn btn-sm btn-primary">
             </span>
@@ -56,9 +57,9 @@
         <pre id="editor" style="margin-bottom: 0px" class="editor-div"></pre>
       </div>
     </div>
-    <%= f.fields_for @code do |c|%>
-      <%= c.text_area :source_code, id: :code_area%>
-    <%end%>
+    <%= f.fields_for @code do |c| %>
+      <%= c.text_area :source_code, id: :code_area %>
+    <% end %>
     <%= f.number_field :assignment_id, id: :submission_assignment_id, style: "display: none", :value => @assignment.id %>
     <%= f.number_field :id, id: :submission_id, style: "display: none", :value => @submission.id %>
     <%= f.number_field :run, id: :run, style: "display: none", :value => 0 %>

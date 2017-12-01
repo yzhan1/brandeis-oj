@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
+  protect_from_forgery prepend: true
   include SessionsHelper, SubmissionsHelper, AssignmentsHelper, CoursesHelper, UsersHelper
 
   def progress
@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   end
 
   private
-  
+
   def logged_in_user
     unless logged_in?
       store_location

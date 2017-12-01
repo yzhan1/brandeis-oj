@@ -88,7 +88,7 @@
 
 
           <% if !is_student? %>
-            <div class="row" style="padding-top: 25px; padding-bottom: 25px; background-color: rgb(69, 69, 69); color: rgb(240, 240, 240);">
+            <div class="row better-row" style="padding-top: 25px; padding-bottom: 25px; background-color: rgb(69, 69, 69); color: rgb(240, 240, 240);">
               <div class="col-4">
                 Assignment Name
               </div>
@@ -103,7 +103,7 @@
               </div>
             </div>
           <% else %>
-            <div class="row" style="padding-top: 25px; padding-bottom: 25px; background-color: rgb(69, 69, 69); color: rgb(240, 240, 240);">
+            <div class="row better-row" style="padding-top: 25px; padding-bottom: 25px; background-color: rgb(69, 69, 69); color: rgb(240, 240, 240);">
               <div class="col-6">
                 Assignment Name
               </div>
@@ -118,7 +118,7 @@
           <% if @assignment_list %>
             <% @assignment_list.each do |assignment| %>
 
-            <div class="row" style="padding-top: 25px; padding-bottom: 25px; background-color: rgb(242, 242, 242);">
+            <div class="row better-row" style="padding-top: 25px; padding-bottom: 25px; background-color: rgb(242, 242, 242);">
 
                 <% if !is_student? %>
                 <div class="col-4">

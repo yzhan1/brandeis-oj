@@ -1,8 +1,7 @@
 module AssignmentsHelper
-
   def test_code(assignment_id)
     job_id = TestsWorker.perform_async(assignment_id)
-    res = {"id" => job_id}
+    {"id" => job_id}
   end
 
   def test_completed?(job_id)
@@ -36,4 +35,16 @@ module AssignmentsHelper
     end
   end
 
+  def send_msg_notification assignment
+    @client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
+    assignment.course.users.each do |user|
+      next if user == current_user || user.phone.nil?
+      @client.messages.create(
+        body: "New assignment has been posted: #{assignment.name} for course #{assignment.course.course_title}. 
+               Due date is #{assignment.due_date.strftime('%a, %b %d %Y, %H:%M')}",
+        to: "+#{user.phone}",
+        from: ENV['TWILIO_NUMBER']
+      )
+    end
+  end
 end

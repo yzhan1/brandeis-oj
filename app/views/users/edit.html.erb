@@ -4,7 +4,6 @@
   <br><br>
   <div class="card">
     <div class="card-body">
-
       <div class="table">
         <div class="row">
           <div class="col">
@@ -16,18 +15,14 @@
           </div>
         </div>
         <div class="row">
-
-          <div class="col-md-auto">
-            <!-- Avatar Image -->
-            <%= gravatar_for @user %>
-          </div>
-          <div class="col">
+          <div class="col-1"></div>
+          <div class="col-3"><%= gravatar_for @user %></div>
+          <div class="col-7">
             <%= render 'form-update', user: @user %>
-
             <br>
-            <%= link_to 'Back', user_path %>
+            <%= link_to 'Cancel', user_path %>
           </div>
-
+          <div class="col-1"></div>
         </div>
       </div>
     </div>

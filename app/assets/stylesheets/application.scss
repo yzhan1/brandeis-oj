@@ -39,12 +39,16 @@
   padding-bottom: 6px !important;
 }
 
-.nav-tabs{
+.nav-tabs {
   border-bottom:1px solid #ddd
-
 }
 
 .report-cell {
   background-color: rgba(59, 167, 50, 0.76);
   color: rgb(236, 236, 236);
+}
+
+.better-row {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
 }

@@ -1,0 +1,9 @@
+<center>
+  <div class="card" style="width: 20rem">
+    <div class="card-body">
+      <h4 class="card-title">Hi, <%= @recepient.name %></h4>
+      <p class="card-text">Your grade for assignment <%= @assignment.name %> is now available</p>
+      <%= link_to 'Click here to view your grade', @submission, class: 'card-link' %>
+    </div>
+  </div>
+</center>
