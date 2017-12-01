@@ -19,7 +19,7 @@ class AssignmentsController < ApplicationController
         submitted: false
       )
       @code = @submission.codes.where(filename: "Solution.java").first
-      @code ||= @submission.codes.create(source_code: @assignment.template, directory: "temp", filename: "Solution.java")
+      @code ||= @submission.codes.create(source_code: @assignment.template, filename: "Solution.java")
     else
       @submissions = @assignment.submissions.where(submitted: true)
       @course = @assignment.course
