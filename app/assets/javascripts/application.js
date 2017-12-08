@@ -264,7 +264,7 @@ $(document).on('turbolinks:load', () => {
     console.log('getStatistics() result: ' + numSubmissions + ', ' + correctSubmissions);
     document.getElementById('report-'+id+'-body').innerHTML = `
       <p>Number of submissions: ${numSubmissions}. Correct Submissions: ${correctSubmissions}.</p>
-      <br>
+      
       <div class="row" style="overflow-x: auto; white-space: nowrap">
         <div class="col" style="display: inline-block; float: none">${output}</div>
       </div>`
