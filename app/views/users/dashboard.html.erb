@@ -2,7 +2,14 @@
 <% breadcrumb :dashboard %>
 <br>
 <div class="container">
-  <h1><%= @user.role.capitalize %> Dashboard: <%= @user.name %></h1>
+  <div class="row">
+    <div class="col-md-auto">
+      <%= gravatar_for @user, 100 %>
+    </div>
+    <div class="col" style="padding-top: 50px;">
+      <h1><%= @user.role.capitalize %> Dashboard: <%= @user.name %></h1>
+    </div>
+  </div>
   <hr/>
   <br>
   <div class="row">
