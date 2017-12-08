@@ -6,7 +6,7 @@ editor.getSession().setUseSoftTabs(false)
 editor.getSession().setMode("ace/mode/java")
 editor.setShowPrintMargin(false)
 editor.setOptions({fontSize: "14px"})
-var temp_id = 1
+var temp_id = 20
 
 $(".nav-tabs").on("click", "a", function(e) {
   e.preventDefault()
@@ -32,7 +32,7 @@ $('.add-class').click(function(e) {
   var tabName = document.getElementById('file_name_input').value
   var submissionId = document.getElementById('submission_id').value
 
-  $(this).closest('li').before(`<li class="nav-item"><a id="tab_${ tabId }" class="nav-link active" href="#${ tabId }" data-toggle="tab">${tabName}</a> <span> x </span></li>`)
+  $('.nav-tabs').append(`<li class="nav-item"><a id="tab_${ tabId }" class="nav-link active" href="#${ tabId }" data-toggle="tab">${tabName}</a> <span> x </span></li>`)
   $('.tab-content').append(`<div class="tab-pane active" id="${ tabId }"><pre id="editor_${ id }"  style="margin-bottom: 0px" class="editor-div"></pre></div>`)
   var editor = ace.edit("editor_"+id)
   var input = $('textarea[id="submission_source_code"]').hide()
@@ -48,7 +48,20 @@ $('.add-class').click(function(e) {
   $('#create_tab_button').attr('disabled',true);
   $.ajax({
     type: 'POST',
-    url: '/code',
+    url: '/new_code',
     data: {filename: tabName, submission_id: submissionId}
   })
+})
+
+$('.delete-file').click(function(e) {
+  e.preventDefault()
+  var fileName = $(this).attr("value");
+  var submissionId = document.getElementById('submission_id').value
+  $.ajax({
+    type: 'POST',
+    url: '/delete_code',
+    data: {filename: fileName, submission_id: submissionId}
+  })
+  //Delete from page
+  $(this).parent('.row').remove();
 })

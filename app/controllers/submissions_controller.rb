@@ -58,7 +58,12 @@ class SubmissionsController < ApplicationController
   def new_code
     @submission = Submission.where(id: params[:submission_id]).first
     @code = @submission.codes.create(source_code: @submission.assignment.template, filename: params[:filename])
+  end
 
+  def delete_code
+    @submission = Submission.where(id: params[:submission_id]).first
+    @code = @submission.codes.where(filename: params[:filename]).first
+    @code.destroy
   end
 
   # POST /submissions

@@ -28,7 +28,7 @@
             <input type="text" id="file_name_input" class="form-control" placeholder="New File's Name">
             <input type="hidden" name="submission_id" value="<%@submission.id%>">
             <span class="input-group-btn">
-              <input type="submit" id="create_tab_button" value="Add File" onclick="clickAddFileTab()" class="btn btn-sm btn-primary">
+              <input type="submit" id="create_tab_button" value="Add File" class="add-class btn btn-sm btn-primary">
             </span>
           </div>
         </dd>
@@ -48,8 +48,6 @@
     <ul class="nav nav-tabs" role="tablist" style="margin-top: 5px">
       <li class="nav-item">
         <a class="nav-link active" href="#class_0" data-toggle="tab" aria-expanded="true"> Solution.java </a><span> x </span>
-      </li>
-      <li style="display:none" class="nav-item"><a href="#" class="add-class nav-link" id="add-tab"> + Add File </a>
       </li>
     </ul>
     <div class="tab-content">
@@ -80,9 +78,6 @@
 </div>
 
 <script>
-  function clickAddFileTab() {
-    document.getElementById("add-tab").click();
-  }
 
   $(document).ready(function() {
     $('#create_tab_button').attr('disabled', true);

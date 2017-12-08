@@ -1,3 +1,14 @@
-<% @submission.codes.all.each do |x| %>
-  <%= x.filename %>
-<% end %>
+  <% @submission.codes.all.each_with_index do |x, index| %>
+    <div class="row">
+      <div class="col-8">
+        <li class="nav-item">
+          <a class="nav-link" href="#class_<%=index%>"><%= x.filename %></a>
+        </li>
+      </div>
+      <div class="col-4">
+        <li class="nav-item">
+          <a class="nav-link" href="#" class="delete-file" style="color: red" value="<%= x.filename %>">Delete</a>
+        </li>
+      </div>
+    </div>
+  <% end %>
