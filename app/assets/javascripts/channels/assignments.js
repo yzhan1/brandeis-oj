@@ -13,7 +13,7 @@ $(document).on('turbolinks:load', () => {
       received: submission => {
         console.log(submission);
         console.log(`#submission-table-${ submission.assignment_id }`);
-        let grade = submission.grade ? grade : 0.0;
+        let grade = submission.grade ? grade : '---';
         $(`#submission-table-${ submission.assignment_id }`).append(`
           <tr>
             <td>${ submission.from }</td>

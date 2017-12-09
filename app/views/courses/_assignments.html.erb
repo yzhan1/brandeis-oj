@@ -28,7 +28,7 @@
 <%= render 'table_header', locals: { first: 'Assignment Name', second: 'Due Date', third: 'Actions' } %>
 
 <% end %>
-
+<div id="assignment-list-<%= @course.id %>">
 <% if !@assignment_list.nil? && @assignment_list.any? %>
 
 <% @assignment_list.each do |assignment| %>
@@ -98,6 +98,7 @@
   </div>
 
   <% end %>
+</div>
 
   <% if is_student? %>
     <%= render 'submissions' %>
