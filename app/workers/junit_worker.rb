@@ -18,6 +18,10 @@ class JunitWorker
 
     submission.auto_grade = num
     submission.save
+    puts "The num of tests is: #{num_tests.inspect}"
+    if num_tests.nil?
+      num_tests = 0
+    end
     result = "#{name}: #{num}/#{num_tests}"
     store sbm_id: submission_id
     store stdout: result
