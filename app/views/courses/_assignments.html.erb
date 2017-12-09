@@ -116,7 +116,7 @@
     </div>
   <% end %>
   <% if @assignment_list %>
-  <div id="assignment-list">
+  <div id="assignment-list-<%= @course.id %>">
     <% @assignment_list.each do |assignment| %>
 
     <div class="row better-row" style="padding-top: 25px; padding-bottom: 25px; background-color: rgb(242, 242, 242);">

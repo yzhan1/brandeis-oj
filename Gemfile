@@ -58,7 +58,8 @@ gem 'rails_admin', '~> 1.2'
 gem 'sidekiq'
 gem 'sidekiq-status'
 gem 'rubysl-open3'
-gem "nested_form"
+gem 'nested_form'
+gem 'redis', '~> 3.3'
 
 gem 'figaro'
 gem 'paperclip'

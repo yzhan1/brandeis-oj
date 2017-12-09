@@ -1,6 +1,6 @@
 class AssignmentsChannel < ApplicationCable::Channel  
   def subscribed
-    puts '****** subscribed to assignments channel'
-    stream_from 'assignments'
+    puts "****** subscribed to assignments#{params[:course]}"
+    stream_from "assignments#{params[:course]}"
   end
 end

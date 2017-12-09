@@ -34,11 +34,13 @@ class SubmissionsController < ApplicationController
       redirect_to submission.assignment.course, :flash => { :error => 'You cannot submit after due date has passed' }
     else
       submission.update submitted: true
-      ActionCable.server.broadcast('submissions', 
+      assignment_id = submission.assignment.id
+      ActionCable.server.broadcast("submissions#{assignment_id}", 
         from: submission.user.name, 
         link: "/submissions/#{submission.id}",
         date: submission.submission_date.strftime('%a, %b %d %Y, %H:%M'),
-        grade: submission.grade
+        grade: submission.grade,
+        assignment_id: assignment_id
       )
       redirect_to submission.assignment.course, :flash => { :success => 'Assignment submitted' }
     end
@@ -79,13 +81,11 @@ class SubmissionsController < ApplicationController
   def update
     respond_to do |format|
       count = @submission.grade == nil ? 1 : 0
-      puts "submission grade is #{@submission.grade}, count is #{count}"
       if @submission.update(submission_params)
         enrollment = @submission.assignment.course.enrollments.find @submission.user.id
         enrollment.update(total: enrollment.total + @submission.grade, count: enrollment.count + count)
         enrollment.update(grade: enrollment.total / enrollment.count)
         @submission.send_notification
-        
         format.html { redirect_to @submission }
         format.js { render :js => "toastr.success('Submission updated')" }
       else
