@@ -4,6 +4,7 @@
 <% else %>
   <% breadcrumb :submissions, @assignment %>
   <br>
+  <div id="assignment-id" data-assignment-id="<%= @assignment.id %>"></div>
   <div class="container">
     <h3>
       <div class="justify-content-between" style="display: flex">
@@ -27,7 +28,7 @@
           <th>Grade</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="submission-table-<%= @assignment.id %>">
         <% if @submissions %>
           <% @submissions.each do |submission| %>
             <tr>

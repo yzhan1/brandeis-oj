@@ -83,22 +83,124 @@
     </div>
 
     <% end %>
-  </div>
+    </tbody>
+  </table>
+ -->
 
-  <%= render 'report', locals: {assignment_id: assignment.id, assignment_name: assignment.name } %>
 
 
-  <% end %>
 
+
+  <% if !is_student? %>
+    <div class="row better-row" style="padding-top: 25px; padding-bottom: 25px; background-color: rgb(69, 69, 69); color: rgb(240, 240, 240);">
+      <div class="col-4">
+        Assignment Name
+      </div>
+      <div class="col-2">
+        Due Date
+      </div>
+      <div class="col-3">
+        Actions
+      </div>
+      <div class="col-3">
+        Submissions
+      </div>
+    </div>
   <% else %>
-  <div class="row better-row" style="padding-top: 25px; padding-bottom: 25px; background-color: rgb(242, 242, 242);">
+    <div class="row better-row" style="padding-top: 25px; padding-bottom: 25px; background-color: rgb(69, 69, 69); color: rgb(240, 240, 240);">
+      <div class="col-6">
+        Assignment Name
+      </div>
+      <div class="col-3">
+        Due Date
+      </div>
+      <div class="col-3">
+        Actions
+      </div>
+    </div>
+  <% end %>
+  <% if @assignment_list %>
+  <div id="assignment-list-<%= @course.id %>">
+    <% @assignment_list.each do |assignment| %>
+
+    <div class="row better-row" style="padding-top: 25px; padding-bottom: 25px; background-color: rgb(242, 242, 242);">
+      <% if !is_student? %>
+      <div class="col-4">
+        <%= link_to assignment.name, assignment %>
+      </div>
+      <div class="col-2">
+        <%= assignment.due_date.strftime('%b %d %Y, %H:%M') %>
+      </div>
+      <div class="col-3">
+        <div class="row" style="margin-right: 2px;">
+          <div class="col-6" style="padding-left: 0px; padding-right: 2px;">
+            <%= link_to 'Edit', edit_assignment_path(assignment, course_id: @course.id), class: "btn btn-outline-primary btn-sm btn-block" %>
+          </div>
+          <div class="col-6" style="padding-left: 2px; padding-right: 0px;">
+            <%= link_to 'Delete', assignment, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger btn-sm btn-block" %>
+          </div>
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="row" style="margin-right: 2px;">
+          <div class="col-6" style="padding-left: 0px; padding-right: 2px;">
+            <%= link_to 'Show', assignment, class: "btn btn-outline-success btn-sm btn-block" %>
+          </div>
+          <div class="col-6" style="padding-left: 2px; padding-right: 0px;">
+            <button id="<%= assignment.id %>" data-remote="true" class="btn btn-outline-info btn-sm run-tests btn-block">Run Tests</button>
+          </div>
+        </div>
+      </div>
+      <% else %>
+      <div class="col-6">
+        <%= link_to assignment.name, assignment %>
+      </div>
+      <% if assignment.pass_due? %>
+        <div class="col-3" style="color: red;">
+      <% else %>
+        <div class="col-3">
+      <% end %>
+        <%= assignment.due_date.strftime('%b %d %Y, %H:%M') %>
+      </div>
+        <div class="col-3">
+          <%= link_to 'Show', assignment, class: "btn btn-outline-primary btn-sm" %>
+        </div>
+      <% end %>
+    </div>
+    <div class="row report-cell" style="display: none; padding: 10px; position: relative;" id="report-<%= assignment.id %>">
+      <div class="col">
+        <div class="row">
+          <div class="col-10">
+            <h4>REPORT: <%= assignment.name %>.</h4>
+          </div>
+          <div class="col-2">
+            <button id="hide-report-<%= assignment.id %>" name="<%= assignment.id %>" data-remote="true" class="btn btn-outline-light btn-sm btn-block hide-report">Hide</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12" id="report-<%= assignment.id %>-body">
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+
+          </div>
+          <div class="col-md-auto">
+            <button id="download-report-<%= assignment.id %>" name="<%= assignment.id %>" data-remote="true" class="btn btn-outline-light btn-sm btn-block download-report">Download CSV</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+  <% else %>
+  <div class="row" style="padding-top: 25px; padding-bottom: 25px; background-color: rgb(242, 242, 242);">
     <div class="col-12">
       No assigments
     </div>
   </div>
-
   <% end %>
-
   <% if is_student? %>
     <%= render 'submissions' %>
   <% end %>

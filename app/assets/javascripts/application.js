@@ -4,6 +4,7 @@
 //= require_tree .
 //= require tether
 //= require popper
+//= require cable
 //= require bootstrap
 //= require bootstrap-sprockets
 //= require toastr
