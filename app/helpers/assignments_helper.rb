@@ -10,7 +10,7 @@ module AssignmentsHelper
       sub_list = sub_list.split(',')
       puts "The parsed array is: #{sub_list.inspect}"
       if sub_list.empty?
-        data = {"output" => "No submissions to test"}
+        data = {"output" => "<br>"}
         return data
       end
       sub_list.each do |sub_id|
@@ -40,7 +40,7 @@ module AssignmentsHelper
     assignment.course.users.each do |user|
       next if user == current_user || user.phone.nil?
       @client.messages.create(
-        body: "New assignment has been posted: #{assignment.name} for course #{assignment.course.course_title}. 
+        body: "New assignment has been posted: #{assignment.name} for course #{assignment.course.course_title}.
                Due date is #{assignment.due_date.strftime('%a, %b %d %Y, %H:%M')}",
         to: "+#{user.phone}",
         from: ENV['TWILIO_NUMBER']

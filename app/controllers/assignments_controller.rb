@@ -91,6 +91,20 @@ class AssignmentsController < ApplicationController
     # render js: "document.querySelector('#test-results').innerHTML = '#{message} The list of job ids: #{res}';"
   end
 
+  # GET /stats
+  def get_stats
+    assignment = Assignment.find(test_params[:id])
+    if assignment.nil?
+      res = { enrolled: 0, average: 0 }
+    else
+      enrolled = assignment.submissions.count
+      res = { enrolled: enrolled, average: get_average(assignment.submissions) }
+    end
+    respond_to do |format|
+      format.json { render json: res }
+    end
+  end
+
   def get_assignment_csv
     csv_str = build_csv @assignment.submissions
     respond_to do |format|
@@ -104,6 +118,20 @@ class AssignmentsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_assignment
       @assignment = Assignment.find(params[:id])
+    end
+
+    def get_average submissions
+      if submissions.any?
+        count = 0
+        acum = 0
+        submissions.each do |sub|
+          count = count + 1
+          acum = acum + sub.auto_grade
+        end
+        ave = (((acum.to_f)/count)*100).round(2)
+      else
+        ave = 0
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
