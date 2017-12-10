@@ -9,8 +9,12 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-12" id="report-<%= locals[:assignment_id] %>-body">
+      <div class="col-6" id="report-<%= locals[:assignment_id] %>-body">
 
+      </div>
+      <div class="col-6">
+        <canvas id="graph-<%= locals[:assignment_id] %>" width="300" height="300"></canvas>
+        <br>
       </div>
     </div>
     <div class="row">
@@ -23,3 +27,47 @@
     </div>
   </div>
 </div>
+
+<script>
+var ctx = document.getElementById("graph-<%= locals[:assignment_id] %>").getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+        datasets: [{
+            label: 'Student Performance',
+            data: [12, 19, 3, 5, 2, 3],
+            borderColor: [
+                'rgba(255,99,132,1)'//,
+                // 'rgba(54, 162, 235, 1)'//,
+                // 'rgba(255, 206, 86, 1)'//,
+                // 'rgba(75, 192, 192, 1)'//,
+                // 'rgba(153, 102, 255, 1)'//,
+                // 'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 3
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true,
+                    fontColor: "#FFFFFF"
+                },
+                gridLines: {
+                    color: "#FFFFFF"
+                }
+            }],
+            xAxes: [{
+                ticks: {
+                  display: false
+                },
+                gridLines: {
+                    color: "#FFFFFF"
+                }
+            }]
+        }
+    }
+});
+</script>
