@@ -22,16 +22,18 @@
       </dl>
       <hr/>
       <dl class="row">
+        <% if !@assignment.pass_due? %>
         <dt class="col-sm-3">New File</dt>
         <dd class="col-sm-9">
           <div class="input-group">
-            <input type="text" id="file_name_input" class="form-control" placeholder="New File's Name">
-            <input type="hidden" name="submission_id" value="<%@submission.id%>">
+            <input type="text" id="file_name_input" class="form-control form-control-sm" placeholder="New File's Name">
+            <input type="hidden" name="submission_id" value="<% @submission.id %>">
             <span class="input-group-btn">
               <input type="submit" id="create_tab_button" value="Add File" class="add-class btn btn-sm btn-primary">
             </span>
           </div>
         </dd>
+        <% end %>
         <dt class="col-sm-3">File Directory</dt>
         <dd class="col-sm-9">
           <%= render 'directory' %>

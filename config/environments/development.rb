@@ -66,4 +66,6 @@ Rails.application.configure do
       s3_region: ENV['AWS_REGION'],
     }
   }
+
+  config.action_cable.url = "ws://localhost:3000/cable"
 end

@@ -4,6 +4,7 @@
 //= require_tree .
 //= require tether
 //= require popper
+//= require cable
 //= require bootstrap
 //= require bootstrap-sprockets
 //= require toastr
@@ -33,6 +34,8 @@ function getStatistics(output) {
   var result = "l1: " + splitted.length;
   var numSubmissions = null;
   var correctSubmissions = 0;
+  var numEnrolledStudents = 0;
+  var averageScore = 0;
   console.log('arr: ' + splitted + '\n' + 'res: ' + result);
   if (splitted.length <= 2) {
     numSubmissions = 0;
@@ -166,6 +169,16 @@ $(document).on('turbolinks:load', () => {
     })
   }
 
+  const getTestsValues = (id, data, type, url) => {
+    $.ajax({
+      beforeSend: (xhr) => {
+        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+      }, type, url, data,
+      dataType: 'json',
+      success: json => updateTestValues(id, json.enrolled, json.average)
+    })
+  }
+
   const getResult = (jobID) => {
     const poller = () => {
       $.ajax({
@@ -200,6 +213,7 @@ $(document).on('turbolinks:load', () => {
             console.log(data.output)
             clearInterval(pollInterval)
             updateTestResult(id, data.output)
+            getTestsValues(id, {id: id}, 'GET', '/stats')
             return false
           }
         }
@@ -223,9 +237,6 @@ $(document).on('turbolinks:load', () => {
   }
 
   const updateTestResultsSection = (id) => {
-    // var section = document.getElementById('report-'+id);
-    // document.getElementById('report-'+id).style.display = '';
-    // section.style.display = '';
     $('#report-'+id).slideDown();
     // TODO need to make sure that the code works if button is clicked again
     document.getElementById('report-'+id+'-body').innerHTML = `
@@ -238,72 +249,46 @@ $(document).on('turbolinks:load', () => {
       </div>
       <br/>
       `
-    // testsResultSection.append(`
-    //   <div class="progress-msg">
-    //     <p>Running...</>
-    //     <div class="progress">
-    //       <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
-    //     </div>
-    //   </div>`
-    // )
-
   }
 
   const updateTestResult = (id, output) => {
-    // const resultArea = document.getElementById('report-'+id+'-body');
-    // resultArea.innerHTML = ``;
-    // for (let i = 0; i < output.length; i++) {
-    //   console.log('line: ' + output[i]);
-    //   line = output[i].trim() == '\n' ? '<br/>' : output[i];
-    //   resultArea.append(`<p>${line}</p>`);
-    // }
-    // TODO here we will extract statistics from resultArea
     var result = getStatistics(output);
     var numSubmissions = result[0];
     var correctSubmissions = result[1];
     console.log('getStatistics() result: ' + numSubmissions + ', ' + correctSubmissions);
     document.getElementById('report-'+id+'-body').innerHTML = `
-      <p>Number of submissions: ${numSubmissions}. Correct Submissions: ${correctSubmissions}.</p>
-      
+      <br>
+      <div class="row">
+        <div class="col-4" style="text-align: center;">
+          <h1><span id="submissions-${id}">${numSubmissions}</span></h1>
+        </div>
+        <div class="col-4" style="text-align: center;">
+          <h1><span id="enrolled-${id}">-</span></h1>
+        </div>
+        <div class="col-4" style="text-align: center;">
+          <h1><span id="av-score-${id}">-</span></h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4" style="text-align: center;">
+          <h3>Submissions</h3>
+        </div>
+        <div class="col-4" style="text-align: center;">
+          <h3>Enrolled Students</h3>
+        </div>
+        <div class="col-4" style="text-align: center;">
+          <h3>Average Score</h3>
+        </div>
+      </div>
+
       <div class="row" style="overflow-x: auto; white-space: nowrap">
         <div class="col" style="display: inline-block; float: none">${output}</div>
       </div>`
+  }
 
-
-    // testsResultSection.hide()
-    // i = 0
-    // while (i < output.length) {
-    //   // line = output[i].trim() == '::' ? '<br/>' : output[i]
-    //   // testsResultUpdateSection.append(`
-    //   //   <div class="row">
-    //   //     <div class="col"><b>${i + 1}</b></div>
-    //   //   </div>`
-    //   // )
-    //   if(output[i] == ':') {
-    //     line = '<br/>'
-    //     i++
-    //     while(i < output.length && [i] == ':') {
-    //       i++
-    //     }
-    //   } else {
-    //     line = output[i]
-    //     i++
-    //     while(i < output.length && [i] != ':') {
-    //       line = line + output[i]
-    //       i++
-    //     }
-    //   }
-      // testsResultUpdateSection.append(`
-      //   <div class="row" style="overflow-x: auto; white-space: nowrap">
-      //     <div class="col" style="display: inline-block; float: none">${output}</div>
-      //   </div>`
-      // )
-
-
-    // }
-    // testsResultUpdateSection.append(`
-    //   <p>${output}</p>
-    //   `)
+  const updateTestValues = (id, enrolled, average) => {
+    document.getElementById('enrolled-'+id).innerHTML = `${enrolled}`
+    document.getElementById('av-score-'+id).innerHTML = `${average}`
   }
 
   const updateResult = (output) => {

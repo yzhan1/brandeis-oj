@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  mount ActionCable.server => '/cable'
 
   resources :users
   resources :submissions
@@ -41,4 +42,5 @@ Rails.application.routes.draw do
   get '/test_progress/:id',      to: 'application#test_progress'
 
   get '/test',                   to: 'assignments#run_tests'
+  get '/stats',                  to: 'assignments#get_stats'
 end

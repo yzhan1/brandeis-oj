@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171201210253) do
+ActiveRecord::Schema.define(version: 20171209042914) do
 
   create_table "announcements", force: :cascade do |t|
     t.string "name"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20171201210253) do
     t.string "pdf_instruction_content_type"
     t.integer "pdf_instruction_file_size"
     t.datetime "pdf_instruction_updated_at"
+    t.integer "num_unit_tests"
   end
 
   create_table "codes", force: :cascade do |t|
@@ -73,6 +74,7 @@ ActiveRecord::Schema.define(version: 20171201210253) do
     t.integer "assignment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "auto_grade"
   end
 
   create_table "tests", force: :cascade do |t|

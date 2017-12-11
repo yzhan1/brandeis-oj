@@ -6,10 +6,15 @@ public class TestRunner {
    public static void main(String[] args) {
       Result result = JUnitCore.runClasses(JunitTests.class);
       int runCount = result.getRunCount();
+      String toReturn = "NumSuccTests:"+runCount+",";
       if(result.wasSuccessful()) {
-        System.out.println(runCount + "/" + runCount);
+        toReturn += runCount;
+        System.out.println(toReturn);
+        // System.out.println(runCount + "/" + runCount);
       } else {
-        System.out.println(runCount - result.getFailureCount() + "/" + runCount);
+        toReturn += (runCount - result.getFailureCount());
+        // System.out.println(runCount - result.getFailureCount() + "/" + runCount);
+        System.out.println(toReturn);
         // System.out.println("Some tests failed\n");
         // System.out.println("Number of failures: " + result.getFailureCount());
         // for (Failure failure : result.getFailures()) {
