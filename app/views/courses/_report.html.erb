@@ -9,8 +9,12 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-12" id="report-<%= locals[:assignment_id] %>-body">
+      <div class="col-6" id="report-<%= locals[:assignment_id] %>-body">
 
+      </div>
+      <div class="col-6">
+        <canvas id="graph-<%= locals[:assignment_id] %>" width="300" height="300"></canvas>
+        <br>
       </div>
     </div>
     <div class="row">
@@ -23,3 +27,42 @@
     </div>
   </div>
 </div>
+
+<script>
+var ctx = document.getElementById("graph-<%= locals[:assignment_id] %>").getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange", "Red", "Blue", "Yellow", "Green", "Purple", "Orange", "Red", "Blue", "Yellow"],
+        datasets: [{
+            label: 'Student Performance',
+            data: [56, 19, 89, 32, 24, 38, 100, 70, 76, 65, 88, 92, 50, 20, 59],
+            borderColor: [
+                'rgba(255,99,132,1)'
+            ],
+            borderWidth: 3
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true,
+                    fontColor: "#FFFFFF"
+                },
+                gridLines: {
+                    color: "#cfcfcf"
+                }
+            }],
+            xAxes: [{
+                ticks: {
+                  display: false
+                },
+                gridLines: {
+                    color: "#cfcfcf"
+                }
+            }]
+        }
+    }
+});
+</script>
