@@ -37,20 +37,21 @@ module SessionsHelper
 
   def forget user
     user.forget
-    cookies.delete(:user_id)
-    cookies.delete(:remember_token)
+    cookies.delete :user_id
+    cookies.delete :remember_token
+    cookies.delete :actioncable_user_id
   end
 
   def log_out
-    forget(current_user)
-    session.delete(:user_id)
-    session.delete(:is_student)
+    forget current_user
+    session.delete :user_id
+    session.delete :is_student
     @current_user = nil
   end
 
   def redirect_back_or default
     redirect_to(session[:forwarding_url] || default)
-    session.delete(:forwarding_url)
+    session.delete :forwarding_url
   end
   
   def store_location

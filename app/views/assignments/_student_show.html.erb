@@ -29,15 +29,14 @@
             <input type="text" id="file_name_input" class="form-control form-control-sm" placeholder="New File's Name">
             <input type="hidden" name="submission_id" value="<% @submission.id %>">
             <span class="input-group-btn">
-              <input type="submit" id="create_tab_button" value="Add File" onclick="clickAddFileTab()" class="btn btn-sm btn-primary">
+              <input type="submit" id="create_tab_button" value="Add File" class="add-class btn btn-sm btn-primary">
             </span>
           </div>
         </dd>
         <% end %>
         <dt class="col-sm-3">File Directory</dt>
         <dd class="col-sm-9">
-          <!--TODO: Insert database directory to display-->
-
+          <%= render 'directory' %>
         </dd>
       </dl>
       <hr/>
@@ -54,8 +53,6 @@
     <ul class="nav nav-tabs" role="tablist" style="margin-top: 5px">
       <li class="nav-item">
         <a class="nav-link active" href="#class_0" data-toggle="tab" aria-expanded="true"> Solution.java </a><span> x </span>
-      </li>
-      <li style="display:none" class="nav-item"><a href="#" class="add-class nav-link" id="add-tab"> + Add File </a>
       </li>
     </ul>
 
@@ -90,9 +87,6 @@
 </div>
 
 <script>
-  function clickAddFileTab() {
-    document.getElementById("add-tab").click();
-  }
 
   //disables add new file button when field is empty
   $(document).ready(function() {

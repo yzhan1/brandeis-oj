@@ -4,7 +4,7 @@ class TestsWorker
 
   def perform(assignment_id)
     assignment = Assignment.find(assignment_id)
-    list_of_submissions = assignment.submissions
+    list_of_submissions = assignment.submissions.where(submitted: true)
     job_ids = ""
     mutex = Mutex.new
     puts "The mutex is of class: #{mutex.class}"

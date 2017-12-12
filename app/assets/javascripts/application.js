@@ -297,11 +297,14 @@ $(document).on('turbolinks:load', () => {
     $('.row-num-col').empty()
     $('.line-col').empty()
     console.log(output)
+    let lineNum = 1
     for (let i = 0; i < output.length; i++) {
+      if (output[i].trim == 'Picked up JAVA_TOOL_OPTIONS: -Xmx300m -Xss512k -Dfile.encoding=UTF-8') 
+        continue
       line = output[i].trim() == '' ? '<br/>' : output[i]
       $('.row-num-col').append(`
         <div class="row">
-          <div class="col"><b>${i + 1}</b></div>
+          <div class="col"><b>${lineNum++}</b></div>
         </div>`
       )
       $('.line-col').append(`
