@@ -4,6 +4,12 @@ test_student:
   role: student
   password_digest: <%= User.digest('password') %>
 
+another_student:
+  name: anotherone
+  email: another@brandeis.edu
+  role: student
+  password_digest: <%= User.digest('password') %>
+
 test_teacher:
   name: test_teacher
   email: testteacher@brandeis.edu

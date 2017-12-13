@@ -1,6 +1,6 @@
 class SubmissionMailer < ApplicationMailer
-  def grade_notification submission
-    @instructor = current_user
+  def grade_notification submission, instructor
+    @instructor = instructor
     @submission = submission
     @assignment = submission.assignment
     @recepient = submission.user

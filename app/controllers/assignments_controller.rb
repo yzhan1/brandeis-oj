@@ -2,6 +2,7 @@ class AssignmentsController < ApplicationController
   before_action :logged_in_user
   before_action :correct_user, only: [:show, :edit, :update, :destroy]
   before_action :can_edit, only: [:edit, :update, :destroy]
+  before_action :can_create, only: [:create]
   before_action :set_assignment, only: [:show, :edit, :update, :destroy, :run, :get_assignment_csv]
 
   # GET /assignments
@@ -43,14 +44,7 @@ class AssignmentsController < ApplicationController
       if @assignment.save
         Announcement.create(name: "New Assignment: #{params[:assignment][:name]}", course_id: params[:assignment][:course_id], announcement_body: "A new assignment has been created!", announcement_date: DateTime.now) # TODO check if this is workingk
         send_msg_notification @assignment
-        course_id = @assignment.course.id
-        # broadcast through assignments channel for this specific course
-        ActionCable.server.broadcast("assignments#{course_id}",
-          name: @assignment.name,
-          link: "/assignments/#{@assignment.id}",
-          due_date: @assignment.due_date.strftime('%a, %b %d %Y, %H:%M'),
-          course_id: course_id
-        )
+        broadcast_assignment @assignment
         format.html { redirect_to @assignment.course, flash: { success: 'Assignment was successfully created.' } }
         format.json { render :show, status: :created, location: @assignment.course }
       else
@@ -162,5 +156,10 @@ class AssignmentsController < ApplicationController
       authorized = @assignment.course.enrolled_user?(current_user) && !is_student?
       # cannot edit assignment if user is not teacher who's teaching this course
       redirect_to(error_url, :flash => { :warning => 'Access denied' }) unless authorized
+    end
+
+    def can_create
+      course = Course.find_by(id: params[:assignment][:course_id])
+      redirect_to(error_url, :flash => { :warning => 'Access denied' }) unless course.enrolled_user? current_user
     end
 end

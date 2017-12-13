@@ -31,6 +31,10 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
+gem 'carrierwave', '0.11.2'
+gem 'mini_magick', '4.5.1'
+gem 'fog', '1.38.0'
+
 # Adding gems from Rails Tutorial
 gem 'jquery-rails', '4.3.1'
 
@@ -49,10 +53,10 @@ gem "gretel"
 gem 'activerecord-reset-pk-sequence'
 gem "omniauth-google-oauth2", '~> 0.2.1'
 
-#to generate course permission strings
+# to generate course permission strings
 gem 'rubysl-securerandom'
 
-#rails-admin
+# rails-admin
 gem 'rails_admin', '~> 1.2'
 
 gem 'sidekiq'
@@ -87,6 +91,10 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+end
+
+group :test do
+  gem 'sqlite3'
 end
 
 group :production do

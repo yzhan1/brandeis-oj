@@ -2,6 +2,7 @@ class CoursesController < ApplicationController
   before_action :logged_in_user, only: [:show, :edit, :update, :destroy, :index, :new, :grades]
   before_action :correct_user, only: [:show, :grades]
   before_action :can_edit, only: [:edit, :update, :destroy]
+  before_action :can_create, only: [:new, :create]
   before_action :set_course, only: [:show, :edit, :update, :destroy, :grades, :get_csv]
 
   # GET /courses
@@ -96,6 +97,10 @@ class CoursesController < ApplicationController
     def correct_user
       @course = current_user.courses.find_by(id: params[:id])
       redirect_to(error_url, :flash => { :warning => 'Access denied' }) if @course.nil?
+    end
+
+    def can_create
+      redirect_to(error_url, :flash => { :warning => 'Access denied' }) if is_student?
     end
 
     def can_edit

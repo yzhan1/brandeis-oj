@@ -4,8 +4,6 @@ class ApplicationController < ActionController::Base
 
   def progress
     job_id = job_id_param[:id]
-    puts "=====================XXXXXXXXXXXX"
-    puts "the job_id is: #{job_id}"
     data = completed?(job_id)
     respond_to do |format|
       format.json { render json: data }

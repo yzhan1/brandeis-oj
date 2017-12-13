@@ -39,7 +39,6 @@ module SessionsHelper
     user.forget
     cookies.delete :user_id
     cookies.delete :remember_token
-    cookies.delete :actioncable_user_id
   end
 
   def log_out
