@@ -24,6 +24,6 @@ class Submission < ApplicationRecord
   end
 
   def send_notification
-    SubmissionMailer.grade_notification(self).deliver_now
+    SubmissionMailer.grade_notification(self, current_user).deliver_now
   end
 end
