@@ -42,9 +42,19 @@ module AssignmentsHelper
       @client.messages.create(
         body: "New assignment has been posted: #{assignment.name} for course #{assignment.course.course_title}.
                Due date is #{assignment.due_date.strftime('%a, %b %d %Y, %H:%M')}",
-        to: "+#{user.phone}",
-        from: ENV['TWILIO_NUMBER']
+        to:   "+#{user.phone}",
+        from:  ENV['TWILIO_NUMBER']
       )
     end
+  end
+
+  def broadcast_assignment assignment
+    course_id = @assignment.course.id
+    ActionCable.server.broadcast("assignments#{course_id}",
+      name: @assignment.name,
+      link: "/assignments/#{@assignment.id}",
+      due_date: @assignment.due_date.strftime('%a, %b %d %Y, %H:%M'),
+      course_id: course_id
+    )
   end
 end

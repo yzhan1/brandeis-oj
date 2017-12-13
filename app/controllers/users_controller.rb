@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :dashboard]
   before_action :correct_user, only: [:show, :edit, :update, :destroy]
+  before_action :can_announce, only: [:create_announcement]
 
   # GET /users
   def index
@@ -73,7 +74,7 @@ class UsersController < ApplicationController
   def create_announcement
     announcement = Announcement.new(name: announcent_params[:title], announcement_date: DateTime.now, announcement_body: announcent_params[:announcement_body], course_id: announcent_params[:course])
     announcement.save if announcement.valid?
-    redirect_to root_url
+    redirect_to dashboard_url
   end
 
   private
@@ -96,5 +97,10 @@ class UsersController < ApplicationController
 
     def announcent_params
       params.require(:announcement).permit(:course, :announcement_body, :title)
+    end
+
+    def can_announce
+      course = Course.find_by(id: announcent_params[:course])
+      redirect_to(error_url, :flash => { :warning => 'Access denied' }) if !course.enrolled_user?(current_user)
     end
 end

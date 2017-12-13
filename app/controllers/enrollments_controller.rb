@@ -1,5 +1,5 @@
 class EnrollmentsController < ApplicationController
-  before_action :logged_in_user, only: [:show, :edit, :update, :destroy, :index, :new]
+  before_action :logged_in_user, only: [:show, :edit, :update, :destroy, :index, :new, :create_enrollment_dashboard]
   before_action :set_enrollment, only: [:show, :edit, :update, :destroy]
 
   # GET /enrollments

@@ -3,4 +3,18 @@ one:
   course: course_one
   instructions: Do this and do that
   template: public class Solution {}
-  due_date: Time.now.strftime("%d/%m/%Y %H:%M")
+  due_date: <%= Time.now + (60 * 60 * 24 * 7 * 2) %>
+
+assignment_two:
+  name: Java class design
+  course: course_two
+  instructions: Elevator Design
+  template: public class Solution {}
+  due_date: <%= Time.now.strftime("%d/%m/%Y %H:%M") %>
+
+passed_due_assignment:
+  name: Passed due
+  course: course_one
+  instructions: Don't submit
+  template: public class Solution {}
+  due_date: <%= DateTime.new(2017, 10, 11, 20, 10, 0) %>
