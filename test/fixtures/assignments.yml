@@ -10,7 +10,7 @@ assignment_two:
   course: course_two
   instructions: Elevator Design
   template: public class Solution {}
-  due_date: <%= Time.now.strftime("%d/%m/%Y %H:%M") %>
+  due_date: <%= Time.now %>
 
 passed_due_assignment:
   name: Passed due
