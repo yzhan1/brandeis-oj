@@ -1,11 +1,15 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+submission_one:
+  submitted: false
+  source_code: public static void {}
+  grade: 0.0
+  user: test_student
+  assignment: one
+  submission_date: <%= Time.now %>
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+submission_two:
+  submitted: false
+  source_code: hello
+  grade: 0.0
+  user: test_student
+  assignment: passed_due_assignment
+  submission_date: <%= Time.now %>

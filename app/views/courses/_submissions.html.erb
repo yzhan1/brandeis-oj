@@ -1,23 +1,35 @@
-<h5 style="display: flex; margin-bottom: 10px" class="justify-content-between">My Submissions</h5>
-<table class="table table-striped table-bordered">
-  <thead>
-  <tr>
-    <th>Assignment Name</th>
-    <th>Date Submitted</th>
-    <th>Grade</th>
-  </tr>
-  </thead>
-  <tbody>
-  <% if @submissions %>
+<br>
+
+<h4 style="display: flex; margin-bottom: 10px" class="justify-content-between">My Submissions</h4>
+
+<%= render 'table_header', locals: { first: 'Assignment Name', second: 'Date Submitted', third: 'Grade' } %>
+
+
+  <% if !@submissions.nil? && @submissions.any? %>
     <% @submissions.each do |submission| %>
-      <tr>
-        <td><%= link_to submission.assignment.name, submission %></td>
-        <td><%= submission.submission_date.strftime('%b %d %Y, %H:%M') %></td>
-        <td><%= submission.grade %></td>
-      </tr>
+    <div class="row better-row" style="padding-top: 25px; padding-bottom: 25px; background-color: rgb(242, 242, 242);">
+
+        <div class="col-6">
+          <%= link_to submission.assignment.name, submission %>
+        </div>
+        <div class="col-3">
+          <%= submission.submission_date.strftime('%b %d %Y, %H:%M') %>
+        </div>
+        <div class="col-3">
+          <% if !submission.grade.nil? %>
+            <%= submission.grade %>
+          <% else %>
+            <%= '---' %>
+          <% end %>
+        </div>
+
+    </div>
     <% end %>
   <% else %>
-    <td colspan="4" align="center">No submissions</td>
+  <div class="row better-row" style="padding-top: 25px; padding-bottom: 25px; background-color: rgb(242, 242, 242);">
+    <div class="col">
+      No assigments
+    </div>
+  </div>
+
   <% end %>
-  </tbody>
-</table>

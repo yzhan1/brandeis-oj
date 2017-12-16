@@ -3,17 +3,13 @@ class TestsWorker
   include Sidekiq::Status::Worker
 
   def perform(assignment_id)
-    puts "#{assignment_id} afuewowefhwoihgewoifo fwoei fewo fwohfeihooihasflkslk"
     assignment = Assignment.find(assignment_id)
-    list_of_submissions = assignment.submissions
-    puts "list.... #{list_of_submissions}"
-    # job_ids = Array.new
+    list_of_submissions = assignment.submissions.where(submitted: true)
     job_ids = ""
+    mutex = Mutex.new
+    puts "The mutex is of class: #{mutex.class}"
     list_of_submissions.each do |submission|
-      puts "#{assignment_id} from inside the loop: #{submission.inspect}"
-      curr = JunitWorker.perform_async(assignment_id, submission.id)
-      puts "the result from JUNIWORKER #{curr}"
-      # job_ids.push(curr)
+      curr = JunitWorker.perform_async(assignment_id, submission.id, mutex)
       if job_ids == ""
         job_ids = "#{curr}"
       else

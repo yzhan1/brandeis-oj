@@ -1,7 +1,7 @@
 <% provide(:title, "Course Details") %>
 <% breadcrumb :course, @course %>
 <br>
-
+<div id="course-id" data-course-id="<%= @course.id %>"></div>
 <div class="container">
   <h3>
     <div class="justify-content-between" style="display: flex">
@@ -41,10 +41,4 @@
 
     </div>
   </div>
-  <!-- <div class="row">
-    <div class="col" id="test-results-update">
-
-    </div>
-
-  </div> -->
 </div>

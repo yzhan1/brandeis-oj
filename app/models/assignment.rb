@@ -12,7 +12,7 @@ class Assignment < ApplicationRecord
   validates_attachment_content_type :pdf_instruction, :content_type => ['application/pdf']
 
   def pass_due?
-    Time.now > due_date ? true : false
+    Time.now > due_date
   end
 
   # This is currently not finished

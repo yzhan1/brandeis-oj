@@ -1,48 +1,27 @@
-# require 'test_helper'
+require 'test_helper'
 
-# class EnrollmentsControllerTest < ActionDispatch::IntegrationTest
-#   setup do
-#     @enrollment = enrollments(:one)
-#   end
+class EnrollmentsControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    @test_teacher = users(:test_teacher)
+    @test_student = users(:test_student)
+    @course = courses(:course_one)
+    @course_two = courses(:course_two)
+  end
 
-#   test "should get index" do
-#     get enrollments_url
-#     assert_response :success
-#   end
+  test "should enroll in course with valid enrollment string" do
+    log_in_as @test_student
+    assert_difference('Enrollment.count') do
+      post enroll_url, params: {
+        enrollment: { course_id: '11a' }
+      }
+    end
+    assert_redirected_to dashboard_url
+  end
 
-#   test "should get new" do
-#     get new_enrollment_url
-#     assert_response :success
-#   end
-
-#   test "should create enrollment" do
-#     assert_difference('Enrollment.count') do
-#       post enrollments_url, params: { enrollment: { course_id: @enrollment.course_id, grade: @enrollment.grade, student_id: @enrollment.student_id } }
-#     end
-
-#     assert_redirected_to enrollment_url(Enrollment.last)
-#   end
-
-#   test "should show enrollment" do
-#     get enrollment_url(@enrollment)
-#     assert_response :success
-#   end
-
-#   test "should get edit" do
-#     get edit_enrollment_url(@enrollment)
-#     assert_response :success
-#   end
-
-#   test "should update enrollment" do
-#     patch enrollment_url(@enrollment), params: { enrollment: { course_id: @enrollment.course_id, grade: @enrollment.grade, student_id: @enrollment.student_id } }
-#     assert_redirected_to enrollment_url(@enrollment)
-#   end
-
-#   test "should destroy enrollment" do
-#     assert_difference('Enrollment.count', -1) do
-#       delete enrollment_url(@enrollment)
-#     end
-
-#     assert_redirected_to enrollments_url
-#   end
-# end
+  test "should not enroll when not logged in" do
+    post enroll_url, params: {
+      enrollment: { course_id: '11a' }
+    }
+    assert_redirected_to login_url
+  end
+end

@@ -34,6 +34,7 @@ class SubmissionsController < ApplicationController
       redirect_to submission.assignment.course, :flash => { :error => 'You cannot submit after due date has passed' }
     else
       submission.update submitted: true
+      broadcast_submission submission
       redirect_to submission.assignment.course, :flash => { :success => 'Assignment submitted' }
     end
   end
@@ -63,6 +64,12 @@ class SubmissionsController < ApplicationController
     end
   end
 
+  def delete_code
+    @submission = Submission.where(id: params[:submission_id]).first
+    @code = @submission.codes.where(filename: params[:filename]).first
+    @code.destroy
+  end
+
   # POST /submissions
   def create
     @submission = Submission.new(submission_params)
@@ -81,13 +88,9 @@ class SubmissionsController < ApplicationController
   def update
     respond_to do |format|
       count = @submission.grade == nil ? 1 : 0
-      puts "submission grade is #{@submission.grade}, count is #{count}"
       if @submission.update(submission_params)
-        enrollment = @submission.assignment.course.enrollments.find @submission.user.id
-        enrollment.update(total: enrollment.total + @submission.grade, count: enrollment.count + count)
-        enrollment.update(grade: enrollment.total / enrollment.count)
+        update_score @submission, count
         @submission.send_notification
-
         format.html { redirect_to @submission }
         format.js { render :js => "toastr.success('Submission updated')" }
       else

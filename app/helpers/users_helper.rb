@@ -1,5 +1,6 @@
 module UsersHelper
-  def gravatar_for user
-    image_tag(user.profile_pic, alt: user.name, class: "gravatar", size: 200) if !user.profile_pic.nil?
+  def gravatar_for user, size
+    picture = user.profile_pic.nil? ? '/aspirinx_logo.png' : user.profile_pic
+    image_tag(picture, alt: user.name, class: "gravatar", size: size)
   end
 end
