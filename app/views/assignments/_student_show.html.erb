@@ -55,35 +55,36 @@
       </li>
       <li style="display:none" class="nav-item"><a href="#" class="add-class nav-link" id="add-tab"> + Add File </a>
       </li>
+      <div class="col-4" id="notification"></div>
     </ul>
 
 
     <div class="tab-content">
+
       <div class="tab-pane active" id="class_0">
         <pre id="editor" style="margin-bottom: 0px" class="editor-div"></pre>
-      </div>
-    </div>
-    <%= f.fields_for @code do |c| %>
-      <%= c.text_area :source_code, id: "code_area" %>
-    <% end %>
-    <%= f.number_field :assignment_id, id: :submission_assignment_id, style: "display: none", :value => @assignment.id %>
-    <%= f.number_field :id, id: :submission_id, style: "display: none", :value => @submission.id %>
-    <%= f.number_field :run, id: :run, style: "display: none", :value => 0 %>
 
-
-    <div class="container" style="background-color: #eaecef; padding: 10px; margin-top: 0">
-      <div class="row" style="margin: 0px">
-        <div class="col-4" id="notification"></div>
-        <div class="col-2"></div>
-        <div class="col-3">
-          <%= f.submit "Run", class: "btn btn-primary ml-auto w-100 btn-run" %>
-        </div>
-        <div class="col-3">
-          <%= f.submit "Submit", class: "btn btn-success ml-auto w-100 btn-save" %>
+      <%= f.fields_for @code do |c| %>
+        <%= c.text_area :source_code, id: "code_area" %>
+        <%= c.text_field :filename, style: "display: none", value: "Solution.java" %>
+      <% end %>
+      <%= f.number_field :assignment_id, id: :submission_assignment_id, style: "display: none", :value => @assignment.id %>
+      <%= f.number_field :id, id: :submission_id, style: "display: none", :value => @submission.id %>
+      <%= f.number_field :run, id: :run, style: "display: none", :value => 0 %>
+      <div class="container" style="background-color: #eaecef; padding: 10px; margin-top: 0">
+        <div class="row" style="margin: 0px">
+          <div class="col-2"></div>
+          <div class="col-3">
+            <%= f.submit "Run", class: "btn btn-primary ml-auto w-100 btn-run" %>
+          </div>
+          <div class="col-3">
+            <%= f.submit "Submit", class: "btn btn-success ml-auto w-100 btn-save" %>
+          </div>
         </div>
       </div>
+      </div>
+      <% end %>
     </div>
-    <% end %>
   </div>
 </div>
 
@@ -105,11 +106,19 @@
 
   <%= render 'shared/editor.js' %>
   var input = $('textarea[id="code_area"]').hide()
+  var editor = ace.edit("editor")
+  editor.$blockScrolling = Infinity
+  editor.setTheme("ace/theme/monokai")
+  editor.getSession().setUseSoftTabs(false)
+  editor.getSession().setMode("ace/mode/java")
+  editor.setShowPrintMargin(false)
+  editor.setOptions({fontSize: "14px"})
+
   editor.getSession().setMode("ace/mode/<%= @submission.assignment.lang %>");
   <% if !is_student? %>
   editor.setReadOnly(true);
   <% end %>
-  editor.setValue("<%= raw(@submission.codes.first.source_code.inspect[1..-2]) %>", 1);
+  editor.setValue("<%= raw(@submission.codes.where(filename: "Solution.java").first.source_code.inspect[1..-2]) %>", 1);
   editor.getSession().on('change', () => input.val(editor.getSession().getValue()));
   <% if !@submission.assignment.pass_due? %>
     <%= render 'shared/autosave.js' %>
