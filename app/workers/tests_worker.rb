@@ -4,12 +4,12 @@ class TestsWorker
 
   def perform(assignment_id)
     assignment = Assignment.find(assignment_id)
+    puts "[INFO]: Starting TESTS worker for assignment #{assignment_id}."
     list_of_submissions = assignment.submissions.where(submitted: true)
     job_ids = ""
-    mutex = Mutex.new
-    puts "The mutex is of class: #{mutex.class}"
+    puts "[INFO]: Found #{list_of_submissions.length} submissions."
     list_of_submissions.each do |submission|
-      curr = JunitWorker.perform_async(assignment_id, submission.id, mutex)
+      curr = JunitWorker.perform_async(assignment_id, submission.id)
       if job_ids == ""
         job_ids = "#{curr}"
       else

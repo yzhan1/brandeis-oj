@@ -213,6 +213,7 @@ $(document).on('turbolinks:load', () => {
             console.log(data.output)
             clearInterval(pollInterval)
             updateTestResult(id, data.output)
+            getGrades(id, {id: id}, 'GET', '/grades')
             getTestsValues(id, {id: id}, 'GET', '/stats')
             return false
           }
@@ -286,6 +287,67 @@ $(document).on('turbolinks:load', () => {
       </div>`
   }
 
+  //
+  const getGrades = (id, data, type, url) => {
+    $.ajax({
+      beforeSend: (xhr) => {
+        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+      }, type, url, data,
+      dataType: 'json',
+      success: json => updateGraph(id, json.names, json.grades)
+    })
+  }
+
+  const updateGraph = (id, names, grades) => {
+    console.log('Output names: ' + names)
+    // TODO need to make an AJAX call and get the list of grades and the list of names
+    console.log('Output grades: ' + grades)
+    $('#graph-'+id).replaceWith('<canvas id="graph-' + id + '" width="300" height="300"></canvas>');
+    var ctx = document.getElementById('graph-'+id).getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+          labels: names,
+          datasets: [{
+              label: 'Student Performance',
+              data: grades,
+              borderColor: [
+                  'rgba(255,99,132,1)'
+              ],
+              borderWidth: 3
+          }]
+      },
+      options: {
+          legend: {
+            labels: {
+              fontColor: "white",
+              fontSize: 16,
+              backgroundColor: "rgb(34, 119, 221)"
+            }
+          },
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero:true,
+                      fontColor: "#FFFFFF"
+                  },
+                  gridLines: {
+                      color: "#cfcfcf"
+                  }
+              }],
+              xAxes: [{
+                  ticks: {
+                    display: false
+                  },
+                  gridLines: {
+                      color: "#cfcfcf"
+                  }
+              }]
+          }
+      }
+    });
+  }
+
   const updateTestValues = (id, enrolled, average) => {
     document.getElementById('enrolled-'+id).innerHTML = `${enrolled}`
     document.getElementById('av-score-'+id).innerHTML = `${average}`
@@ -299,7 +361,7 @@ $(document).on('turbolinks:load', () => {
     console.log(output)
     let lineNum = 1
     for (let i = 0; i < output.length; i++) {
-      if (output[i].trim == 'Picked up JAVA_TOOL_OPTIONS: -Xmx300m -Xss512k -Dfile.encoding=UTF-8') 
+      if (output[i].trim == 'Picked up JAVA_TOOL_OPTIONS: -Xmx300m -Xss512k -Dfile.encoding=UTF-8')
         continue
       line = output[i].trim() == '' ? '<br/>' : output[i]
       $('.row-num-col').append(`
