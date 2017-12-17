@@ -43,4 +43,5 @@ Rails.application.routes.draw do
 
   get '/test',                   to: 'assignments#run_tests'
   get '/stats',                  to: 'assignments#get_stats'
+  get '/grades',                 to: 'assignments#get_grades'
 end
