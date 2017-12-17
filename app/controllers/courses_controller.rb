@@ -25,7 +25,8 @@ class CoursesController < ApplicationController
   end
 
   def get_csv
-    csv_str = build_csv @course.enrollments
+    puts "[INFO]: Converting grades data to CSV: #{@course.enrollments}."
+    csv_str = build_course_csv @course.enrollments
     respond_to do |format|
       format.csv {
         return send_data(csv_str, type: 'text/plain', filename: "#{@course.course_title}.csv", disposition: 'attachment')

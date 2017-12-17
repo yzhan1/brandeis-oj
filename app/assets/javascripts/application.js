@@ -84,24 +84,24 @@ $(document).on('turbolinks:load', () => {
   })
 
   exportSubmissionGrades.on('click', function(event) {
-    console.log('exporting graded submissions');
+    console.log('exporting graded submissions...');
 
-    var text = document.getElementById('report-'+this.name+'-body').innerHTML;
-    console.log('Text to import: ' + text);
-    console.log('The length is: ' + text.length);
-    var splittedText = text.split("<br>");
-    console.log('array: ' + splittedText);
-    console.log('1: ' + splittedText[0]);
-    console.log('2: ' + splittedText[1]);
-    console.log('3: ' + splittedText[2]);
-    console.log('4: ' + splittedText[3]);
-    console.log('5: ' + splittedText[4]);
-    if (splittedText.length > 2) {
-      console.log('Exporting submissions as CSV file...');
-
-    } else {
-      console.log('There are no submissions to export...');
-    }
+    // var text = document.getElementById('report-'+this.name+'-body').innerHTML;
+    // console.log('Text to import: ' + text);
+    // console.log('The length is: ' + text.length);
+    // var splittedText = text.split("<br>");
+    // console.log('array: ' + splittedText);
+    // console.log('1: ' + splittedText[0]);
+    // console.log('2: ' + splittedText[1]);
+    // console.log('3: ' + splittedText[2]);
+    // console.log('4: ' + splittedText[3]);
+    // console.log('5: ' + splittedText[4]);
+    // if (splittedText.length > 2) {
+    //   console.log('Exporting submissions as CSV file...');
+    //
+    // } else {
+    //   console.log('There are no submissions to export...');
+    // }
   })
 
   hideReportSection.on('click', function(event) {

@@ -130,7 +130,8 @@ class AssignmentsController < ApplicationController
   end
 
   def get_assignment_csv
-    csv_str = build_csv @assignment.submissions
+    puts "[INFO]: The params are #{params.inspect}."
+    csv_str = build_csv @assignment
     respond_to do |format|
       format.csv {
         return send_data(csv_str, type: 'text/plain', filename: "#{@assignment.name}.csv", disposition: 'attachment')
