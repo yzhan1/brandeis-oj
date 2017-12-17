@@ -1,0 +1,28 @@
+<div class="col">
+  <div class="row">
+    <div class="col">
+      <h4>WELCOME TO ASPIRINX!</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col" style="text-align: justify;">
+      This is your personal <span style="color: rgb(39, 113, 27)"><b>dashboard</b></span>. Here you can see the list of courses that you teach, which you can use to manage them, <span style="color: rgb(39, 113, 27)"><b>create</b></span> assignments, and <span style="color: rgb(39, 113, 27)"><b>grade</b></span> students' submissions. From this page, you can also <span style="color: rgb(39, 113, 27)"><b>send</b></span> a message to the students in your course or see the announcements that you have published before.
+    </div>
+  </div>
+  <br>
+  <hr>
+  <div class="row">
+    <div class="col">
+      <h4>PREVIOUS ANNOUNCEMENTS</h4>
+    </div>
+    <div class="col-md-auto">
+      <h4><a id="toggle-previous-announcements-link"><i class="icon ion-chevron-down icon-button" id="toggle-previous-announcements"></i></a></h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col" id="previous-announcemnets" style="display: none;">
+      <br>
+      <%= render 'users/announcement' %>
+    </div>
+  </div>
+</div>

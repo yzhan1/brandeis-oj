@@ -1,7 +1,7 @@
 require 'csv'
 
 module CoursesHelper
-  def build_csv entries
+  def build_course_csv entries
     CSV.generate do |csv|
       csv << ['Brandeis ID', 'Student Name', 'Grade']
       entries.each do |entry|

@@ -243,6 +243,7 @@ GEM
     i18n (0.9.1)
       concurrent-ruby (~> 1.0)
     inflecto (0.0.2)
+    ionicons-rails (2.0.0)
     ipaddress (0.8.3)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
@@ -471,6 +472,7 @@ DEPENDENCIES
   figaro
   fog (= 1.38.0)
   gretel
+  ionicons-rails
   jbuilder (~> 2.5)
   jquery-rails (= 4.3.1)
   listen (>= 3.0.5, < 3.2)

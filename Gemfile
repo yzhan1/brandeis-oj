@@ -44,6 +44,9 @@ gem 'bootstrap-popover-rails'
 gem 'will_paginate',           '3.1.5'
 gem 'will_paginate-bootstrap4'
 gem 'popper_js'
+
+gem 'ionicons-rails'
+
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
 end

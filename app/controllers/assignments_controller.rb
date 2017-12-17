@@ -58,8 +58,7 @@ class AssignmentsController < ApplicationController
   def update
     respond_to do |format|
       if @assignment.update(assignment_params)
-        format.html { redirect_to edit_assignment_path(@assignment, :course_id => @assignment.course.id) }
-        format.js
+        format.html { redirect_to @assignment.course, flash: { success: 'Assignment saved' } }
       else
         format.html { redirect_to edit_assignment_path(@assignment, :course_id => @assignment.course.id) }
         format.js { render :js => "toastr.error('Please enter all fields')" }
@@ -79,36 +78,59 @@ class AssignmentsController < ApplicationController
 
   # GET /run_tests
   def run_tests
-    puts "The params are ======== #{params.inspect}"
-    # assignment = Assignment.find()
-    # puts assignment.inspect
-    # Up to here we have gotten the right assignment to run tests on
-    puts "#{test_params[:id]} jjjjjjjjjjjjjjjj"
     res = test_code(test_params[:id])
-    puts "XXXXXX: currently here => The res is: #{res}"
-    message = "Automated testing is almost completed... hang in there!"
     respond_to do |format|
       format.json { render json: res }
     end
-    # render js: "document.querySelector('#test-results').innerHTML = '#{message} The list of job ids: #{res}';"
   end
 
   # GET /stats
   def get_stats
+    puts "[INFO]: Obtaining number of submissions for assignment #{test_params[:id]} and average score."
     assignment = Assignment.find(test_params[:id])
     if assignment.nil?
+      puts "[WARN]: No assignment find with ID #{test_params[:id]}."
       res = { enrolled: 0, average: 0 }
     else
-      enrolled = assignment.submissions.count
-      res = { enrolled: enrolled, average: get_average(assignment.submissions) }
+      enrolled = assignment.course.users.count - 1
+      puts "[INFO]: Enrolled students for given assignment were #{enrolled}."
+      if enrolled.nil? || enrolled == 0
+        res = { enrolled: 0, average: 0 }
+      else
+        res = { enrolled: enrolled, average: get_average(assignment.submissions) }
+      end
     end
+    respond_to do |format|
+      format.json { render json: res }
+    end
+  end
+
+  # GET /grades
+  def get_grades
+    assignment = Assignment.find(test_params[:id])
+    puts "[INFO]: Extracting submission grades for assignment #{test_params[:id]}."
+    names = Array.new
+    grades = Array.new
+    temp_array = Array.new
+    assignment.submissions.each do |sub|
+      temp_array.push({ name: sub.user.name, grade: sub.auto_grade })
+    end
+    temp_array.sort_by! { |hsh| hsh[:grade] }
+    temp_array.each do |h|
+      names.push(h[:name])
+      grades.push(h[:grade])
+    end
+    puts "[INFO]: Names extracted were, #{names.inspect}."
+    puts "[INFO]: Grades extracted were, #{grades.inspect}."
+    res = { names: names, grades: grades }
     respond_to do |format|
       format.json { render json: res }
     end
   end
 
   def get_assignment_csv
-    csv_str = build_csv @assignment.submissions
+    puts "[INFO]: The params are #{params.inspect}."
+    csv_str = build_csv @assignment
     respond_to do |format|
       format.csv {
         return send_data(csv_str, type: 'text/plain', filename: "#{@assignment.name}.csv", disposition: 'attachment')
@@ -128,9 +150,12 @@ class AssignmentsController < ApplicationController
         acum = 0
         submissions.each do |sub|
           count = count + 1
-          acum = acum + sub.auto_grade
+          temp = sub.auto_grade
+          if !temp.nil?
+            acum = acum + sub.auto_grade
+          end
         end
-        ave = (((acum.to_f)/count)*100).round(2)
+        ave = (((acum.to_f)/count)).round(2)
       else
         ave = 0
       end

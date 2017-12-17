@@ -14,11 +14,11 @@
   <br>
   <div class="row">
     <% if @user.role == "student" %>
-      <%= render 'users/student_announcement' %>
-      <%= render 'users/student_course' %>
+      <%= render 'users/student_left_col' %>
+      <%= render 'users/student_right_col'%>
     <% else %>
-      <%= render 'users/teacher_announcement' %>
-      <%= render 'users/teacher_course' %>
+      <%= render 'users/teacher_left_col' %>
+      <%= render 'users/teacher_right_col'%>
     <% end %>
   </div>
 </div>

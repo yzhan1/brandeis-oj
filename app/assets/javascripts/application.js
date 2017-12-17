@@ -69,26 +69,64 @@ $(document).on('turbolinks:load', () => {
   const testsResultUpdateSection = $('#test-results-update')
   const hideReportSection = $('.hide-report')
   const exportSubmissionGrades = $('.download-report')
+  const toggleAnnouncementForm = $('#toggle-announcement-form-link')
+  const runLastButton = $('.button-last-row-run')
+  const hideLastButton = $('.button-last-row-hide')
+  const togglePreviousAnnouncements = $('#toggle-previous-announcements-link')
+
+  togglePreviousAnnouncements.on('click', function(event) {
+    var elem = $('#toggle-previous-announcements');
+    if(elem.hasClass('ion-chevron-down')) {
+      $('#previous-announcemnets').slideDown();
+      elem.removeClass('ion-chevron-down').addClass('ion-chevron-up');
+    } else {
+      $('#previous-announcemnets').slideUp();
+      elem.removeClass('ion-chevron-up').addClass('ion-chevron-down');
+    }
+  })
+
+  runLastButton.on('click', function(event) {
+    //remove round edges
+    console.log('button was clicked!');
+    document.getElementById('last-row').style.borderRadius = "0px 0px 0px 0px";
+  })
+
+  hideLastButton.on('click', function(event) {
+    //add round edges
+    document.getElementById('last-row').style.borderRadius = "0px 0px 15px 15px";
+  })
+
+  toggleAnnouncementForm.on('click', function(event) {
+    console.log('Toggle announcement form');
+    var elem = $('#toggle-announcement-form');
+    if(elem.hasClass('ion-chevron-down')) {
+      $('#announcement-form').slideDown();
+      elem.removeClass('ion-chevron-down').addClass('ion-chevron-up');
+    } else {
+      $('#announcement-form').slideUp();
+      elem.removeClass('ion-chevron-up').addClass('ion-chevron-down');
+    }
+  })
 
   exportSubmissionGrades.on('click', function(event) {
-    console.log('exporting graded submissions');
+    console.log('exporting graded submissions...');
 
-    var text = document.getElementById('report-'+this.name+'-body').innerHTML;
-    console.log('Text to import: ' + text);
-    console.log('The length is: ' + text.length);
-    var splittedText = text.split("<br>");
-    console.log('array: ' + splittedText);
-    console.log('1: ' + splittedText[0]);
-    console.log('2: ' + splittedText[1]);
-    console.log('3: ' + splittedText[2]);
-    console.log('4: ' + splittedText[3]);
-    console.log('5: ' + splittedText[4]);
-    if (splittedText.length > 2) {
-      console.log('Exporting submissions as CSV file...');
-
-    } else {
-      console.log('There are no submissions to export...');
-    }
+    // var text = document.getElementById('report-'+this.name+'-body').innerHTML;
+    // console.log('Text to import: ' + text);
+    // console.log('The length is: ' + text.length);
+    // var splittedText = text.split("<br>");
+    // console.log('array: ' + splittedText);
+    // console.log('1: ' + splittedText[0]);
+    // console.log('2: ' + splittedText[1]);
+    // console.log('3: ' + splittedText[2]);
+    // console.log('4: ' + splittedText[3]);
+    // console.log('5: ' + splittedText[4]);
+    // if (splittedText.length > 2) {
+    //   console.log('Exporting submissions as CSV file...');
+    //
+    // } else {
+    //   console.log('There are no submissions to export...');
+    // }
   })
 
   hideReportSection.on('click', function(event) {
@@ -213,6 +251,7 @@ $(document).on('turbolinks:load', () => {
             console.log(data.output)
             clearInterval(pollInterval)
             updateTestResult(id, data.output)
+            getGrades(id, {id: id}, 'GET', '/grades')
             getTestsValues(id, {id: id}, 'GET', '/stats')
             return false
           }
@@ -286,6 +325,67 @@ $(document).on('turbolinks:load', () => {
       </div>`
   }
 
+  //
+  const getGrades = (id, data, type, url) => {
+    $.ajax({
+      beforeSend: (xhr) => {
+        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+      }, type, url, data,
+      dataType: 'json',
+      success: json => updateGraph(id, json.names, json.grades)
+    })
+  }
+
+  const updateGraph = (id, names, grades) => {
+    console.log('Output names: ' + names)
+    // TODO need to make an AJAX call and get the list of grades and the list of names
+    console.log('Output grades: ' + grades)
+    $('#graph-'+id).replaceWith('<canvas id="graph-' + id + '" width="300" height="300"></canvas>');
+    var ctx = document.getElementById('graph-'+id).getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+          labels: names,
+          datasets: [{
+              label: 'Student Performance',
+              data: grades,
+              borderColor: [
+                  'rgba(255,99,132,1)'
+              ],
+              borderWidth: 3
+          }]
+      },
+      options: {
+          legend: {
+            labels: {
+              fontColor: "white",
+              fontSize: 16,
+              backgroundColor: "rgb(34, 119, 221)"
+            }
+          },
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero:true,
+                      fontColor: "#FFFFFF"
+                  },
+                  gridLines: {
+                      color: "#cfcfcf"
+                  }
+              }],
+              xAxes: [{
+                  ticks: {
+                    display: false
+                  },
+                  gridLines: {
+                      color: "#cfcfcf"
+                  }
+              }]
+          }
+      }
+    });
+  }
+
   const updateTestValues = (id, enrolled, average) => {
     document.getElementById('enrolled-'+id).innerHTML = `${enrolled}`
     document.getElementById('av-score-'+id).innerHTML = `${average}`
@@ -299,7 +399,7 @@ $(document).on('turbolinks:load', () => {
     console.log(output)
     let lineNum = 1
     for (let i = 0; i < output.length; i++) {
-      if (output[i].trim == 'Picked up JAVA_TOOL_OPTIONS: -Xmx300m -Xss512k -Dfile.encoding=UTF-8')
+      if (output[i].trim() === 'Picked up JAVA_TOOL_OPTIONS: -Xmx300m -Xss512k -Dfile.encoding=UTF-8')
         continue
       line = output[i].trim() == '' ? '<br/>' : output[i]
       $('.row-num-col').append(`

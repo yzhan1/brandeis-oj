@@ -1,0 +1,47 @@
+<div class="col">
+  <div class="row">
+    <div class="col">
+      <h4>NEW ANNOUNCEMENT</h4>
+    </div>
+    <div class="col-md-auto">
+      <h4><a id="toggle-announcement-form-link"><i class="icon ion-chevron-down icon-button" id="toggle-announcement-form"></i></a></h4>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="row">
+    <div class="col" style="display: none;" id="announcement-form">
+      <% courses_array = Array.new %>
+      <% id_hashes = Hash.new %>
+      <% @course_list.each do |course| %>
+        <% courses_array.push("#{course.course_title} (#{course.course_code})")%>
+        <% id_hashes["#{course.course_title} (#{course.course_code})"] = course.id %>
+      <% end %>
+
+      <%= form_for(:announcement, url: announce_path) do |f| %>
+        <div class="form-group">
+          <%= f.label :course %>
+          <%= f.select :course, options_from_collection_for_select(@course_list, :id, :course_title), {}, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :title %>
+          <%= f.text_field :title, class: "form-control", placeholder: "Enter a title..." %>
+        </div>
+        <div class="form-group">
+          <%= f.label :announcement_body %>
+          <%= f.text_area :announcement_body, rows: 5, class: "form-control", placeholder: "Enter an announcement..." %>
+        </div>
+        <div class="form-group">
+          <%= f.submit "Create", class: "btn btn-outline-success" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <hr>
+  <br>
+  <div class="row">
+    <%= render 'users/teacher_course' %>
+  </div>
+
+</div>
