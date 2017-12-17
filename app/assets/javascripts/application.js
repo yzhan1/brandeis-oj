@@ -72,6 +72,18 @@ $(document).on('turbolinks:load', () => {
   const toggleAnnouncementForm = $('#toggle-announcement-form-link')
   const runLastButton = $('.button-last-row-run')
   const hideLastButton = $('.button-last-row-hide')
+  const togglePreviousAnnouncements = $('#toggle-previous-announcements-link')
+
+  togglePreviousAnnouncements.on('click', function(event) {
+    var elem = $('#toggle-previous-announcements');
+    if(elem.hasClass('ion-chevron-down')) {
+      $('#previous-announcemnets').slideDown();
+      elem.removeClass('ion-chevron-down').addClass('ion-chevron-up');
+    } else {
+      $('#previous-announcemnets').slideUp();
+      elem.removeClass('ion-chevron-up').addClass('ion-chevron-down');
+    }
+  })
 
   runLastButton.on('click', function(event) {
     //remove round edges
