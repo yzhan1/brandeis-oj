@@ -51,14 +51,17 @@ class SubmissionsController < ApplicationController
   end
 
   def autosave
-    @code = Code.where(submission_id: params[:submission][:id]).where(filename: "Solution.java")
+    @code = Code.where(submission_id: params[:submission][:id]).where(filename: params[:submission][:code][:filename])
     @code.update(source_code: params[:submission][:code][:source_code])
     Submission.find(submission_params[:id]).update(submission_params.merge submission_date: Time.now)
   end
 
   def new_code
     @submission = Submission.where(id: params[:submission_id]).first
-    @code = @submission.codes.create(source_code: @submission.assignment.template, filename: params[:filename])
+    @code = @submission.codes.create(source_code: "//Enter your code here", filename: params[:filename])
+    respond_to do |format|
+      format.js { render :js => "#{params[:editor_id]}.setValue('#{@code.source_code}')"}
+    end
   end
 
   def delete_code
