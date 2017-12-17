@@ -23,7 +23,7 @@
 <% @assignment_list.each do |assignment| %>
 <% count = count + 1 %>
 <% if count == @assignment_list.length %>
-  <div class="row better-row" style="border-radius: 0px 0px 15px 15px; padding-top: 25px; padding-bottom: 25px; background-color: rgb(242, 242, 242);">
+  <div id="last-row" class="row better-row last-row" style="border-radius: 0px 0px 15px 15px; padding-top: 25px; padding-bottom: 25px; background-color: rgb(242, 242, 242);">
 <% else %>
   <div class="row better-row" style="padding-top: 25px; padding-bottom: 25px; background-color: rgb(242, 242, 242);">
 <% end %>
@@ -54,7 +54,11 @@
         <%= link_to 'Show', assignment, class: "btn btn-outline-success btn-sm btn-block" %>
       </div>
       <div class="col-6" style="padding-left: 2px; padding-right: 0px;">
+        <% if count == @assignment_list.length %>
+        <button type="button" id="<%= assignment.id %>" data-remote="true" class="btn btn-outline-info btn-sm run-tests btn-block button-last-row-run">Run Tests</button>
+        <% else %>
         <button type="button" id="<%= assignment.id %>" data-remote="true" class="btn btn-outline-info btn-sm run-tests btn-block">Run Tests</button>
+        <% end %>
       </div>
     </div>
   </div>
@@ -80,7 +84,7 @@
     <% end %>
   </div>
 
-  <%= render 'report', locals: {assignment_id: assignment.id, assignment_name: assignment.name } %>
+  <%= render 'report', locals: {assignment_id: assignment.id, assignment_name: assignment.name, length: @assignment_list.length, count: count } %>
 
 
   <% end %>

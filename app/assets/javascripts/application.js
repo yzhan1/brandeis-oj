@@ -70,6 +70,19 @@ $(document).on('turbolinks:load', () => {
   const hideReportSection = $('.hide-report')
   const exportSubmissionGrades = $('.download-report')
   const toggleAnnouncementForm = $('#toggle-announcement-form-link')
+  const runLastButton = $('.button-last-row-run')
+  const hideLastButton = $('.button-last-row-hide')
+
+  runLastButton.on('click', function(event) {
+    //remove round edges
+    console.log('button was clicked!');
+    document.getElementById('last-row').style.borderRadius = "0px 0px 0px 0px";
+  })
+
+  hideLastButton.on('click', function(event) {
+    //add round edges
+    document.getElementById('last-row').style.borderRadius = "0px 0px 15px 15px";
+  })
 
   toggleAnnouncementForm.on('click', function(event) {
     console.log('Toggle announcement form');
