@@ -35,7 +35,7 @@ $('.add-class').click(function(e) {
   var submissionId = document.getElementById('submission_id').value
 
   $('.nav-tabs').append(`<li class="nav-item"><a id="tab_${ tabId }" class="nav-link active" href="#${ tabId }" data-toggle="tab">${tabName}</a> <span> x </span></li>`)
-  $('.tab-content').append(`<%if !@submission.nil?%>
+  $('.tab-content').append(`<%if !@submission.nil? && !@code.nil?%>
   <div class="tab-pane active" id="${ tabId }"><pre id="${editorId}"  style="margin-bottom: 0px" class="editor-div"></pre>
     <%= nested_form_for @submission, :url => url_for(:controller => 'submissions', :action => 'save_or_run') do |f| %>
     <%= token_tag(nil) %>
@@ -45,18 +45,7 @@ $('.add-class').click(function(e) {
     <% end %>
     <%= f.number_field :assignment_id, id: :submission_assignment_id, style: "display: none", :value => @assignment.id %>
     <%= f.number_field :id, id: :submission_id, style: "display: none", :value => @submission.id %>
-    <%= f.number_field :run, id: :run, style: "display: none", :value => 0 %>
-    <div class="container" style="background-color: #eaecef; padding: 10px; margin-top: 0">
-      <div class="row" style="margin: 0px">
-        <div class="col-2"></div>
-        <div class="col-3">
-          <%= f.submit "Run", class: "btn btn-primary ml-auto w-100 btn-run" %>
-        </div>
-        <div class="col-3">
-          <%= f.submit "Submit", class: "btn btn-success ml-auto w-100 btn-save" %>
-        </div>
-      </div>
-    </div>
+    <%= f.number_field :run, id: :run, style: "display: none", :value => 1 %>
     <%end%>
   </div><%end%>`)
 
@@ -86,11 +75,6 @@ $('.add-class').click(function(e) {
       $('#notification').html('<div class="alert alert-warning autosave-indicator" role="alert">Save pending...</div>')
       if (timeoutId) clearTimeout(timeoutId)
       timeoutId = setTimeout(() => autosave(), 3500)
-    })
-    var ${ "runField"+id } = $('input[id=run]')
-    var ${ "runButton"+id } = $('.btn-run')
-    ${ "runButton"+id }.on('click', function(event) {
-      ${ "runField"+id }.val(1)
     })`
   document.body.appendChild(backscript)
 
