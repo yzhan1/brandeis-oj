@@ -18,9 +18,18 @@ $(".nav-tabs").on("click", "a", function(e) {
   var anchor = $(this).siblings('a')
   $(anchor.attr('href')).remove()
   $(this).parent().remove()
-  console.log()
   $('.nav-tabs li').children('a').first().click()
   $(this).addClass('active');
+})
+
+$('.nav-link').click(function(e) {
+
+  var nameoffile = $(this).attr("href");
+  window.alert(nameoffile)
+  e.preventDefault()
+  if (!$(this).hasClass('delete-file')) {
+
+  }
 })
 
 $('.add-class').click(function(e) {
@@ -29,14 +38,16 @@ $('.add-class').click(function(e) {
   $('div').removeClass('active')
   var id = temp_id++
   var tabId = 'class_' + id
-  var codeId = "code_area_"+id
-  var editorId = "editor"+id
+  var codeId = "code_area_" + id
+  var editorId = "editor" + id
   var tabName = document.getElementById('file_name_input').value
   var submissionId = document.getElementById('submission_id').value
 
-  $('.nav-tabs').append(`<li class="nav-item"><a id="tab_${ tabId }" class="nav-link active" href="#${ tabId }" data-toggle="tab">${tabName}</a> <span> x </span></li>`)
+  $('.directory').append(`<div class="row"><div class="col-8"><a class="nav-link" href="${tabName}">${tabName}</a></div><div class="col-4"><a class="nav-link delete-file" href="#" style="color: red" value="${tabName}">Delete</a></div></div>`);
+
+  $('.nav-tabs').append(`<li class="nav-item"><a id="tab_${ tabId }" class="nav-link active" href="#${tabId}" data-toggle="tab">${tabName}</a> <span> x </span></li>`)
   $('.tab-content').append(`<%if !@submission.nil? && !@code.nil?%>
-  <div class="tab-pane active" id="${ tabId }"><pre id="${editorId}"  style="margin-bottom: 0px" class="editor-div"></pre>
+  <div class="tab-pane active" id="${ tabId }"><pre id="${ editorId }"  style="margin-bottom: 0px" class="editor-div"></pre>
     <%= nested_form_for @submission, :url => url_for(:controller => 'submissions', :action => 'save_or_run') do |f| %>
     <%= token_tag(nil) %>
     <%= f.fields_for @code do |c| %>
