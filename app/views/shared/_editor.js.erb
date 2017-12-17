@@ -86,6 +86,11 @@ $('.add-class').click(function(e) {
       $('#notification').html('<div class="alert alert-warning autosave-indicator" role="alert">Save pending...</div>')
       if (timeoutId) clearTimeout(timeoutId)
       timeoutId = setTimeout(() => autosave(), 3500)
+    })
+    const runField = $('input[id=run]')
+    const runButtonNew = $('.btn-run')
+    runButtonNew.on('click', function(event) {
+      runField.val(1)
     })`
   document.body.appendChild(backscript)
 
