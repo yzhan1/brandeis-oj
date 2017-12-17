@@ -10,8 +10,14 @@ class Submission < ApplicationRecord
     lang = self.assignment.lang
     `cd tmp\nmkdir #{dir_name}` # mkdir
     if lang == 'java'
-      File.write("tmp/#{dir_name}/Solution.java", source_code)
-      stdout_err, status = Open3.capture2e("cd tmp\ncd #{dir_name}\njavac Solution.java\njava Solution")
+      self.codes.each do |codeObj|
+        File.write("tmp/#{dir_name}/#{codeObj.filename}", codeObj.source_code)
+      end
+      `cd tmp\ncd #{dir_name}\n`
+      self.codes.each do |codeObj|
+        `javac #{codeObj.filename}\n`
+      end
+      stdout_err, status = Open3.capture2e("java Solution")
     elsif lang == 'python'
       File.write("tmp/#{dir_name}/solution.py", source_code)
       stdout_err, status = Open3.capture2e("cd tmp\ncd #{dir_name}\npython solution.py")
