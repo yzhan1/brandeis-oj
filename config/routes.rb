@@ -34,6 +34,7 @@ Rails.application.routes.draw do
 
   post '/save',                  to: 'submissions#save_or_run'
   post '/new_code',              to: 'submissions#new_code'
+  post '/tab',                   to: 'submissions#tab'
   post '/delete_code',           to: 'submissions#delete_code'
   patch '/save',                 to: 'submissions#save_or_run'
   patch '/autosave',             to: 'submissions#autosave'
