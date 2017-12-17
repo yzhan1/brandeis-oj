@@ -1,4 +1,5 @@
 <div class="col">
+  <br>
   <h4 style="display: flex; margin-bottom: 10px" class="justify-content-between">
     <div>Posted Assignments</div>
     <% if !is_student? %>
@@ -8,20 +9,7 @@
 
 <% if !is_student? %>
 
-<div class="row better-row" style="padding-top: 25px; padding-bottom: 25px; background-color: rgb(69, 69, 69); color: rgb(240, 240, 240);">
-  <div class="col-4">
-    Assignment Name
-  </div>
-  <div class="col-2">
-    Due Date
-  </div>
-  <div class="col-3">
-    Actions
-  </div>
-  <div class="col-3">
-    Submissions
-  </div>
-</div>
+<%= render 'table_header', locals: { first: 'Assignment Name', second: 'Due Date', third: 'Submissions' } %>
 
 <% else %>
 
@@ -31,35 +19,42 @@
 <div id="assignment-list-<%= @course.id %>">
 <% if !@assignment_list.nil? && @assignment_list.any? %>
 
+<% count = 0 %>
 <% @assignment_list.each do |assignment| %>
+<% count = count + 1 %>
+<% if count == @assignment_list.length %>
+  <div class="row better-row" style="border-radius: 0px 0px 15px 15px; padding-top: 25px; padding-bottom: 25px; background-color: rgb(242, 242, 242);">
+<% else %>
+  <div class="row better-row" style="padding-top: 25px; padding-bottom: 25px; background-color: rgb(242, 242, 242);">
+<% end %>
 
-<div class="row better-row" style="padding-top: 25px; padding-bottom: 25px; background-color: rgb(242, 242, 242);">
 
   <% if !is_student? %>
 
-  <div class="col-4">
-    <%= link_to assignment.name, assignment %>
-  </div>
-  <div class="col-2">
-    <%= assignment.due_date.strftime('%b %d %Y, %H:%M') %>
-  </div>
-  <div class="col-3">
-    <div class="row" style="margin-right: 2px;">
-      <div class="col-6" style="padding-left: 0px; padding-right: 2px;">
-        <%= link_to 'Edit', edit_assignment_path(assignment, course_id: @course.id), class: "btn btn-outline-primary btn-sm btn-block" %>
+  <div class="col-6">
+    <div class="row">
+      <div class="col">
+        <%= link_to assignment.name, assignment %>
       </div>
-      <div class="col-6" style="padding-left: 2px; padding-right: 0px;">
-        <%= link_to 'Delete', assignment, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger btn-sm btn-block" %>
+      <div class="col-md-auto">
+        <%= link_to '', edit_assignment_path(assignment, course_id: @course.id), class: "icon ion-edit icon-button table-icon" %>
+        &nbsp;&nbsp;&nbsp;
+        <%= link_to '', assignment, method: :delete, data: { confirm: 'Are you sure?' }, class: "icon ion-trash-a icon-button-delete table-icon" %>
+        &nbsp;&nbsp;&nbsp;
       </div>
     </div>
   </div>
+  <div class="col-3">
+    <%= assignment.due_date.strftime('%b %d %Y, %H:%M') %>
+  </div>
+
   <div class="col-3">
     <div class="row" style="margin-right: 2px;">
       <div class="col-6" style="padding-left: 0px; padding-right: 2px;">
         <%= link_to 'Show', assignment, class: "btn btn-outline-success btn-sm btn-block" %>
       </div>
       <div class="col-6" style="padding-left: 2px; padding-right: 0px;">
-        <button id="<%= assignment.id %>" data-remote="true" class="btn btn-outline-info btn-sm run-tests btn-block">Run Tests</button>
+        <button type="button" id="<%= assignment.id %>" data-remote="true" class="btn btn-outline-info btn-sm run-tests btn-block">Run Tests</button>
       </div>
     </div>
   </div>
@@ -91,7 +86,7 @@
   <% end %>
 
   <% else %>
-  <div class="row better-row" style="padding-top: 25px; padding-bottom: 25px; background-color: rgb(242, 242, 242);">
+  <div class="row better-row" style="border-radius: 0px 0px 15px 15px; padding-top: 25px; padding-bottom: 25px; background-color: rgb(242, 242, 242);">
     <div class="col-12">
       No assigments
     </div>

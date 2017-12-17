@@ -6,8 +6,14 @@
 
 
   <% if !@submissions.nil? && @submissions.any? %>
+    <% count = 0 %>
     <% @submissions.each do |submission| %>
-    <div class="row better-row" style="padding-top: 25px; padding-bottom: 25px; background-color: rgb(242, 242, 242);">
+    <% count = count + 1 %>
+    <% if count == @submissions.length %>
+      <div class="row better-row" style="border-radius: 0px 0px 15px 15px; padding-top: 25px; padding-bottom: 25px; background-color: rgb(242, 242, 242);">
+    <% else %>
+      <div class="row better-row" style="padding-top: 25px; padding-bottom: 25px; background-color: rgb(242, 242, 242);">
+    <% end %>
 
         <div class="col-6">
           <%= link_to submission.assignment.name, submission %>
@@ -26,7 +32,7 @@
     </div>
     <% end %>
   <% else %>
-  <div class="row better-row" style="padding-top: 25px; padding-bottom: 25px; background-color: rgb(242, 242, 242);">
+  <div class="row better-row" style="border-radius: 0px 0px 15px 15px; padding-top: 25px; padding-bottom: 25px; background-color: rgb(242, 242, 242);">
     <div class="col">
       No assigments
     </div>

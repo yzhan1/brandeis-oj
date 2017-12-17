@@ -69,6 +69,19 @@ $(document).on('turbolinks:load', () => {
   const testsResultUpdateSection = $('#test-results-update')
   const hideReportSection = $('.hide-report')
   const exportSubmissionGrades = $('.download-report')
+  const toggleAnnouncementForm = $('#toggle-announcement-form-link')
+
+  toggleAnnouncementForm.on('click', function(event) {
+    console.log('Toggle announcement form');
+    var elem = $('#toggle-announcement-form');
+    if(elem.hasClass('ion-chevron-down')) {
+      $('#announcement-form').slideDown();
+      elem.removeClass('ion-chevron-down').addClass('ion-chevron-up');
+    } else {
+      $('#announcement-form').slideUp();
+      elem.removeClass('ion-chevron-up').addClass('ion-chevron-down');
+    }
+  })
 
   exportSubmissionGrades.on('click', function(event) {
     console.log('exporting graded submissions');
