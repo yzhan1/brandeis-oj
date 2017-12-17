@@ -72,6 +72,18 @@ $(document).on('turbolinks:load', () => {
   const toggleAnnouncementForm = $('#toggle-announcement-form-link')
   const runLastButton = $('.button-last-row-run')
   const hideLastButton = $('.button-last-row-hide')
+  const togglePreviousAnnouncements = $('#toggle-previous-announcements-link')
+
+  togglePreviousAnnouncements.on('click', function(event) {
+    var elem = $('#toggle-previous-announcements');
+    if(elem.hasClass('ion-chevron-down')) {
+      $('#previous-announcemnets').slideDown();
+      elem.removeClass('ion-chevron-down').addClass('ion-chevron-up');
+    } else {
+      $('#previous-announcemnets').slideUp();
+      elem.removeClass('ion-chevron-up').addClass('ion-chevron-down');
+    }
+  })
 
   runLastButton.on('click', function(event) {
     //remove round edges
@@ -387,7 +399,7 @@ $(document).on('turbolinks:load', () => {
     console.log(output)
     let lineNum = 1
     for (let i = 0; i < output.length; i++) {
-      if (output[i].trim == 'Picked up JAVA_TOOL_OPTIONS: -Xmx300m -Xss512k -Dfile.encoding=UTF-8')
+      if (output[i].trim() === 'Picked up JAVA_TOOL_OPTIONS: -Xmx300m -Xss512k -Dfile.encoding=UTF-8')
         continue
       line = output[i].trim() == '' ? '<br/>' : output[i]
       $('.row-num-col').append(`

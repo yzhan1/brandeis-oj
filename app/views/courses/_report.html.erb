@@ -30,8 +30,9 @@
 
       </div>
       <div class="col-md-auto">
-        <button href="" id="download-report-<%= locals[:assignment_id] %>" name="<%= locals[:assignment_id] %>" data-remote="true" class="btn btn-outline-light btn-sm btn-block download-report">Download CSV</button>
-        <%= link_to 'Download CSV2', assignment_grades_path(id: locals[:assignment_id]), class: "btn btn-outline-light btn-sm btn-block download-report" %>
+        <button style="display:none;" id="download-report-<%= locals[:assignment_id] %>" name="<%= locals[:assignment_id] %>" data-remote="true" class="btn btn-outline-light btn-sm btn-block download-report">Download CSV</button>
+
+        <%= link_to 'Download CSV2', assignment_grades_path(format: :csv, id: locals[:assignment_id]), class: "btn btn-outline-light btn-sm btn-block download-report" %>
       </div>
     </div>
   </div>
