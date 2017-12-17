@@ -13,11 +13,10 @@ class Submission < ApplicationRecord
       self.codes.each do |codeObj|
         File.write("tmp/#{dir_name}/#{codeObj.filename}", codeObj.source_code)
       end
-      `cd tmp\ncd #{dir_name}\n`
       self.codes.each do |codeObj|
-        `javac #{codeObj.filename}\n`
+        `cd tmp\ncd #{dir_name}\njavac #{codeObj.filename}\n`
       end
-      stdout_err, status = Open3.capture2e("java Solution")
+      stdout_err, status = Open3.capture2e("cd tmp\ncd #{dir_name}\njava Solution")
     elsif lang == 'python'
       File.write("tmp/#{dir_name}/solution.py", source_code)
       stdout_err, status = Open3.capture2e("cd tmp\ncd #{dir_name}\npython solution.py")
