@@ -387,8 +387,11 @@ $(document).on('turbolinks:load', () => {
     console.log(output)
     let lineNum = 1
     for (let i = 0; i < output.length; i++) {
-      if (output[i].trim == 'Picked up JAVA_TOOL_OPTIONS: -Xmx300m -Xss512k -Dfile.encoding=UTF-8')
+      if (output[i].trim === 'Picked up JAVA_TOOL_OPTIONS: -Xmx300m -Xss512k -Dfile.encoding=UTF-8') {
+        console.log('equal')
         continue
+      }
+        
       line = output[i].trim() == '' ? '<br/>' : output[i]
       $('.row-num-col').append(`
         <div class="row">
