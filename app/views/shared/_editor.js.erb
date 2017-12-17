@@ -87,10 +87,10 @@ $('.add-class').click(function(e) {
       if (timeoutId) clearTimeout(timeoutId)
       timeoutId = setTimeout(() => autosave(), 3500)
     })
-    const runField = $('input[id=run]')
-    const runButtonNew = $('.btn-run')
-    runButtonNew.on('click', function(event) {
-      runField.val(1)
+    var ${ "runField"+id } = $('input[id=run]')
+    var ${ "runButton"+id } = $('.btn-run')
+    ${ "runButton"+id }.on('click', function(event) {
+      ${ "runField"+id }.val(1)
     })`
   document.body.appendChild(backscript)
 
