@@ -18,7 +18,6 @@ $(".nav-tabs").on("click", "a", function(e) {
   var anchor = $(this).siblings('a')
   $(anchor.attr('href')).remove()
   $(this).parent().remove()
-  console.log()
   $('.nav-tabs li').children('a').first().click()
   $(this).addClass('active');
 })
@@ -29,10 +28,12 @@ $('.add-class').click(function(e) {
   $('div').removeClass('active')
   var id = temp_id++
   var tabId = 'class_' + id
-  var codeId = "code_area_"+id
-  var editorId = "editor"+id
+  var codeId = "code_area_" + id
+  var editorId = "editor" + id
   var tabName = document.getElementById('file_name_input').value
   var submissionId = document.getElementById('submission_id').value
+
+  $('.directory').append(`<div class="row"><div class="col-8"><a class="nav-link" href="#class_${id}">${tabName}</a></div><div class="col-4"><a class="nav-link delete-file" href="#" style="color: red" value="${tabName}">Delete</a></div></div>`);
 
   $('.nav-tabs').append(`<li class="nav-item"><a id="tab_${ tabId }" class="nav-link active" href="#${ tabId }" data-toggle="tab">${tabName}</a> <span> x </span></li>`)
   $('.tab-content').append(`<%if !@submission.nil?%>
