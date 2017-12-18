@@ -27,7 +27,7 @@ class Assignment < ApplicationRecord
     if lang == 'java'
       `cp lib/assets/junit/junit-4.12.jar tmp/#{dir_name}\ncp lib/assets/junit/hamcrest-core-1.3.jar tmp/#{dir_name}\ncp lib/assets/junit/TestRunner.java tmp/#{dir_name}`
       File.write("tmp/#{dir_name}/JunitTests.java", test_code)
-      stdout_err, status = Open3.capture2e("cd tmp\ncd #{dir_name}\njavac -cp .:junit-4.12.jar TestRunner.java\njavac -cp .:junit-4.12.jar JunitTests.java\njava -cp .:junit-4.12.jar:hamcrest-core-1.3.jar TestRunner")
+      stdout_err, status = Open3.capture2e("cd tmp\ncd #{dir_name}\njavac -cp .:junit-4.12.jar TestRunner.java\njavac -cp .:junit-4.12.jar JunitTests.java\njavac Solution.java\njava -cp .:junit-4.12.jar:hamcrest-core-1.3.jar TestRunner")
     elsif lang == 'python'
       File.write("tmp/#{dir_name}/unit_tests.py", test_code)
       stdout_err, status = Open3.capture2e("cd tmp\ncd #{dir_name}\npython unit_tests.py")
