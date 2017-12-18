@@ -35,7 +35,7 @@ User.create(name: 'Lillian James', email: 'lillian@brandeis.edu', password: '123
 User.create(name: 'Alan Scott', email: 'alan@brandeis.edu', password: '123456', password_confirmation: '123456', role: 'student')
 User.create(name: 'Albert Washington', email: 'albert@brandeis.edu', password: '123456', password_confirmation: '123456', role: 'student')
 
-Course.create(course_code:"180a", course_title:"Algorithms", permission: SecureRandom.hex(10))
+# Course.create(course_code:"180a", course_title:"Algorithms", permission: SecureRandom.hex(10))
 
 Enrollment.create(user_id:1, course_id:1, grade: 0.0, total: 0.0, count: 0.0)
 Enrollment.create(user_id:2, course_id:1, grade: 0.0, total: 0.0, count: 0.0)
