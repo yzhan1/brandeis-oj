@@ -2,7 +2,7 @@
 
   <h4 style="display: flex" class="justify-content-between">
     <div>LIST OF COURSES</div>
-    <%= link_to 'Add Course', new_course_path, class: "btn btn-outline-primary btn-sm" %>
+
   </h4>
   <br>
   <div class="list-group" id="list-tab" role="tablist">
@@ -14,5 +14,14 @@
       <% end %>
     <% end %>
   </div>
-  <br><hr>
+  <br>
+  <div class="row">
+    <div class="col"></div>
+    <div class="col-md-auto">
+      <%= link_to 'Add New Course', new_course_path, class: "btn btn-outline-primary btn-sm" %>
+    </div>
+  </div>
+
+  <br>
+  <hr>
 </div>

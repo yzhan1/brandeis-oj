@@ -75,7 +75,7 @@ class User < ApplicationRecord
 
   def self.set_role email
     File.readlines('db/instructor_email.csv').each do |line|
-      return 'teacher' if email == line
+      return 'teacher' if "#{email}\n" == line
     end
     'student'
   end

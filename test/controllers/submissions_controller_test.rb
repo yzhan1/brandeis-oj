@@ -15,7 +15,7 @@ class SubmissionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should show submission" do
     log_in_as(@test_student)
-    get assignment_url(@submission.assignment)
+    get submission_url(@submission)
     assert_response :success
   end
 
@@ -30,13 +30,13 @@ class SubmissionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not show submission from others" do
     log_in_as(@another_student)
-    get assignment_url(@submission.assignment)
+    get submission_url(@submission)
     assert_redirected_to error_url
   end
 
   test "teacher can see submission" do
     log_in_as(@test_teacher)
-    get assignment_url(@submission.assignment)
+    get submission_url(@submission)
     assert_response :success
   end
 

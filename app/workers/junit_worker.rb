@@ -15,6 +15,9 @@ class JunitWorker
     puts "[INFO]: Number of passed tests for submission #{submission_id} was #{num}."
     if num_tests == -1
       num_tests = assignment.num_unit_tests
+      if num_tests.nil?
+        num_tests = -1
+      end
     end
     puts "[INFO]: For submission #{submission_id}, number of tests is #{num_tests} and #{num} passed."
     if num_tests < 1
@@ -38,6 +41,9 @@ class JunitWorker
   private
 
     def num_passed_tests (out, assignment)
+      while !((out.slice! "Picked up JAVA_TOOL_OPTIONS: -Xmx300m -Xss512k -Dfile.encoding=UTF-8").nil?)
+      end
+      out.strip!
       if out.start_with?("NumSuccTests:")
         out.slice!("NumSuccTests:")
         arr = out.split(',')

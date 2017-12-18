@@ -60,9 +60,18 @@ class SubmissionsController < ApplicationController
     @submission = Submission.where(id: params[:submission_id]).first
     @code = @submission.codes.create(source_code: "//Enter your code here", filename: params[:filename])
     respond_to do |format|
-      format.js { render :js => "#{params[:editor_id]}.setValue('#{@code.source_code}')"}
+      format.js { render :js => "#{params[:editor_id]}.setValue('#{@code.source_code.inspect[1..-2]}')"}
     end
   end
+
+  def tab
+    @submission = Submission.where(id: params[:submission_id]).first
+    @code = @submission.codes.where(filename: params[:filename]).first
+    respond_to do |format|
+      format.js { render :js => "#{params[:editor_id]}.setValue('#{@code.source_code.inspect[1..-2]}')"}
+    end
+  end
+
 
   def delete_code
     @submission = Submission.where(id: params[:submission_id]).first

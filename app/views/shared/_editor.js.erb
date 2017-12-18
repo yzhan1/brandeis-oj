@@ -18,9 +18,74 @@ $(".nav-tabs").on("click", "a", function(e) {
   var anchor = $(this).siblings('a')
   $(anchor.attr('href')).remove()
   $(this).parent().remove()
-  console.log()
   $('.nav-tabs li').children('a').first().click()
   $(this).addClass('active');
+})
+
+$('.filetab').click(function(e) {
+  e.preventDefault()
+  if (!$(this).hasClass('delete-file')) {
+    e.preventDefault()
+    $('a').removeClass('active')
+    $('div').removeClass('active')
+    var id = temp_id++
+    var tabId = 'class_' + id
+    var codeId = "code_area_" + id
+    var editorId = "editor" + id
+    var tabName = $(this).attr("value")
+    var submissionId = document.getElementById('submission_id').value
+    $('.nav-tabs').append(`<li class="nav-item"><a id="tab_${ tabId }" class="nav-link active" href="#${tabId}" data-toggle="tab">${tabName}</a> <span> x </span></li>`)
+    $('.tab-content').append(`<%if !@submission.nil? && !@code.nil?%>
+    <div class="tab-pane active" id="${ tabId }"><pre id="${ editorId }"  style="margin-bottom: 0px" class="editor-div"></pre>
+      <%= nested_form_for @submission, :url => url_for(:controller => 'submissions', :action => 'save_or_run') do |f| %>
+      <%= token_tag(nil) %>
+      <%= f.fields_for @code do |c| %>
+        <%= c.text_area :source_code, id: "${ codeId }" %>
+        <%= c.text_field :filename, style: "display: none", value: "${ tabName }" %>
+      <% end %>
+      <%= f.number_field :assignment_id, id: :submission_assignment_id, style: "display: none", :value => @assignment.id %>
+      <%= f.number_field :id, id: :submission_id, style: "display: none", :value => @submission.id %>
+      <%= f.number_field :run, id: :run, style: "display: none", :value => 1 %>
+      <%end%>
+    </div><%end%>`)
+
+    var script = document.createElement("script")
+    script.type = "text/javascript"
+    script.text = `
+      var ${ "input"+id } = $('textarea[id="${ codeId }"]').hide()
+      var ${ editorId } = ace.edit("${ editorId }")`
+    document.body.appendChild(script)
+
+    var stylescript = document.createElement("script")
+    stylescript.type = "text/javascript"
+    stylescript.text = `
+      ${ editorId }.$blockScrolling = Infinity
+      ${ editorId }.setTheme("ace/theme/monokai")
+      ${ editorId }.getSession().setUseSoftTabs(false)
+      ${ editorId }.getSession().setMode("ace/mode/java")
+      ${ editorId }.setShowPrintMargin(false)
+      ${ editorId }.setOptions({fontSize: "14px"})`
+    document.body.appendChild(stylescript)
+
+    var backscript = document.createElement("script")
+    backscript.type = "text/javascript"
+    backscript.text = `
+      ${ editorId }.getSession().on('change', () => ${ "input"+id }.val(${ editorId }.getSession().getValue()));
+      ${ editorId }.getSession().on('change', () => {
+        $('#notification').html('<div class="alert alert-warning autosave-indicator" role="alert">Save pending...</div>')
+        if (timeoutId) clearTimeout(timeoutId)
+        timeoutId = setTimeout(() => autosave(), 3500)
+      })`
+    document.body.appendChild(backscript)
+    document.getElementById("tab_"+tabId).click()
+    document.getElementById('file_name_input').value=''
+    $('#create_tab_button').attr('disabled',true);
+    $.ajax({
+      type: 'POST',
+      url: '/tab',
+      data: {filename: tabName, submission_id: submissionId, editor_id: editorId}
+    })
+  }
 })
 
 $('.add-class').click(function(e) {
@@ -29,14 +94,16 @@ $('.add-class').click(function(e) {
   $('div').removeClass('active')
   var id = temp_id++
   var tabId = 'class_' + id
-  var codeId = "code_area_"+id
-  var editorId = "editor"+id
+  var codeId = "code_area_" + id
+  var editorId = "editor" + id
   var tabName = document.getElementById('file_name_input').value
   var submissionId = document.getElementById('submission_id').value
 
-  $('.nav-tabs').append(`<li class="nav-item"><a id="tab_${ tabId }" class="nav-link active" href="#${ tabId }" data-toggle="tab">${tabName}</a> <span> x </span></li>`)
-  $('.tab-content').append(`<%if !@submission.nil?%>
-  <div class="tab-pane active" id="${ tabId }"><pre id="${editorId}"  style="margin-bottom: 0px" class="editor-div"></pre>
+  $('.directory').append(`<div class="row"><div class="col-8"><a class="filetab nav-link" href="${tabName}" value="${tabName}">${tabName}</a></div><div class="col-4"><a class="nav-link delete-file" href="#" style="color: red" value="${tabName}">Delete</a></div></div>`);
+
+  $('.nav-tabs').append(`<li class="nav-item"><a id="tab_${ tabId }" class="nav-link active" href="#${tabId}" data-toggle="tab">${tabName}</a> <span> x </span></li>`)
+  $('.tab-content').append(`<%if !@submission.nil? && !@code.nil?%>
+  <div class="tab-pane active" id="${ tabId }"><pre id="${ editorId }"  style="margin-bottom: 0px" class="editor-div"></pre>
     <%= nested_form_for @submission, :url => url_for(:controller => 'submissions', :action => 'save_or_run') do |f| %>
     <%= token_tag(nil) %>
     <%= f.fields_for @code do |c| %>
@@ -45,18 +112,7 @@ $('.add-class').click(function(e) {
     <% end %>
     <%= f.number_field :assignment_id, id: :submission_assignment_id, style: "display: none", :value => @assignment.id %>
     <%= f.number_field :id, id: :submission_id, style: "display: none", :value => @submission.id %>
-    <%= f.number_field :run, id: :run, style: "display: none", :value => 0 %>
-    <div class="container" style="background-color: #eaecef; padding: 10px; margin-top: 0">
-      <div class="row" style="margin: 0px">
-        <div class="col-2"></div>
-        <div class="col-3">
-          <%= f.submit "Run", class: "btn btn-primary ml-auto w-100 btn-run" %>
-        </div>
-        <div class="col-3">
-          <%= f.submit "Submit", class: "btn btn-success ml-auto w-100 btn-save" %>
-        </div>
-      </div>
-    </div>
+    <%= f.number_field :run, id: :run, style: "display: none", :value => 1 %>
     <%end%>
   </div><%end%>`)
 
@@ -86,14 +142,8 @@ $('.add-class').click(function(e) {
       $('#notification').html('<div class="alert alert-warning autosave-indicator" role="alert">Save pending...</div>')
       if (timeoutId) clearTimeout(timeoutId)
       timeoutId = setTimeout(() => autosave(), 3500)
-    })
-    var ${ "runField"+id } = $('input[id=run]')
-    var ${ "runButton"+id } = $('.btn-run')
-    ${ "runButton"+id }.on('click', function(event) {
-      ${ "runField"+id }.val(1)
     })`
   document.body.appendChild(backscript)
-
   document.getElementById("tab_"+tabId).click()
   document.getElementById('file_name_input').value=''
   $('#create_tab_button').attr('disabled',true);

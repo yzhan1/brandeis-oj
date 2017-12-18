@@ -35,7 +35,7 @@
         </dd>
         <% end %>
         <dt class="col-sm-3">File Directory</dt>
-        <dd class="col-sm-9">
+        <dd class="col-sm-9 directory">
           <%= render 'directory' %>
         </dd>
       </dl>
@@ -46,23 +46,21 @@
   </div>
 
   <div class="col-lg-7" style="padding-right: 0">
-    <%= nested_form_for @submission, :url => url_for(:controller => 'submissions', :action => 'save_or_run') do |f| %>
-    <%= token_tag(nil) %>
+      <%= nested_form_for @submission, :url => url_for(:controller => 'submissions', :action => 'save_or_run') do |f| %>
+      <%= token_tag(nil) %>
 
 
-    <ul class="nav nav-tabs" role="tablist" style="margin-top: 5px">
-      <li class="nav-item">
-        <a class="nav-link active" href="#class_0" data-toggle="tab" aria-expanded="true"> Solution.java </a><span> x </span>
-      </li>
-      <div class="col-4" id="notification"></div>
-    </ul>
+      <ul class="nav nav-tabs" role="tablist" style="margin-top: 5px">
+        <li class="nav-item">
+          <a class="nav-link active" href="#class_0" data-toggle="tab" aria-expanded="true"> Solution.java </a><span> x </span>
+        </li>
+      </ul>
 
-
-    <div class="tab-content">
-
-      <div class="tab-pane active" id="class_0">
-        <pre id="editor" style="margin-bottom: 0px" class="editor-div"></pre>
-
+      <div class="tab-content">
+        <div class="tab-pane active" id="class_0">
+          <pre id="editor" style="margin-bottom: 0px" class="editor-div"></pre>
+        </div>
+      </div>
       <%= f.fields_for @code do |c| %>
         <%= c.text_area :source_code, id: "code_area" %>
         <%= c.text_field :filename, style: "display: none", value: "Solution.java" %>
@@ -70,8 +68,11 @@
       <%= f.number_field :assignment_id, id: :submission_assignment_id, style: "display: none", :value => @assignment.id %>
       <%= f.number_field :id, id: :submission_id, style: "display: none", :value => @submission.id %>
       <%= f.number_field :run, id: :run, style: "display: none", :value => 0 %>
+
+
       <div class="container" style="background-color: #eaecef; padding: 10px; margin-top: 0">
         <div class="row" style="margin: 0px">
+          <div class="col-4" id="notification"></div>
           <div class="col-2"></div>
           <div class="col-3">
             <%= f.submit "Run", class: "btn btn-primary ml-auto w-100 btn-run" %>
@@ -81,14 +82,11 @@
           </div>
         </div>
       </div>
-      </div>
       <% end %>
     </div>
-  </div>
 </div>
 
 <script>
-
   //disables add new file button when field is empty
   $(document).ready(function() {
     $('#create_tab_button').attr('disabled', true);

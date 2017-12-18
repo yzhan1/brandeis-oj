@@ -1,10 +1,12 @@
+require 'csv'
+
 module AssignmentsHelper
-  def test_code(assignment_id)
+  def test_code assignment_id
     job_id = TestsWorker.perform_async(assignment_id)
     {"id" => job_id}
   end
 
-  def test_completed?(job_id)
+  def test_completed? job_id
     if Sidekiq::Status::complete? job_id
       sub_list = Sidekiq::Status::get_all(job_id)["all_jobs"]
       sub_list = sub_list.split(',')
@@ -57,4 +59,17 @@ module AssignmentsHelper
       course_id: course_id
     )
   end
+
+  def build_csv assignment
+    CSV.generate do |csv|
+      csv << ['Brandeis ID', 'Student Name', 'Grade']
+      assignment.submissions.each do |subm|
+        u = subm.user
+        next if u == current_user
+        brandeis_id = /^[^@]*/.match u.email
+        csv << [brandeis_id, u.name, subm.auto_grade]
+      end
+    end
+  end
+
 end

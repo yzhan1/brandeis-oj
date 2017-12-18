@@ -1,4 +1,4 @@
-<%= form_with(model: assignment, remote: true, authenticity_token: true, multipart: true) do |form| %>
+<%= form_with(model: assignment, multipart: true) do |form| %>
 <% if assignment.errors.any? %>
 <div id="error_explanation">
   <div class="alert alert-danger" role="alert">

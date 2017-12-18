@@ -104,7 +104,7 @@ class AssignmentsControllerTest < ActionDispatch::IntegrationTest
         template: @assignment.template
       }
     }
-    assert_redirected_to edit_assignment_url(@assignment, params: { course_id: @assignment.course.id })
+    assert_redirected_to course_url(@assignment.course)
   end
 
   test "teacher cannot update assignment for course he doesn't teach" do

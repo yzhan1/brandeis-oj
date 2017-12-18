@@ -5,6 +5,27 @@
 
 @import "bootstrap";
 @import "toastr";
+@import 'ionicons';
+
+.icon-button {
+  color: rgb(0, 126, 246);
+}
+
+.icon-button:hover {
+  color: rgb(55, 61, 194);
+}
+
+.icon-button-delete {
+  color: rgb(221, 60, 51);
+}
+
+.icon-button-delete:hover {
+  color: rgb(170, 43, 36);
+}
+
+.table-icon {
+  font-size: 24px;
+}
 
 .btn:focus, .btn:active {
   box-shadow: none !important;

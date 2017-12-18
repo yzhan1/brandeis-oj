@@ -34,6 +34,7 @@ Rails.application.routes.draw do
 
   post '/save',                  to: 'submissions#save_or_run'
   post '/new_code',              to: 'submissions#new_code'
+  post '/tab',                   to: 'submissions#tab'
   post '/delete_code',           to: 'submissions#delete_code'
   patch '/save',                 to: 'submissions#save_or_run'
   patch '/autosave',             to: 'submissions#autosave'
@@ -44,4 +45,5 @@ Rails.application.routes.draw do
   get '/test',                   to: 'assignments#run_tests'
   get '/stats',                  to: 'assignments#get_stats'
   get '/grades',                 to: 'assignments#get_grades'
+  get '/assignment_grades',      to: 'assignments#get_assignment_csv'
 end
