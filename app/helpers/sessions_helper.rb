@@ -45,7 +45,6 @@ module SessionsHelper
     forget current_user
     session.delete :user_id
     session.delete :is_student
-    cookies.delete :actioncable_user_id
     @current_user = nil
   end
 
