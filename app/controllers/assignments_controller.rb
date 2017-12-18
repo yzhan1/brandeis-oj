@@ -90,14 +90,15 @@ class AssignmentsController < ApplicationController
     assignment = Assignment.find(test_params[:id])
     if assignment.nil?
       puts "[WARN]: No assignment find with ID #{test_params[:id]}."
-      res = { enrolled: 0, average: 0 }
+      res = { enrolled: 0, average: 0, submissions: 0 }
     else
       enrolled = assignment.course.users.count - 1
+      submissions = assignment.submissions.count
       puts "[INFO]: Enrolled students for given assignment were #{enrolled}."
       if enrolled.nil? || enrolled == 0
-        res = { enrolled: 0, average: 0 }
+        res = { enrolled: 0, average: 0, submissions: 0 }
       else
-        res = { enrolled: enrolled, average: get_average(assignment.submissions) }
+        res = { enrolled: enrolled, average: get_average(assignment.submissions), submissions: submissions }
       end
     end
     respond_to do |format|
