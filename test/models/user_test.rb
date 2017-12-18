@@ -4,11 +4,7 @@ class UserTest < ActiveSupport::TestCase
 
   setup do
     @user = users(:test_student)
-    @user_two = users(:another_student)
     @test_teacher = users(:test_teacher)
-    @course = courses(:course_one)
-    @course_two = courses(:course_two)
-    @test_teacher.enroll_course('11a')
   end
 
   test 'valid student' do
