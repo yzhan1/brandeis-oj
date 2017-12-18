@@ -68,7 +68,7 @@ class SubmissionsController < ApplicationController
     @submission = Submission.where(id: params[:submission_id]).first
     @code = @submission.codes.where(filename: params[:filename]).first
     respond_to do |format|
-      format.js { render :js => "#{params[:editor_id]}.setValue('#{@code.source_code')"}
+      format.js { render :js => "#{params[:editor_id]}.setValue('#{@code.source_code}')"}
     end
   end
 
