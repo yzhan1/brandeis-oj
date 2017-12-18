@@ -41,7 +41,9 @@ class JunitWorker
   private
 
     def num_passed_tests (out, assignment)
-      out = out.delete "Picked up JAVA_TOOL_OPTIONS: -Xmx300m -Xss512k -Dfile.encoding=UTF-8"
+      while !((out.slice! "Picked up JAVA_TOOL_OPTIONS: -Xmx300m -Xss512k -Dfile.encoding=UTF-8").nil?)
+      end
+      out.strip!
       if out.start_with?("NumSuccTests:")
         out.slice!("NumSuccTests:")
         arr = out.split(',')
